@@ -2,13 +2,7 @@ TODO
 
 [ ] Level Importer XML
 [ ] Sound Manager
-[x] Window Manager
-[x] Input Manager
-	[x] Keyboard
-	[x] Mouse
-[x] Logger
-[x] SpriteManager
-[x] Generic XML importer
+[ ] Animations
 
 [ ] Lightening
 [ ] Weapons
