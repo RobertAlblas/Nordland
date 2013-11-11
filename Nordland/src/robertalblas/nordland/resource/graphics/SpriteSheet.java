@@ -23,10 +23,10 @@ public class SpriteSheet extends ResourceSet {
 
 	@Override
 	public void load() {
-		int[] pixels = getPixelsFromFile("/texture/" + file + ".png");
+		int[] pixels = getPixelsFromFile("/texture/" + getFile() + ".png");
 		
 		XMLImporter xmlImporter = new XMLImporter();
-		XMLNode rootNode = xmlImporter.importXMLFile("/texture/" + file + ".xml", "spritesheet");
+		XMLNode rootNode = xmlImporter.importXMLFile("/texture/" + getFile() + ".xml", "spritesheet");
 		
 		List<Sprite> resources = processXMLNodes(rootNode);
 
@@ -39,7 +39,7 @@ public class SpriteSheet extends ResourceSet {
 				}
 			}
 			s.setPixels(spritePixels);
-			this.resources.add(s);
+			this.getResources().add(s);
 		}
 	}
 
@@ -75,8 +75,8 @@ public class SpriteSheet extends ResourceSet {
 
 	@Override
 	public void unload() {
-		resources.clear();
-		resources = null;
+		getResources().clear();
+		setResources(null);
 	}
 
 }

@@ -13,7 +13,7 @@ import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 
-public class SwingScreen implements Screen{
+public class SwingScreen implements Screen {
 
 	private int screenWidth, screenHeight;
 	private int mask = 0xffffff;
@@ -22,7 +22,7 @@ public class SwingScreen implements Screen{
 	private World world;
 	private BufferedImage image;
 	private int[] rasterPixels;
-	
+
 	private Canvas canvas;
 
 	public SwingScreen(int width, int height, int scale) {
@@ -58,7 +58,7 @@ public class SwingScreen implements Screen{
 		}
 
 		clear();
-		int xScroll = world.getPlayer().getX()- screenWidth / 2;
+		int xScroll = world.getPlayer().getX() - screenWidth / 2;
 		int yScroll = world.getPlayer().getY() - screenHeight / 2;
 		world.render(xScroll, yScroll, this);
 
@@ -73,7 +73,7 @@ public class SwingScreen implements Screen{
 
 		g.setColor(Color.BLUE);
 		g.setFont(new Font("Verdana", 1, 15));
-		g.drawString("FPS: " + framerate, 20,20);
+		g.drawString("FPS: " + framerate, 20, 20);
 		g.drawString("UPS: " + updaterate, 20, 40);
 
 		g.setColor(Color.RED);
@@ -92,32 +92,44 @@ public class SwingScreen implements Screen{
 		g.drawLine(x - 10, y - 1, x + 10, y - 1);
 		g.drawLine(x - 10, y + 1, x + 10, y + 1);
 	}
-	
+
 	public void setWorld(World world) {
 		this.world = world;
 	}
 
-	public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed) {
-		if (fixed) {
-			xp -= xOffset;
-			yp -= yOffset;
+	public void renderFixedSprite(int xPosition, int yPosition, Sprite sprite) {
+		xPosition -= xOffset;
+		yPosition -= yOffset;
+		renderSprite(xPosition, yPosition, sprite);
+	}
+
+	public void renderSprite(int xPosition, int yPosition, Sprite sprite) {
+		if (spriteIsOffScreen(xPosition, yPosition, sprite)) {
+			return;
 		}
 
-		for (int y = 0; y < sprite.getHeight(); ++y) {
-			int ya = y + yp;
-			for (int x = 0; x < sprite.getWidth(); ++x) {
-				int xa = x + xp;
-				if (xa < -sprite.getWidth() || xa >= screenWidth || ya < 0
-						|| ya >= screenHeight)
+		for (int spriteY = 0; spriteY < sprite.getHeight(); ++spriteY) {
+			int screenY = spriteY + yPosition;
+			for (int spriteX = 0; spriteX < sprite.getWidth(); ++spriteX) {
+				int screenX = spriteX + xPosition;
+				if (screenX < -sprite.getWidth() || screenX >= screenWidth
+						|| screenY < 0 || screenY >= screenHeight)
 					break;
-				if (xa < 0)
-					xa = 0;
-				int color = sprite.getPixels()[x + y * sprite.getWidth()];
+				if (screenX < 0)
+					screenX = 0;
+				int color = sprite.getPixels()[spriteX + spriteY
+						* sprite.getWidth()];
 				if (color != 0xffff00ff)
-					pixels[xa + ya * (screenWidth)] = (int) ((sprite
-							.getPixels()[x + y * sprite.getWidth()]) & mask);
+					pixels[screenX + screenY * (screenWidth)] = (int) ((sprite
+							.getPixels()[spriteX + spriteY * sprite.getWidth()]) & mask);
 			}
 		}
+	}
+
+	private boolean spriteIsOffScreen(int xPosition, int yPosition,
+			Sprite sprite) {
+		return (xPosition > screenWidth || xPosition + sprite.getWidth() < 0
+				|| yPosition > screenHeight || yPosition + sprite.getHeight() < 0);
 	}
 
 	public void setOffset(int xOffset, int yOffset) {
@@ -142,8 +154,8 @@ public class SwingScreen implements Screen{
 	public int getScreenHeight() {
 		return screenHeight;
 	}
-	
-	public Canvas getCanvas(){
+
+	public Canvas getCanvas() {
 		return canvas;
 	}
 }

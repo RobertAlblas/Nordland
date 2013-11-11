@@ -18,7 +18,7 @@ public class Tile {
 	}
 	
 	public void render(int x, int y, Screen Screen){
-		Screen.renderSprite(x << 4, y << 4, (Sprite)spriteSheet.getResource(spriteNames[0]), true);
+		Screen.renderFixedSprite(x << 4, y << 4, (Sprite)spriteSheet.getResource(spriteNames[0]));
 	}
 	
 	public boolean isSolid(){

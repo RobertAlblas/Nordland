@@ -28,8 +28,8 @@ public abstract class Mob extends Entity {
 			dir = 0;
 
 		if (!collision(xChange, yChange)) {
-			x += xChange;
-			y += yChange;
+			setX(getX() + xChange);
+			setY(getY() + yChange);
 		}
 	}
 

@@ -8,21 +8,21 @@ public class SpriteManager extends ResourceManager {
 	public boolean loadResourceSet(String resourceSet) {
 		SpriteSheet spriteSheet = new SpriteSheet(resourceSet);
 		spriteSheet.load();
-		this.resourceSets.put(resourceSet, spriteSheet);
+		this.getResourceSets().put(resourceSet, spriteSheet);
 		return false;
 	}
 
 	@Override
 	public void unloadResourceSet(String resourceSet) {
-		resourceSets.get(resourceSet).unload();
-		resourceSets.remove(resourceSet);
+		getResourceSets().get(resourceSet).unload();
+		getResourceSets().remove(resourceSet);
 	}
 
 	@Override
 	public void unloadAllResources() {
-		for (String rs : resourceSets.keySet()) {
-			resourceSets.get(rs).unload();
+		for (String rs : getResourceSets().keySet()) {
+			getResourceSets().get(rs).unload();
 		}
-		resourceSets.clear();
+		getResourceSets().clear();
 	}
 }

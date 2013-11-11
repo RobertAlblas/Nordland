@@ -4,18 +4,26 @@ import java.util.HashMap;
 
 public abstract class ResourceManager {
 	
-	protected HashMap<String, ResourceSet> resourceSets;
+	private HashMap<String, ResourceSet> resourceSets;
 	
 	public ResourceManager(){
-		this.resourceSets = new HashMap<String, ResourceSet>();
+		this.setResourceSets(new HashMap<String, ResourceSet>());
 	}
 	
 	public ResourceSet getResourceSet(String resourceSet){
-		return resourceSets.get(resourceSet);
+		return getResourceSets().get(resourceSet);
 		
 	}
 	
 	public abstract boolean loadResourceSet(String resourceSet);
 	public abstract void unloadResourceSet(String resourceSet);
 	public abstract void unloadAllResources();
+
+	public HashMap<String, ResourceSet> getResourceSets() {
+		return resourceSets;
+	}
+
+	public void setResourceSets(HashMap<String, ResourceSet> resourceSets) {
+		this.resourceSets = resourceSets;
+	}
 }

@@ -9,7 +9,8 @@ public interface Screen {
 	public void setSize(int width, int height);
 	public void render(int mouseX, int mouseY, int framerate, int updaterate);
 	public void setWorld(World world);
-	public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed);
+	public void renderFixedSprite(int xPosition, int yPosition, Sprite sprite);
+	public void renderSprite(int xPosition, int yPosition, Sprite sprite);
 	public void setOffset(int xOffset, int yOffset);
 	public int getMask();
 	public void setMask(int mask);

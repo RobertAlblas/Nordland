@@ -17,8 +17,8 @@ public class Player extends Mob {
 	public Player(SpriteSheet spriteSheet, int x, int y) {
 		super(spriteSheet);
 		this.sprite = (Sprite) spriteSheet.getResource("front");
-		this.x = x;
-		this.y = y;
+		this.setX(x);
+		this.setY(y);
 	}
 
 	@Override
@@ -35,9 +35,9 @@ public class Player extends Mob {
 		boolean solid = false;
 
 		for (int corner = 0; corner < 4; ++corner) {
-			int xt = ((x + (int) xa) + corner % 2 * 12 - 7) / 16;
-			int yt = ((y + (int) ya) + corner / 2 * 12 + 3) / 16;
-			if (world.getTile(xt, yt).isSolid())
+			int xt = ((getX() + (int) xa) + corner % 2 * 12 - 7) / 16;
+			int yt = ((getY() + (int) ya) + corner / 2 * 12 + 3) / 16;
+			if (getWorld().getTile(xt, yt).isSolid())
 				solid = true;
 		}
 		return solid;
@@ -45,60 +45,60 @@ public class Player extends Mob {
 
 	@Override
 	public void render(Screen screen) {
-		int xx = x - 16;
-		int yy = y - 16;
+		int xx = getX() - 16;
+		int yy = getY() - 16;
 
 		if (dir == 0) {
 			if (walking) {
 				if (animationTick % 20 > 10) {
-					sprite = (Sprite) spriteSheet.getResource("back_walking_1");
+					sprite = (Sprite) getSpriteSheet().getResource("back_walking_1");
 				} else {
-					sprite = (Sprite) spriteSheet.getResource("back_walking_2");
+					sprite = (Sprite) getSpriteSheet().getResource("back_walking_2");
 				}
 			} else {
-				sprite = (Sprite) spriteSheet.getResource("back");
+				sprite = (Sprite) getSpriteSheet().getResource("back");
 			}
 		}
 		if (dir == 1) {
 			if (walking) {
 				if (animationTick % 20 > 10) {
-					sprite = (Sprite) spriteSheet
+					sprite = (Sprite) getSpriteSheet()
 							.getResource("right_walking_1");
 				} else {
-					sprite = (Sprite) spriteSheet
+					sprite = (Sprite) getSpriteSheet()
 							.getResource("right_walking_2");
 				}
 			} else {
-				sprite = (Sprite) spriteSheet.getResource("right");
+				sprite = (Sprite) getSpriteSheet().getResource("right");
 			}
 		}
 		if (dir == 2) {
 			if (walking) {
 				if (animationTick % 20 > 10) {
-					sprite = (Sprite) spriteSheet
+					sprite = (Sprite) getSpriteSheet()
 							.getResource("front_walking_1");
 				} else {
-					sprite = (Sprite) spriteSheet
+					sprite = (Sprite) getSpriteSheet()
 							.getResource("front_walking_2");
 				}
 			} else {
-				sprite = (Sprite) spriteSheet.getResource("front");
+				sprite = (Sprite) getSpriteSheet().getResource("front");
 			}
 		}
 
 		if (dir == 3) {
 			if (walking) {
 				if (animationTick % 20 > 10) {
-					sprite = (Sprite) spriteSheet.getResource("left_walking_1");
+					sprite = (Sprite) getSpriteSheet().getResource("left_walking_1");
 				} else {
-					sprite = (Sprite) spriteSheet.getResource("left_walking_2");
+					sprite = (Sprite) getSpriteSheet().getResource("left_walking_2");
 				}
 			} else {
-				sprite = (Sprite) spriteSheet.getResource("left");
+				sprite = (Sprite) getSpriteSheet().getResource("left");
 			}
 		}
 
-		screen.renderSprite(xx, yy, sprite, true);
+		screen.renderFixedSprite(xx, yy, sprite);
 
 	}
 
@@ -126,13 +126,5 @@ public class Player extends Mob {
 		}
 
 		update();
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
 	}
 }

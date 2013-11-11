@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ResourceSet {
-	protected List<Resource> resources;
-	protected final String file;
+	private List<Resource> resources;
+	private final String file;
 	
 	public ResourceSet(String file){
 		this.file = file;
-		this.resources = new ArrayList<Resource>();
+		this.setResources(new ArrayList<Resource>());
 	}
 	
 	public abstract void load();
 	
 	public Resource getResource(String resourceName){
-		for(Resource r : resources){
+		for(Resource r : getResources()){
 			if(r.getName().equals(resourceName)){
 				return r;
 			}
@@ -24,4 +24,16 @@ public abstract class ResourceSet {
 	}
 	
 	public abstract void unload();
+
+	public String getFile() {
+		return file;
+	}
+
+	public List<Resource> getResources() {
+		return resources;
+	}
+
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
+	}
 }

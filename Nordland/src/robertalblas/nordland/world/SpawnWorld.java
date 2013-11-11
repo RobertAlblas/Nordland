@@ -17,10 +17,10 @@ public class SpawnWorld extends World{
 	protected void loadWorld(String path){
 		try{
 			BufferedImage image = ImageIO.read(SpawnWorld.class.getResource(path));
-			width = image.getWidth();
-			height = image.getHeight();
-			tiles = new int[width*height];
-			image.getRGB(0, 0,width,height,tiles,0,width);
+			setWidth(image.getWidth());
+			setHeight(image.getHeight());
+			setTiles(new int[getWidth()*getHeight()]);
+			image.getRGB(0, 0,getWidth(),getHeight(),getTiles(),0,getWidth());
 		}catch (IOException e){
 			e.printStackTrace();
 		}

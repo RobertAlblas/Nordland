@@ -13,8 +13,8 @@ import robertalblas.nordland.world.tile.Tile;
 
 public abstract class World {
 
-	protected int width, height;
-	protected int[] tiles;
+	private int width, height;
+	private int[] tiles;
 	private List<Entity> entities = new ArrayList<Entity>();
 	private SpriteManager spriteManager;
 	
@@ -24,9 +24,9 @@ public abstract class World {
 
 	public World(int width, int height, SpriteManager spriteManager) {
 		this.spriteManager = spriteManager;
-		this.width = width;
-		this.height = height;
-		tiles = new int[width * height];
+		this.setWidth(width);
+		this.setHeight(height);
+		setTiles(new int[width * height]);
 		createTiles();
 		generateLevel();
 		addPlayer((SpriteSheet) spriteManager.getResourceSet("player"));
@@ -55,7 +55,7 @@ public abstract class World {
 	}
 
 	private void addPlayer(SpriteSheet spritesheet) {
-		player = new Player(spritesheet, 16 * width / 2, 16 * height / 2);
+		player = new Player(spritesheet, 16 * getWidth() / 2, 16 * getHeight() / 2);
 		player.init(this);
 		entities.add(player);
 	}
@@ -121,10 +121,10 @@ public abstract class World {
 	}
 
 	public Tile getTile(int x, int y) {
-		if (x < 0 || y < 0 || x >= width || y >= width) {
+		if (x < 0 || y < 0 || x >= getWidth() || y >= getWidth()) {
 			return rockTile;
 		}
-		switch (tiles[x + y * width]) {
+		switch (getTiles()[x + y * getWidth()]) {
 		case 0xff000000:
 			return rockTile;
 		case 0xffffffff:
@@ -143,5 +143,29 @@ public abstract class World {
 	
 	public Player getPlayer(){
 		return player;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int[] getTiles() {
+		return tiles;
+	}
+
+	public void setTiles(int[] tiles) {
+		this.tiles = tiles;
 	}
 }

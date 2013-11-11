@@ -109,9 +109,9 @@ public class Nordland implements Runnable, WindowListener {
 				updaterate = updates;
 				updates = 0;
 				
-				if(updaterate < 60){
+				if(updaterate < 55){
 					LoggerManager.getInstance().getDefaultLogger().log(
-							"Updaterate dropped below 60 UPS: " + updaterate + " UPS",
+							"Updaterate dropped below 55 UPS: " + updaterate + " UPS",
 							Logger.LOGTYPE_WARNING);
 				}
 			}

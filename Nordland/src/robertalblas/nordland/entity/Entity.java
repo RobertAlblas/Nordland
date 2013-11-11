@@ -1,25 +1,22 @@
 package robertalblas.nordland.entity;
 
-import java.util.Random;
-
 import robertalblas.nordland.resource.graphics.SpriteSheet;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 
 public abstract class Entity {
-	public int x, y;
+	private int x, y;
 	private boolean removed = false;
-	protected World world;
-	protected final Random random = new Random();
-	protected SpriteSheet spriteSheet;
+	private World world;
+	private SpriteSheet spriteSheet;
 	
 	
 	public Entity(SpriteSheet spriteSheet){
-		this.spriteSheet = spriteSheet;
+		this.setSpriteSheet(spriteSheet);
 	}
 	
 	public void init(World world){
-		this.world = world;
+		this.setWorld(world);
 	}
 	
 	public void update(){
@@ -35,11 +32,42 @@ public abstract class Entity {
 	}
 	
 	public void remove(){
-		//remove from world
 		removed = true;
 	}
 	
 	public boolean isRemoved(){
 		return removed;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
+	public SpriteSheet getSpriteSheet() {
+		return spriteSheet;
+	}
+
+	public void setSpriteSheet(SpriteSheet spriteSheet) {
+		this.spriteSheet = spriteSheet;
 	}
 }
