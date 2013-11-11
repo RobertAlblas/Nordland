@@ -45,9 +45,6 @@ public class Player extends Mob {
 
 	@Override
 	public void render(Screen screen) {
-		int xx = getX() - 16;
-		int yy = getY() - 16;
-
 		if (dir == 0) {
 			if (walking) {
 				if (animationTick % 20 > 10) {
@@ -98,7 +95,7 @@ public class Player extends Mob {
 			}
 		}
 
-		screen.renderFixedSprite(xx, yy, sprite);
+		screen.renderFixedSprite(getX(), getY(), sprite);
 
 	}
 

@@ -12,6 +12,7 @@ public interface Screen {
 	public void renderFixedSprite(int xPosition, int yPosition, Sprite sprite);
 	public void renderSprite(int xPosition, int yPosition, Sprite sprite);
 	public void setOffset(int xOffset, int yOffset);
+	public void centerAt(int x, int y);
 	public int getMask();
 	public void setMask(int mask);
 	public int getScreenWidth();

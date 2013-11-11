@@ -101,8 +101,8 @@ public abstract class World {
 
 	}
 
-	public void render(int xScroll, int yScroll, Screen screen) {
-		screen.setOffset(xScroll, yScroll);
+	public void render(Screen screen, int xScroll, int yScroll) {
+		screen.centerAt(player.getX(), player.getY());
 
 		int x0 = xScroll >> 4;
 		int y0 = yScroll >> 4;

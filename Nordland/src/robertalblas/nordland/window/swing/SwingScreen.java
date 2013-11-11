@@ -58,9 +58,7 @@ public class SwingScreen implements Screen {
 		}
 
 		clear();
-		int xScroll = world.getPlayer().getX() - screenWidth / 2;
-		int yScroll = world.getPlayer().getY() - screenHeight / 2;
-		world.render(xScroll, yScroll, this);
+		world.render(this, xOffset, yOffset);
 
 		for (int i = 0; i < pixels.length; i++) {
 			rasterPixels[i] = pixels[i];
@@ -107,6 +105,10 @@ public class SwingScreen implements Screen {
 		if (spriteIsOffScreen(xPosition, yPosition, sprite)) {
 			return;
 		}
+		
+		//Center the sprite
+		xPosition = xPosition - sprite.getWidth() / 2;
+		yPosition = yPosition - sprite.getHeight() / 2;
 
 		for (int spriteY = 0; spriteY < sprite.getHeight(); ++spriteY) {
 			int screenY = spriteY + yPosition;
@@ -135,6 +137,11 @@ public class SwingScreen implements Screen {
 	public void setOffset(int xOffset, int yOffset) {
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
+	}
+	
+	public void centerAt(int x, int y){
+		this.xOffset = x - screenWidth / 2;
+		this.yOffset = y - screenHeight / 2;
 	}
 
 	public int getMask() {
