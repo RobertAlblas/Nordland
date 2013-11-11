@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<spritesheet>
+	<sprite name="grasstile"
+		x="0"
+		y="0"
+		width="16"
+		height="16"/>
+	<sprite name="icetile"
+		x="16"
+		y="0"
+		width="16"
+		height="16"/>
+	<sprite name="rocktile"
+		x="32"
+		y="0"
+		width="16"
+		height="16"/>
+</spritesheet>
