@@ -4,6 +4,7 @@ import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSheet;
 import robertalblas.nordland.window.Screen;
 
+@Deprecated
 public class DeprecatedTile {
 
 	private int x,y;

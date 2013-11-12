@@ -4,6 +4,7 @@ import robertalblas.nordland.resource.graphics.SpriteSheet;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.DeprecatedWorld;
 
+@Deprecated
 public abstract class DeprecatedEntity {
 	private int x, y;
 	private boolean removed = false;

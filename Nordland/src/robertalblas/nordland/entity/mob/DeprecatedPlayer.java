@@ -7,6 +7,7 @@ import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSheet;
 import robertalblas.nordland.window.Screen;
 
+@Deprecated
 public class DeprecatedPlayer extends DeprecatedMob {
 
 	public Sprite sprite;

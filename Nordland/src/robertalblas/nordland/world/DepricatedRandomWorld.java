@@ -4,6 +4,7 @@ import java.util.Random;
 
 import robertalblas.nordland.resource.graphics.SpriteManager;
 
+@Deprecated
 public class DepricatedRandomWorld extends DeprecatedWorld {
 
 	private static final Random random = new Random();

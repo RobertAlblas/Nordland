@@ -11,6 +11,7 @@ import robertalblas.nordland.resource.graphics.SpriteSheet;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.tile.DeprecatedTile;
 
+@Deprecated
 public abstract class DeprecatedWorld {
 
 	private int width, height;

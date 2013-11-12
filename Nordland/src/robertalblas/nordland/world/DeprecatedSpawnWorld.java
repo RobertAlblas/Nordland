@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 
 import robertalblas.nordland.resource.graphics.SpriteManager;
 
+@Deprecated
 public class DeprecatedSpawnWorld extends DeprecatedWorld{
 	
 	public DeprecatedSpawnWorld(String path, SpriteManager spriteManager) {
