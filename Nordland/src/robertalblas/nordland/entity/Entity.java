@@ -7,4 +7,6 @@ public interface Entity {
 	public void render(Screen screen);
 	public int getX();
 	public int getY();
+	public int getWidth();
+	public int getHeight();
 }

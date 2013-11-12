@@ -8,6 +8,7 @@ import robertalblas.nordland.entity.Player;
 import robertalblas.nordland.input.InputAction;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteManager;
+import robertalblas.nordland.resource.graphics.SpriteSheet;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 import robertalblas.nordland.world.tile.Tile;
@@ -23,8 +24,8 @@ public class TestWorld implements World{
 	
 	public TestWorld(SpriteManager spriteManager) {
 		this.spriteManager = spriteManager;
-		this.width = 20;
-		this.height = 20;
+		this.width = 20 * ((Sprite)spriteManager.getResourceSet("tileset").getResource("grass")).getWidth();
+		this.height = 20 * ((Sprite)spriteManager.getResourceSet("tileset").getResource("grass")).getHeight();
 		this.tiles = new ArrayList<Tile>();
 		this.entities = new ArrayList<Entity>();
 		
@@ -50,7 +51,7 @@ public class TestWorld implements World{
 	}
 	
 	private void createPlayer(){
-		
+		player = new Player((SpriteSheet)spriteManager.getResourceSet("player"),10,10);
 	}
 
 	@Override
