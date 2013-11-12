@@ -7,14 +7,14 @@ import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSheet;
 import robertalblas.nordland.window.Screen;
 
-public class Player extends Mob {
+public class DeprecatedPlayer extends DeprecatedMob {
 
 	public Sprite sprite;
 	private int animationTick = 0;
 	private boolean walking = false;
 
 
-	public Player(SpriteSheet spriteSheet, int x, int y) {
+	public DeprecatedPlayer(SpriteSheet spriteSheet, int x, int y) {
 		super(spriteSheet);
 		this.sprite = (Sprite) spriteSheet.getResource("front");
 		this.setX(x);

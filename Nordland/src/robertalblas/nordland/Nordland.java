@@ -12,8 +12,8 @@ import robertalblas.nordland.window.WindowListener;
 import robertalblas.nordland.window.WindowManager;
 import robertalblas.nordland.window.swing.SwingScreen;
 import robertalblas.nordland.window.swing.SwingWindowManager;
-import robertalblas.nordland.world.SpawnWorld;
-import robertalblas.nordland.world.World;
+import robertalblas.nordland.world.DeprecatedSpawnWorld;
+import robertalblas.nordland.world.DeprecatedWorld;
 
 public class Nordland implements Runnable, WindowListener {
 
@@ -22,7 +22,7 @@ public class Nordland implements Runnable, WindowListener {
 	public static final int SCALE = 3;
 
 	private Thread thread;
-	private World world;
+	private DeprecatedWorld world;
 	private boolean running = false;
 
 	private InputManager inputManager;
@@ -46,7 +46,7 @@ public class Nordland implements Runnable, WindowListener {
 		Canvas canvas = ((SwingScreen)window.getScreen()).getCanvas();
 		
 		canvas.requestFocus();
-		world = new SpawnWorld("/world/spawnlevel.png", spriteManager);
+		world = new DeprecatedSpawnWorld("/world/spawnlevel.png", spriteManager);
 		window.getScreen().setWorld(world);
 		window.hideCursor();
 		LoggerManager.getInstance().getDefaultLogger().log("Done", Logger.LOGTYPE_DEBUG);

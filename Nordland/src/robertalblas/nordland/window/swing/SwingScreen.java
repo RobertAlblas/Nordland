@@ -11,7 +11,7 @@ import java.awt.image.DataBufferInt;
 
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.window.Screen;
-import robertalblas.nordland.world.World;
+import robertalblas.nordland.world.DeprecatedWorld;
 
 public class SwingScreen implements Screen {
 
@@ -19,7 +19,7 @@ public class SwingScreen implements Screen {
 	private int mask = 0xffffff;
 	private int[] pixels;
 	private int xOffset, yOffset;
-	private World world;
+	private DeprecatedWorld world;
 	private BufferedImage image;
 	private int[] rasterPixels;
 
@@ -91,7 +91,7 @@ public class SwingScreen implements Screen {
 		g.drawLine(x - 10, y + 1, x + 10, y + 1);
 	}
 
-	public void setWorld(World world) {
+	public void setWorld(DeprecatedWorld world) {
 		this.world = world;
 	}
 

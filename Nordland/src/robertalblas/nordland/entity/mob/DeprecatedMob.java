@@ -1,14 +1,14 @@
 package robertalblas.nordland.entity.mob;
 
-import robertalblas.nordland.entity.Entity;
+import robertalblas.nordland.entity.DeprecatedEntity;
 import robertalblas.nordland.resource.graphics.SpriteSheet;
 
-public abstract class Mob extends Entity {
+public abstract class DeprecatedMob extends DeprecatedEntity {
 
 	protected int dir = 0;
 	protected boolean moving = false;	
 	
-	public Mob(SpriteSheet spriteSheet){
+	public DeprecatedMob(SpriteSheet spriteSheet){
 		super(spriteSheet);
 	}
 

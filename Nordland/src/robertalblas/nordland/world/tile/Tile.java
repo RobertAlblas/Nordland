@@ -1,24 +1,45 @@
 package robertalblas.nordland.world.tile;
 
+import robertalblas.nordland.collision.Collidable;
+import robertalblas.nordland.collision.CollisionMap;
 import robertalblas.nordland.resource.graphics.Sprite;
-import robertalblas.nordland.resource.graphics.SpriteSheet;
 import robertalblas.nordland.window.Screen;
 
-public class Tile {
+public class Tile implements Collidable{
 
-	private int x,y;
-	private SpriteSheet spriteSheet;
-	private String[] spriteNames;
-	private boolean solid;
+	private final int x,y;
+	private final int width, height;
+	private final Sprite sprite;
+	private final boolean solid;
 	
-	public Tile(SpriteSheet spriteSheet, String[] spriteNames, boolean solid) {
-		this.spriteNames = spriteNames;
-		this.spriteSheet = spriteSheet;
-		this.solid = solid;
+	public static Tile createSolidTile(CollisionMap collisionMap, Sprite sprite, int x, int y){
+		Tile tile = new Tile(sprite, true, x, y);
+		
+		for(int i = 0; i < tile.getWidth(); i++){
+			for(int j = 0; j < tile.getHeight(); j++){
+				collisionMap.setCollidableAt(i + x - tile.getWidth() / 2, j + y - tile.getHeight() / 2, tile);
+			}
+		}
+		
+		return tile;
 	}
 	
-	public void render(int x, int y, Screen Screen){
-		Screen.renderFixedSprite(x << 4, y << 4, (Sprite)spriteSheet.getResource(spriteNames[0]));
+	public static Tile createTile(Sprite sprite, int x, int y){
+		Tile tile = new Tile(sprite, false, x, y);		
+		return tile;
+	}
+	
+	private Tile(Sprite sprite, boolean solid, int x, int y) {
+		this.sprite = sprite;
+		this.solid = solid;
+		this.width = sprite.getWidth();
+		this.height = sprite.getHeight();
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void render(Screen Screen){
+		Screen.renderFixedSprite(x, y, sprite);
 	}
 	
 	public boolean isSolid(){
@@ -31,5 +52,19 @@ public class Tile {
 	
 	public int getX() {
 		return x;
-	}	
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	@Override
+	public void onCollision() {
+		//satisfy the interface
+	}
+	
 }

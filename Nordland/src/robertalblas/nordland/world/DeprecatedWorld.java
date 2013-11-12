@@ -3,8 +3,8 @@ package robertalblas.nordland.world;
 import java.util.ArrayList;
 import java.util.List;
 
-import robertalblas.nordland.entity.Entity;
-import robertalblas.nordland.entity.mob.Player;
+import robertalblas.nordland.entity.DeprecatedEntity;
+import robertalblas.nordland.entity.mob.DeprecatedPlayer;
 import robertalblas.nordland.input.InputAction;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.graphics.SpriteSheet;
@@ -15,12 +15,12 @@ public abstract class DeprecatedWorld {
 
 	private int width, height;
 	private int[] tiles;
-	private List<Entity> entities = new ArrayList<Entity>();
+	private List<DeprecatedEntity> entities = new ArrayList<DeprecatedEntity>();
 	private SpriteManager spriteManager;
 	
 	private DeprecatedTile rockTile, iceTile, grassTile;
 
-	private Player player;
+	private DeprecatedPlayer player;
 
 	public DeprecatedWorld(int width, int height, SpriteManager spriteManager) {
 		this.spriteManager = spriteManager;
@@ -55,7 +55,7 @@ public abstract class DeprecatedWorld {
 	}
 
 	private void addPlayer(SpriteSheet spritesheet) {
-		player = new Player(spritesheet, 16 * getWidth() / 2, 16 * getHeight() / 2);
+		player = new DeprecatedPlayer(spritesheet, 16 * getWidth() / 2, 16 * getHeight() / 2);
 		player.init(this);
 		entities.add(player);
 	}
@@ -82,12 +82,12 @@ public abstract class DeprecatedWorld {
 	}
 
 	public void update(List<InputAction> inputActions) {
-		List<Entity> updateEntities = new ArrayList<Entity>();
+		List<DeprecatedEntity> updateEntities = new ArrayList<DeprecatedEntity>();
 		updateEntities.addAll(entities);
 
-		for (Entity e : updateEntities) {
-			if (e instanceof Player) {
-				((Player) e).update(inputActions);
+		for (DeprecatedEntity e : updateEntities) {
+			if (e instanceof DeprecatedPlayer) {
+				((DeprecatedPlayer) e).update(inputActions);
 			} else {
 				e.update();
 			}
@@ -115,7 +115,7 @@ public abstract class DeprecatedWorld {
 			}
 		}
 
-		for (Entity e : entities) {
+		for (DeprecatedEntity e : entities) {
 			e.render(screen);
 		}
 	}
@@ -136,12 +136,12 @@ public abstract class DeprecatedWorld {
 		}
 	}
 
-	public void addEntity(Entity e) {
+	public void addEntity(DeprecatedEntity e) {
 		e.init(this);
 		entities.add(e);
 	}
 	
-	public Player getPlayer(){
+	public DeprecatedPlayer getPlayer(){
 		return player;
 	}
 
