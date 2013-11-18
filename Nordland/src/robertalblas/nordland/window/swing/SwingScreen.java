@@ -11,7 +11,7 @@ import java.awt.image.DataBufferInt;
 
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.window.Screen;
-import robertalblas.nordland.world.DeprecatedWorld;
+import robertalblas.nordland.world.World;
 
 public class SwingScreen implements Screen {
 
@@ -19,7 +19,7 @@ public class SwingScreen implements Screen {
 	private int mask = 0xffffff;
 	private int[] pixels;
 	private int xOffset, yOffset;
-	private DeprecatedWorld world;
+	private World world;
 	private BufferedImage image;
 	private int[] rasterPixels;
 
@@ -58,7 +58,7 @@ public class SwingScreen implements Screen {
 		}
 
 		clear();
-		world.render(this, xOffset, yOffset);
+		world.render(this);
 
 		for (int i = 0; i < pixels.length; i++) {
 			rasterPixels[i] = pixels[i];
@@ -91,7 +91,7 @@ public class SwingScreen implements Screen {
 		g.drawLine(x - 10, y + 1, x + 10, y + 1);
 	}
 
-	public void setWorld(DeprecatedWorld world) {
+	public void setWorld(World world) {
 		this.world = world;
 	}
 
@@ -102,13 +102,13 @@ public class SwingScreen implements Screen {
 	}
 
 	public void renderSprite(int xPosition, int yPosition, Sprite sprite) {
+		// Center the sprite
+		xPosition = xPosition - sprite.getWidth() / 2;
+		yPosition = yPosition - sprite.getHeight() / 2;
+
 		if (spriteIsOffScreen(xPosition, yPosition, sprite)) {
 			return;
 		}
-		
-		//Center the sprite
-		xPosition = xPosition - sprite.getWidth() / 2;
-		yPosition = yPosition - sprite.getHeight() / 2;
 
 		for (int spriteY = 0; spriteY < sprite.getHeight(); ++spriteY) {
 			int screenY = spriteY + yPosition;
@@ -138,8 +138,8 @@ public class SwingScreen implements Screen {
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
 	}
-	
-	public void centerAt(int x, int y){
+
+	public void centerAt(int x, int y) {
 		this.xOffset = x - screenWidth / 2;
 		this.yOffset = y - screenHeight / 2;
 	}

@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <spritesheet>
-	<sprite name="grasstile"
+	<sprite name="grass"
 		x="0"
 		y="0"
 		width="16"
 		height="16"/>
-	<sprite name="icetile"
+	<sprite name="ice"
 		x="16"
 		y="0"
 		width="16"
 		height="16"/>
-	<sprite name="rocktile"
+	<sprite name="rock"
 		x="32"
 		y="0"
 		width="16"

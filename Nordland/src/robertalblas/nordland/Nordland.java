@@ -2,6 +2,7 @@ package robertalblas.nordland;
 
 import java.awt.Canvas;
 
+import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.input.InputManager;
 import robertalblas.nordland.input.swing.SwingInputManager;
 import robertalblas.nordland.resource.graphics.SpriteManager;
@@ -12,8 +13,9 @@ import robertalblas.nordland.window.WindowListener;
 import robertalblas.nordland.window.WindowManager;
 import robertalblas.nordland.window.swing.SwingScreen;
 import robertalblas.nordland.window.swing.SwingWindowManager;
-import robertalblas.nordland.world.DeprecatedSpawnWorld;
-import robertalblas.nordland.world.DeprecatedWorld;
+import robertalblas.nordland.world.World;
+import robertalblas.nordland.world.WorldFactory;
+import robertalblas.nordland.world.testworld.TestWorldFactory;
 
 public class Nordland implements Runnable, WindowListener {
 
@@ -22,12 +24,13 @@ public class Nordland implements Runnable, WindowListener {
 	public static final int SCALE = 3;
 
 	private Thread thread;
-	private DeprecatedWorld world;
+	private World world;
 	private boolean running = false;
 
 	private InputManager inputManager;
 	private WindowManager windowManager;
 	private SpriteManager spriteManager;
+	private WorldFactory worldFactory;
 
 	public Nordland() {
 		LoggerManager.getInstance().getDefaultLogger().log("Loading engine..", Logger.LOGTYPE_DEBUG);
@@ -37,6 +40,7 @@ public class Nordland implements Runnable, WindowListener {
 		spriteManager = new SpriteManager();
 			spriteManager.loadResourceSet("player");
 			spriteManager.loadResourceSet("tileset");
+		worldFactory = new TestWorldFactory(spriteManager);
 		
 		windowManager.addWindowListener(this);
 		Window window = windowManager.createWindow("Nordland 0.2", WIDTH, HEIGHT, SCALE);
@@ -46,7 +50,11 @@ public class Nordland implements Runnable, WindowListener {
 		Canvas canvas = ((SwingScreen)window.getScreen()).getCanvas();
 		
 		canvas.requestFocus();
-		world = new DeprecatedSpawnWorld("/world/spawnlevel.png", spriteManager);
+		try {
+			world = worldFactory.createWorld();
+		} catch (ResourceNotFoundException e) {
+			e.printStackTrace();
+		}
 		window.getScreen().setWorld(world);
 		window.hideCursor();
 		LoggerManager.getInstance().getDefaultLogger().log("Done", Logger.LOGTYPE_DEBUG);

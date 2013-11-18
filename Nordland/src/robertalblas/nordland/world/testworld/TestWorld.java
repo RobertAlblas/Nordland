@@ -13,60 +13,66 @@ import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 import robertalblas.nordland.world.tile.Tile;
 
-public class TestWorld implements World{
+public class TestWorld implements World {
 
 	private SpriteManager spriteManager;
 	private int width, height;
-	
+
 	private ArrayList<Tile> tiles;
 	private List<Entity> entities;
 	private Player player;
-	
+
 	public TestWorld(SpriteManager spriteManager) {
 		this.spriteManager = spriteManager;
-		this.width = 20 * ((Sprite)spriteManager.getResourceSet("tileset").getResource("grass")).getWidth();
-		this.height = 20 * ((Sprite)spriteManager.getResourceSet("tileset").getResource("grass")).getHeight();
+		this.width = 10 * ((Sprite) spriteManager.getResourceSet("tileset")
+				.getResource("grass")).getWidth();
+		this.height = 10 * ((Sprite) spriteManager.getResourceSet("tileset")
+				.getResource("grass")).getHeight();
 		this.tiles = new ArrayList<Tile>();
 		this.entities = new ArrayList<Entity>();
-		
+
 		createLevel();
 	}
-	
-	private void createLevel(){
+
+	private void createLevel() {
 		createTiles();
 		createPlayer();
 	}
-	
-	private void createTiles(){
-		Sprite grassSprite = (Sprite)spriteManager.getResourceSet("tileset").getResource("grass");
-		
+
+	private void createTiles() {
+		Sprite grassSprite = (Sprite) spriteManager.getResourceSet("tileset")
+				.getResource("grass");
+
 		int tileHeight = grassSprite.getHeight();
 		int tileWidth = grassSprite.getWidth();
-		
-		for(int x = 0; x < this.width; x++){
-			for(int y = 0; y < this.height; y++){
-				tiles.add(Tile.createTile(grassSprite, x * tileWidth + tileWidth / 2, y * tileHeight + tileHeight / 2));
+
+		for (int x = 0; x < this.width; x += tileWidth) {
+			for (int y = 0; y < this.height; y += tileHeight) {
+				tiles.add(Tile.createTile(grassSprite, x + tileWidth / 2, y + tileHeight / 2));
 			}
 		}
 	}
-	
-	private void createPlayer(){
-		player = new Player((SpriteSheet)spriteManager.getResourceSet("player"),10,10);
+
+	private void createPlayer() {
+		player = new Player(
+				(SpriteSheet) spriteManager.getResourceSet("player"), 10, 10);
+		addEntity(player);
 	}
 
 	@Override
 	public void update(List<InputAction> inputActions) {
-		for(Entity entity: entities){
-			entity.update();
+		for (Entity entity : entities) {
+			entity.update(inputActions);
 		}
 	}
 
 	@Override
 	public void render(Screen screen) {
-		for(Tile tile : tiles){
+		screen.centerAt(player.getX(), player.getY());
+		for (Tile tile : tiles) {
 			tile.render(screen);
 		}
-		for(Entity entity : entities){
+		for (Entity entity : entities) {
 			entity.render(screen);
 		}
 	}
@@ -83,7 +89,7 @@ public class TestWorld implements World{
 
 	@Override
 	public void addEntity(Entity e) {
-		entities.add(e);		
+		entities.add(e);
 	}
 
 	@Override
