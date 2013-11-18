@@ -14,7 +14,8 @@ public interface Screen {
 	public void setOffset(int xOffset, int yOffset);
 	public void centerAt(int x, int y);
 	public int getMask();
-	public void setMask(int mask);
+	public void setDarkMask(int mask);
+	public void setLightMask(int mask);
 	public int getScreenWidth();
 	public int getScreenHeight();
 }

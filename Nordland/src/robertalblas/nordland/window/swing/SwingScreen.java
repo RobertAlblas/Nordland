@@ -16,7 +16,8 @@ import robertalblas.nordland.world.World;
 public class SwingScreen implements Screen {
 
 	private int screenWidth, screenHeight;
-	private int mask = 0xffffff;
+	private int darkMask = 0xffffff;
+	private int lightMask = 0x000000;
 	private int[] pixels;
 	private int xOffset, yOffset;
 	private World world;
@@ -123,7 +124,7 @@ public class SwingScreen implements Screen {
 						* sprite.getWidth()];
 				if (color != 0xffff00ff)
 					pixels[screenX + screenY * (screenWidth)] = (int) ((sprite
-							.getPixels()[spriteX + spriteY * sprite.getWidth()]) & mask);
+							.getPixels()[spriteX + spriteY * sprite.getWidth()]) & darkMask | lightMask);
 			}
 		}
 	}
@@ -145,13 +146,7 @@ public class SwingScreen implements Screen {
 	}
 
 	public int getMask() {
-		return mask;
-	}
-
-	public void setMask(int mask) {
-		if (mask >= 0x000000 && mask <= 0xffffff) {
-			this.mask = mask;
-		}
+		return darkMask;
 	}
 
 	public int getScreenWidth() {
@@ -164,5 +159,19 @@ public class SwingScreen implements Screen {
 
 	public Canvas getCanvas() {
 		return canvas;
+	}
+
+	@Override
+	public void setDarkMask(int mask) {
+		if (mask >= 0x000000 && mask <= 0xffffff) {
+			this.darkMask = mask;
+		}		
+	}
+
+	@Override
+	public void setLightMask(int mask) {
+		if (mask >= 0x000000 && mask <= 0xffffff) {
+			this.lightMask = mask;
+		}		
 	}
 }
