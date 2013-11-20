@@ -16,9 +16,11 @@ import robertalblas.nordland.util.xml.XMLNode;
 public class SpriteSheet extends ResourceSet {
 
 	private int spriteSheetWidth;
+	private Animator animator;
 
-	public SpriteSheet(String file) {
+	public SpriteSheet(String file, Animator animator) {
 		super(file);
+		this.animator = animator;
 	}
 
 	@Override
@@ -41,6 +43,7 @@ public class SpriteSheet extends ResourceSet {
 			processSprite(pixels, (Sprite)d);
 		} else if (d instanceof Animation) {
 			processAnimation(pixels, (Animation)d);
+			animator.addAnimation((Animation)d);
 		} else {
 			throw new UnsupportedOperationException();
 		}

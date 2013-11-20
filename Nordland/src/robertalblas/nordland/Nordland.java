@@ -5,6 +5,7 @@ import java.awt.Canvas;
 import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.input.InputManager;
 import robertalblas.nordland.input.swing.SwingInputManager;
+import robertalblas.nordland.resource.graphics.Animator;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.util.log.Logger;
 import robertalblas.nordland.util.log.LoggerManager;
@@ -22,7 +23,7 @@ public class Nordland implements Runnable, WindowListener {
 	public static final int WIDTH = 400;
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
-	public static final int UPDATES_PER_SECOND = 60;
+	private static final int UPDATES_PER_SECOND = 60;
 
 	private Thread thread;
 	private World world;
@@ -39,7 +40,7 @@ public class Nordland implements Runnable, WindowListener {
 
 		inputManager = new SwingInputManager();
 		windowManager = new SwingWindowManager();
-		spriteManager = new SpriteManager();
+		spriteManager = new SpriteManager(UPDATES_PER_SECOND);
 		spriteManager.loadResourceSet("player");
 		spriteManager.loadResourceSet("tileset");
 		worldFactory = new TestWorldFactory(spriteManager);

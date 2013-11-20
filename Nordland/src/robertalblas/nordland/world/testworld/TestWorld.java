@@ -6,6 +6,7 @@ import java.util.List;
 import robertalblas.nordland.entity.Entity;
 import robertalblas.nordland.entity.Player;
 import robertalblas.nordland.input.InputAction;
+import robertalblas.nordland.resource.graphics.Animator;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.graphics.SpriteSheet;
@@ -16,6 +17,7 @@ import robertalblas.nordland.world.tile.Tile;
 public class TestWorld implements World {
 
 	private SpriteManager spriteManager;
+	private Animator animator;
 	private int width, height;
 
 	private ArrayList<Tile> tiles;
@@ -64,6 +66,7 @@ public class TestWorld implements World {
 		for (Entity entity : entities) {
 			entity.update(inputActions);
 		}
+		spriteManager.update();
 	}
 
 	@Override

@@ -18,7 +18,6 @@ public class Player implements Entity {
 	private String currentSprite;
 	private boolean isMoving;
 	private Direction direction;
-	private int animationCounter;
 
 	public Player(SpriteSheet spriteSheet, int x, int y) {
 		this.x = x;
@@ -30,7 +29,6 @@ public class Player implements Entity {
 		this.height = firstSprite.getHeight();
 		this.isMoving = false;
 		this.direction = Direction.NONE;
-		this.animationCounter = 0;
 	}
 
 	@Override
@@ -86,22 +84,6 @@ public class Player implements Entity {
 
 		if (isMoving) {
 			this.currentSprite += "_moving";
-		}
-
-		Drawable drawable = (Drawable) spriteSheet.getResource(currentSprite);
-
-		if (drawable instanceof Animation) {
-
-			if (animationCounter == Integer.MAX_VALUE) {
-				animationCounter = 0;
-			} else {
-				animationCounter++;
-			}
-			if (animationCounter
-					% (Nordland.UPDATES_PER_SECOND / ((Animation) drawable)
-							.getAmountOfSpritesPerSecond()) == 0) {
-				drawable.nextSprite();
-			}
 		}
 	}
 
