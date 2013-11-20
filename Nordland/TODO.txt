@@ -1,8 +1,7 @@
 TODO
 
-[ ] Level Importer XML
-[ ] Sound Manager
-
-[ ] Lightening
-[ ] Weapons
-[ ] Pixel based collision detection
+Level Importer XML
+Sound Manager
+Lightening
+Weapons
+Player refactor
