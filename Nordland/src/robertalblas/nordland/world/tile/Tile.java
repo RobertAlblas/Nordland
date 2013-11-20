@@ -39,7 +39,7 @@ public class Tile implements Collidable{
 	}
 	
 	public void render(Screen Screen){
-		Screen.renderFixedSprite(x, y, sprite);
+		Screen.renderFixedDrawable(x, y, sprite);
 	}
 	
 	public boolean isSolid(){

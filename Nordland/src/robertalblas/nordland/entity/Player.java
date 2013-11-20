@@ -86,7 +86,7 @@ public class Player implements Entity {
 
 	@Override
 	public void render(Screen screen) {
-		screen.renderFixedSprite(x, y,
+		screen.renderFixedDrawable(x, y,
 				(Sprite) spriteSheet.getResource(currentSprite));
 	}
 

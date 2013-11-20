@@ -1,16 +1,12 @@
 package robertalblas.nordland.resource.graphics;
 
-import robertalblas.nordland.resource.Resource;
 
-public class Sprite extends Resource{
-	private final int width, height;
+public class Sprite extends Drawable{
 	private final int x, y;
 	private int[] pixels;
 	
 	public Sprite(String name, int width, int height, int x, int y) {
-		super(name);
-		this.width = width;
-		this.height = height;
+		super(name, width, height);
 		this.x = x;
 		this.y = y;
 	}
@@ -18,23 +14,21 @@ public class Sprite extends Resource{
 	public void setPixels(int[] pixels){
 		this.pixels = pixels;
 	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public int getWidth() {
-		return width;
-	}
 	
+	@Override
 	public int[] getPixels(){
 		return pixels;
+	}
+
+	@Override
+	public void nextSprite() {
+		//unimplemented
 	}
 
 	public int getX() {
 		return x;
 	}
-	
+
 	public int getY() {
 		return y;
 	}

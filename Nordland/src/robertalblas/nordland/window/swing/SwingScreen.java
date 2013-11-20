@@ -9,7 +9,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import robertalblas.nordland.resource.graphics.Sprite;
+import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 
@@ -96,43 +96,43 @@ public class SwingScreen implements Screen {
 		this.world = world;
 	}
 
-	public void renderFixedSprite(int xPosition, int yPosition, Sprite sprite) {
+	public void renderFixedDrawable(int xPosition, int yPosition, Drawable drawable) {
 		xPosition -= xOffset;
 		yPosition -= yOffset;
-		renderSprite(xPosition, yPosition, sprite);
+		renderDrawable(xPosition, yPosition, drawable);
 	}
 
-	public void renderSprite(int xPosition, int yPosition, Sprite sprite) {
-		// Center the sprite
-		xPosition = xPosition - sprite.getWidth() / 2;
-		yPosition = yPosition - sprite.getHeight() / 2;
+	public void renderDrawable(int xPosition, int yPosition, Drawable drawable) {
+		// Center the drawable
+		xPosition = xPosition - drawable.getWidth() / 2;
+		yPosition = yPosition - drawable.getHeight() / 2;
 
-		if (spriteIsOffScreen(xPosition, yPosition, sprite)) {
+		if (drawableIsOffScreen(xPosition, yPosition, drawable)) {
 			return;
 		}
 
-		for (int spriteY = 0; spriteY < sprite.getHeight(); ++spriteY) {
+		for (int spriteY = 0; spriteY < drawable.getHeight(); ++spriteY) {
 			int screenY = spriteY + yPosition;
-			for (int spriteX = 0; spriteX < sprite.getWidth(); ++spriteX) {
+			for (int spriteX = 0; spriteX < drawable.getWidth(); ++spriteX) {
 				int screenX = spriteX + xPosition;
-				if (screenX < -sprite.getWidth() || screenX >= screenWidth
+				if (screenX < -drawable.getWidth() || screenX >= screenWidth
 						|| screenY < 0 || screenY >= screenHeight)
 					break;
 				if (screenX < 0)
 					screenX = 0;
-				int color = sprite.getPixels()[spriteX + spriteY
-						* sprite.getWidth()];
+				int color = drawable.getPixels()[spriteX + spriteY
+						* drawable.getWidth()];
 				if (color != 0xffff00ff)
-					pixels[screenX + screenY * (screenWidth)] = (int) ((sprite
-							.getPixels()[spriteX + spriteY * sprite.getWidth()]) & darkMask | lightMask);
+					pixels[screenX + screenY * (screenWidth)] = (int) ((drawable
+							.getPixels()[spriteX + spriteY * drawable.getWidth()]) & darkMask | lightMask);
 			}
 		}
 	}
 
-	private boolean spriteIsOffScreen(int xPosition, int yPosition,
-			Sprite sprite) {
-		return (xPosition > screenWidth || xPosition + sprite.getWidth() < 0
-				|| yPosition > screenHeight || yPosition + sprite.getHeight() < 0);
+	private boolean drawableIsOffScreen(int xPosition, int yPosition,
+			Drawable drawable) {
+		return (xPosition > screenWidth || xPosition + drawable.getWidth() < 0
+				|| yPosition > screenHeight || yPosition + drawable.getHeight() < 0);
 	}
 
 	public void setOffset(int xOffset, int yOffset) {

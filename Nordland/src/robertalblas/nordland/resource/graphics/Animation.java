@@ -2,21 +2,15 @@ package robertalblas.nordland.resource.graphics;
 
 import java.util.List;
 
-import robertalblas.nordland.resource.Resource;
-
-public class Animation extends Resource {
+public class Animation extends Drawable {
 
 	private List<Sprite> sprites;
 	private int currentSprite;
 	
-	public Animation(String name) {
-		super(name);
-		this.currentSprite = 0;
-	}
-	
 	public Animation(String name, List<Sprite> sprites){
-		this(name);
+		super(name, sprites.get(0).getWidth(), sprites.get(0).getHeight());
 		this.sprites = sprites;
+		this.currentSprite = 0;
 	}
 	
 	public int getLength(){
@@ -33,9 +27,9 @@ public class Animation extends Resource {
 			this.currentSprite = 0;
 		}
 	}
-	
-	public Sprite getSprite(){
-		return this.sprites.get(currentSprite);
-	}
 
+	@Override
+	public int[] getPixels() {
+		return this.sprites.get(this.currentSprite).getPixels();
+	}
 }
