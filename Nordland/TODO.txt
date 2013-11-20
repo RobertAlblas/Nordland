@@ -2,7 +2,6 @@ TODO
 
 [ ] Level Importer XML
 [ ] Sound Manager
-[ ] Animations
 
 [ ] Lightening
 [ ] Weapons
