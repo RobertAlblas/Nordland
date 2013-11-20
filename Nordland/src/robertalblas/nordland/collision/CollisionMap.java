@@ -52,19 +52,19 @@ public class CollisionMap {
 		}
 	}
 
-	public Collidable checkCollisionWithCollidableAt(Collidable collidable,
+	public Collidable checkCollisionAt(Collidable collidable,
 			int xPosition, int yPosition) throws CollisionException {
 		for (Drawable d : collidable.getDrawables()) {
-			Collidable collision = checkCollisionWithCollidableForSpriteAt(d,
+			Collidable collision = checkCollisionForDrawableAt(d,
 					xPosition, yPosition);
-			if (collidable != null) {
+			if (collision != null) {
 				return collision;
 			}
 		}
 		return null;
 	}
 
-	private Collidable checkCollisionWithCollidableForSpriteAt(Drawable drawable,
+	private Collidable checkCollisionForDrawableAt(Drawable drawable,
 			int xPosition, int yPosition) throws CollisionException {
 
 		// Center drawable coordinates

@@ -77,7 +77,7 @@ public class Player implements Entity, Collidable {
 			if(xDelta != 0 || yDelta != 0){
 				Collidable collidable;
 				try {
-					collidable = world.getCollisionMap().checkCollisionWithCollidableAt(this, this.x + xDelta, this.y + yDelta);
+					collidable = world.getCollisionMap().checkCollisionAt(this, this.x + xDelta, this.y + yDelta);
 					if(collidable == null){
 						x += xDelta;
 						y += yDelta;
