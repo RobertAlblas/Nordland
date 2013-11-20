@@ -6,13 +6,36 @@ import robertalblas.nordland.resource.Resource;
 
 public class Animation extends Resource {
 
-	List<Sprite> sprites;
+	private List<Sprite> sprites;
+	private int currentSprite;
 	
 	public Animation(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
+		this.currentSprite = 0;
 	}
 	
+	public Animation(String name, List<Sprite> sprites){
+		this(name);
+		this.sprites = sprites;
+	}
 	
+	public int getLength(){
+		return this.sprites.size();
+	}
+	
+	public void addSprite(Sprite sprite){	
+		this.sprites.add(sprite);
+	}
+	
+	public void nextSprite(){
+		this.currentSprite++;
+		if(this.currentSprite == this.getLength()){
+			this.currentSprite = 0;
+		}
+	}
+	
+	public Sprite getSprite(){
+		return this.sprites.get(currentSprite);
+	}
 
 }
