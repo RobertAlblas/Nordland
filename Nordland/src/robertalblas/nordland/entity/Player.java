@@ -1,40 +1,20 @@
 package robertalblas.nordland.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import robertalblas.nordland.collision.Collidable;
 import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.input.InputAction;
-import robertalblas.nordland.resource.Resource;
-import robertalblas.nordland.resource.graphics.Animation;
-import robertalblas.nordland.resource.graphics.Drawable;
-import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSheet;
-import robertalblas.nordland.util.log.Logger;
-import robertalblas.nordland.util.log.LoggerManager;
-import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 
-public class Player implements Entity, Collidable {
-
-	private int x, y;
-	private int width, height;
-	private SpriteSheet spriteSheet;
-	private String currentSprite;
+public class Player extends GeneralEntity {
+	
 	private boolean isMoving;
 	private Direction direction;
-	private World world;
 
 	public Player(World world, SpriteSheet spriteSheet, int x, int y) {
-		this.world = world;
-		this.x = x;
-		this.y = y;
-		this.spriteSheet = spriteSheet;
-		Sprite firstSprite = (Sprite) spriteSheet.getResources().get(0);
-		this.currentSprite = firstSprite.getName();
-		this.width = firstSprite.getWidth();
-		this.height = firstSprite.getHeight();
+		super(world,spriteSheet,x,y);
 		this.isMoving = false;
 		this.direction = Direction.NONE;
 	}
@@ -77,10 +57,10 @@ public class Player implements Entity, Collidable {
 			if(xDelta != 0 || yDelta != 0){
 				Collidable collidable;
 				try {
-					collidable = world.getCollisionMap().checkCollisionAt(this, this.x + xDelta, this.y + yDelta);
+					collidable = getWorld().getCollisionMap().checkCollisionAt(this, this.getX() + xDelta, this.getY() + yDelta);
 					if(collidable == null){
-						x += xDelta;
-						y += yDelta;
+						this.setX(this.getX() + xDelta);
+						this.setY(this.getY() + yDelta);
 					}
 				} catch (CollisionException e) {
 					// Don't move
@@ -93,81 +73,28 @@ public class Player implements Entity, Collidable {
 	private void updateSprite() {
 		switch (this.direction) {
 		case NORTH:
-			this.currentSprite = "back";
+			this.setCurrentSprite("back");
 			break;
 		case SOUTH:
-			this.currentSprite = "front";
+			this.setCurrentSprite("front");
 			break;
 		case EAST:
-			this.currentSprite = "left";
+			this.setCurrentSprite("left");
 			break;
 		case WEST:
-			this.currentSprite = "right";
+			this.setCurrentSprite("right");
 			break;
 		default:
 			break;
 		}
 
 		if (isMoving) {
-			this.currentSprite += "_moving";
+			this.setCurrentSpriteMoving();
 		}
 	}
-
+	
 	@Override
-	public void render(Screen screen) {
-		screen.renderFixedDrawable(x, y,
-				(Drawable) spriteSheet.getResource(currentSprite));
-	}
-
-	@Override
-	public int getX() {
-		return x;
-	}
-
-	@Override
-	public int getY() {
-		return y;
-	}
-
-	@Override
-	public int getWidth() {
-		return width;
-	}
-
-	@Override
-	public int getHeight() {
-		return height;
-	}
-
-	@Override
-	public void onCollision() {
-		LoggerManager.getInstance().getDefaultLogger().log("Collision", Logger.LOGTYPE_DEBUG);
-	}
-
-	@Override
-	public Drawable getDrawable() {
-		return (Drawable) spriteSheet.getResource(currentSprite);
-	}
-
-	@Override
-	public List<Drawable> getDrawables() {
-		List<Drawable> drawables = new ArrayList<Drawable>();
-		for(Resource r :  spriteSheet.getResources()){
-			if(r instanceof Sprite){
-				drawables.add((Drawable)r);
-			}
-			else if(r instanceof Animation){
-				for(Sprite s: ((Animation)r).getSprites()){
-					drawables.add(s);
-				}
-			}
-		}
-		return drawables;
-	}
-
-	@Override
-	public boolean isMovable() {
+	public boolean isMovable(){
 		return true;
 	}
-
 }
