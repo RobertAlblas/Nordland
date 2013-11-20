@@ -1,7 +1,12 @@
 package robertalblas.nordland.world.tile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import robertalblas.nordland.collision.Collidable;
 import robertalblas.nordland.collision.CollisionMap;
+import robertalblas.nordland.exception.CollisionException;
+import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.window.Screen;
 
@@ -15,10 +20,10 @@ public class Tile implements Collidable{
 	public static Tile createSolidTile(CollisionMap collisionMap, Sprite sprite, int x, int y){
 		Tile tile = new Tile(sprite, true, x, y);
 		
-		for(int i = 0; i < tile.getWidth(); i++){
-			for(int j = 0; j < tile.getHeight(); j++){
-				collisionMap.setCollidableAt(i + x - tile.getWidth() / 2, j + y - tile.getHeight() / 2, tile);
-			}
+		try {
+			collisionMap.renderCollidable(tile);
+		} catch (CollisionException e) {
+			//Doesn't really matter, tiles can be placed on top of each other.
 		}
 		
 		return tile;
@@ -64,7 +69,24 @@ public class Tile implements Collidable{
 
 	@Override
 	public void onCollision() {
-		//satisfy the interface
+		//Fuck the police, I'm a tile!
+	}
+
+	@Override
+	public Drawable getDrawable() {
+		return sprite;
+	}
+
+	@Override
+	public List<Drawable> getDrawables() {
+		List<Drawable> drawables = new ArrayList<Drawable>();
+		drawables.add(sprite);
+		return drawables;
+	}
+
+	@Override
+	public boolean isMovable() {
+		return false;
 	}
 	
 }

@@ -1,16 +1,22 @@
 package robertalblas.nordland.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import robertalblas.nordland.Nordland;
+import robertalblas.nordland.collision.Collidable;
+import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.input.InputAction;
+import robertalblas.nordland.resource.Resource;
 import robertalblas.nordland.resource.graphics.Animation;
 import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSheet;
+import robertalblas.nordland.util.log.Logger;
+import robertalblas.nordland.util.log.LoggerManager;
 import robertalblas.nordland.window.Screen;
+import robertalblas.nordland.world.World;
 
-public class Player implements Entity {
+public class Player implements Entity, Collidable {
 
 	private int x, y;
 	private int width, height;
@@ -18,8 +24,10 @@ public class Player implements Entity {
 	private String currentSprite;
 	private boolean isMoving;
 	private Direction direction;
+	private World world;
 
-	public Player(SpriteSheet spriteSheet, int x, int y) {
+	public Player(World world, SpriteSheet spriteSheet, int x, int y) {
+		this.world = world;
 		this.x = x;
 		this.y = y;
 		this.spriteSheet = spriteSheet;
@@ -40,26 +48,44 @@ public class Player implements Entity {
 	private void processInputActions(List<InputAction> inputActions) {
 		isMoving = false;
 		for (InputAction inputAction : inputActions) {
+			
+			int xDelta = 0;
+			int yDelta = 0;
+			
 			String action = inputAction.getActionType();
 			if (action.equals("up")) {
-				this.y--;
+				yDelta--;
 				this.direction = Direction.NORTH;
 				this.isMoving = true;
 			}
 			if (action.equals("down")) {
-				this.y++;
+				yDelta++;
 				this.direction = Direction.SOUTH;
 				this.isMoving = true;
 			}
 			if (action.equals("left")) {
-				this.x--;
+				xDelta--;
 				this.direction = Direction.EAST;
 				this.isMoving = true;
 			}
 			if (action.equals("right")) {
-				this.x++;
+				xDelta++;
 				this.direction = Direction.WEST;
 				this.isMoving = true;
+			}
+			
+			if(xDelta != 0 || yDelta != 0){
+				Collidable collidable;
+				try {
+					collidable = world.getCollisionMap().checkCollisionWithCollidableAt(this, this.x + xDelta, this.y + yDelta);
+					if(collidable == null){
+						x += xDelta;
+						y += yDelta;
+					}
+				} catch (CollisionException e) {
+					// Don't move
+				}
+				
 			}
 		}
 	}
@@ -111,6 +137,37 @@ public class Player implements Entity {
 	@Override
 	public int getHeight() {
 		return height;
+	}
+
+	@Override
+	public void onCollision() {
+		LoggerManager.getInstance().getDefaultLogger().log("Collision", Logger.LOGTYPE_DEBUG);
+	}
+
+	@Override
+	public Drawable getDrawable() {
+		return (Drawable) spriteSheet.getResource(currentSprite);
+	}
+
+	@Override
+	public List<Drawable> getDrawables() {
+		List<Drawable> drawables = new ArrayList<Drawable>();
+		for(Resource r :  spriteSheet.getResources()){
+			if(r instanceof Sprite){
+				drawables.add((Drawable)r);
+			}
+			else if(r instanceof Animation){
+				for(Sprite s: ((Animation)r).getSprites()){
+					drawables.add(s);
+				}
+			}
+		}
+		return drawables;
+	}
+
+	@Override
+	public boolean isMovable() {
+		return true;
 	}
 
 }

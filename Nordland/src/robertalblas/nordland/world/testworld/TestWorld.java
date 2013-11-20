@@ -3,13 +3,17 @@ package robertalblas.nordland.world.testworld;
 import java.util.ArrayList;
 import java.util.List;
 
+import robertalblas.nordland.collision.Collidable;
+import robertalblas.nordland.collision.CollisionMap;
 import robertalblas.nordland.entity.Entity;
 import robertalblas.nordland.entity.Player;
+import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.input.InputAction;
-import robertalblas.nordland.resource.graphics.Animator;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.graphics.SpriteSheet;
+import robertalblas.nordland.util.log.Logger;
+import robertalblas.nordland.util.log.LoggerManager;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 import robertalblas.nordland.world.tile.Tile;
@@ -17,7 +21,7 @@ import robertalblas.nordland.world.tile.Tile;
 public class TestWorld implements World {
 
 	private SpriteManager spriteManager;
-	private Animator animator;
+	private CollisionMap collisionMap;
 	private int width, height;
 
 	private ArrayList<Tile> tiles;
@@ -32,6 +36,7 @@ public class TestWorld implements World {
 				.getResource("grass")).getHeight();
 		this.tiles = new ArrayList<Tile>();
 		this.entities = new ArrayList<Entity>();
+		this.collisionMap = new CollisionMap(width, height);
 
 		createLevel();
 	}
@@ -50,21 +55,34 @@ public class TestWorld implements World {
 
 		for (int x = 0; x < this.width; x += tileWidth) {
 			for (int y = 0; y < this.height; y += tileHeight) {
-				tiles.add(Tile.createTile(grassSprite, x + tileWidth / 2, y + tileHeight / 2));
+				tiles.add(Tile.createTile(grassSprite, x + tileWidth / 2, y
+						+ tileHeight / 2));
 			}
 		}
+		tiles.add(Tile.createSolidTile(collisionMap, (Sprite) spriteManager
+				.getResourceSet("tileset").getResource("rock"), width / 2,
+				height / 2));
 	}
 
 	private void createPlayer() {
-		player = new Player(
-				(SpriteSheet) spriteManager.getResourceSet("player"), 10, 10);
+		player = new Player(this,
+				(SpriteSheet) spriteManager.getResourceSet("player"), 40, 40);
 		addEntity(player);
 	}
 
 	@Override
 	public void update(List<InputAction> inputActions) {
+		collisionMap.clear();
 		for (Entity entity : entities) {
 			entity.update(inputActions);
+			if (entity instanceof Collidable) {
+				try {
+					collisionMap.renderCollidable((Collidable) entity);
+				} catch (CollisionException e) {
+					LoggerManager.getInstance().getDefaultLogger()
+							.log("Collision!", Logger.LOGTYPE_DEBUG);
+				}
+			}
 		}
 		spriteManager.update();
 	}
@@ -98,6 +116,11 @@ public class TestWorld implements World {
 	@Override
 	public Player getPlayer() {
 		return player;
+	}
+
+	@Override
+	public CollisionMap getCollisionMap() {
+		return this.collisionMap;
 	}
 
 }

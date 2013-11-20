@@ -2,6 +2,7 @@ package robertalblas.nordland.world;
 
 import java.util.List;
 
+import robertalblas.nordland.collision.CollisionMap;
 import robertalblas.nordland.entity.Entity;
 import robertalblas.nordland.entity.Player;
 import robertalblas.nordland.input.InputAction;
@@ -19,4 +20,6 @@ public interface World {
 	public int getWidth();
 
 	public int getHeight();
+	
+	public CollisionMap getCollisionMap();
 }

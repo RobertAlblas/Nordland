@@ -5,7 +5,6 @@ import java.awt.Canvas;
 import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.input.InputManager;
 import robertalblas.nordland.input.swing.SwingInputManager;
-import robertalblas.nordland.resource.graphics.Animator;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.util.log.Logger;
 import robertalblas.nordland.util.log.LoggerManager;
