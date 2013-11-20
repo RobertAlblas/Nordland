@@ -1,63 +1,23 @@
 <?xml version="1.0"?>
-<spritesheet>
-	<sprite name="front"
-		x="0"
-		y="0"
-		width="32"
-		height="32"/>
-	<sprite name="back"
-		x="64"
-		y="0"
-		width="32"
-		height="32"/>
-	<sprite name="left"
-		x="96"
-		y="0"
-		width="32"
-		height="32"/>
-	<sprite name="right"
-		x="32"
-		y="0"
-		width="32"
-		height="32"/>
-	<sprite name="front_walking_1"
-		x="0"
-		y="32"
-		width="32"
-		height="32"/>
-	<sprite name="front_walking_2"
-		x="0"
-		y="64"
-		width="32"
-		height="32"/>
-	<sprite name="back_walking_1"
-		x="64"
-		y="32"
-		width="32"
-		height="32"/>
-	<sprite name="back_walking_2"
-		x="64"
-		y="64"
-		width="32"
-		height="32"/>
-	<sprite name="left_walking_1"
-		x="96"
-		y="32"
-		width="32"
-		height="32"/>
-	<sprite name="left_walking_2"
-		x="96"
-		y="64"
-		width="32"
-		height="32"/>
-	<sprite name="right_walking_1"
-		x="32"
-		y="32"
-		width="32"
-		height="32"/>
-	<sprite name="right_walking_2"
-		x="32"
-		y="64"
-		width="32"
-		height="32"/>
+<spritesheet version="2">
+	<sprite name="front" x="0" y="0" width="32" height="32" />
+	<sprite name="back" x="64" y="0" width="32" height="32" />
+	<sprite name="left" x="96" y="0" width="32" height="32" />
+	<sprite name="right" x="32" y="0" width="32" height="32" />
+	<animation name="front_moving" sprites_per_second="5">
+		<sprite x="0" y="32" width="32" height="32" />
+		<sprite x="0" y="64" width="32" height="32" />
+	</animation>
+	<animation name="back_moving" sprites_per_second="5">
+		<sprite x="64" y="32" width="32" height="32" />
+		<sprite x="64" y="64" width="32" height="32" />
+	</animation>
+	<animation name="left_moving" sprites_per_second="5">
+		<sprite x="96" y="32" width="32" height="32" />
+		<sprite x="96" y="64" width="32" height="32" />
+	</animation>
+	<animation name="right_moving" sprites_per_second="5">
+		<sprite x="32" y="32" width="32" height="32" />
+		<sprite x="32" y="64" width="32" height="32" />
+	</animation>
 </spritesheet>

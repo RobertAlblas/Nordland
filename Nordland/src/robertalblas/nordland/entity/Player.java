@@ -2,7 +2,10 @@ package robertalblas.nordland.entity;
 
 import java.util.List;
 
+import robertalblas.nordland.Nordland;
 import robertalblas.nordland.input.InputAction;
+import robertalblas.nordland.resource.graphics.Animation;
+import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSheet;
 import robertalblas.nordland.window.Screen;
@@ -15,6 +18,7 @@ public class Player implements Entity {
 	private String currentSprite;
 	private boolean isMoving;
 	private Direction direction;
+	private int animationCounter;
 
 	public Player(SpriteSheet spriteSheet, int x, int y) {
 		this.x = x;
@@ -26,15 +30,16 @@ public class Player implements Entity {
 		this.height = firstSprite.getHeight();
 		this.isMoving = false;
 		this.direction = Direction.NONE;
+		this.animationCounter = 0;
 	}
 
 	@Override
 	public void update(List<InputAction> inputActions) {
-		updateMovement(inputActions);
+		processInputActions(inputActions);
 		updateSprite();
 	}
 
-	private void updateMovement(List<InputAction> inputActions) {
+	private void processInputActions(List<InputAction> inputActions) {
 		isMoving = false;
 		for (InputAction inputAction : inputActions) {
 			String action = inputAction.getActionType();
@@ -76,18 +81,34 @@ public class Player implements Entity {
 			this.currentSprite = "right";
 			break;
 		default:
-			this.currentSprite = "front";
+			break;
 		}
-		
-		if(isMoving){
-			this.currentSprite += "_walking_1";
+
+		if (isMoving) {
+			this.currentSprite += "_moving";
+		}
+
+		Drawable drawable = (Drawable) spriteSheet.getResource(currentSprite);
+
+		if (drawable instanceof Animation) {
+
+			if (animationCounter == Integer.MAX_VALUE) {
+				animationCounter = 0;
+			} else {
+				animationCounter++;
+			}
+			if (animationCounter
+					% (Nordland.UPDATES_PER_SECOND / ((Animation) drawable)
+							.getAmountOfSpritesPerSecond()) == 0) {
+				drawable.nextSprite();
+			}
 		}
 	}
 
 	@Override
 	public void render(Screen screen) {
 		screen.renderFixedDrawable(x, y,
-				(Sprite) spriteSheet.getResource(currentSprite));
+				(Drawable) spriteSheet.getResource(currentSprite));
 	}
 
 	@Override
