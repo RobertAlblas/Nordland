@@ -3,7 +3,7 @@ package robertalblas.nordland.util.xml.graphics;
 import java.util.HashMap;
 import java.util.List;
 
-import robertalblas.nordland.resource.graphics.Sprite;
+import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.util.xml.XMLNode;
 
 
@@ -19,7 +19,7 @@ public class XMLToResourcesConverter {
 		STRATEGY_MAPPING.put("2", new XMLToResourcesStrategyV2());
 	}
 
-	public List<Sprite> convertXMLToSprites(XMLNode node,
+	public List<Drawable> convertXMLToSprites(XMLNode node,
 			String spriteSheetVersie) {
 		return STRATEGY_MAPPING.get(spriteSheetVersie)
 				.convertXMLNodeToResources(node);

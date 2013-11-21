@@ -9,7 +9,6 @@ import robertalblas.nordland.world.WorldFactory;
 public class TestWorldFactory implements WorldFactory {
 
 	private SpriteManager spriteManager;
-	private Animator animator;
 	
 	public TestWorldFactory(SpriteManager spriteManager) {
 		this.spriteManager = spriteManager;
