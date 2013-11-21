@@ -9,17 +9,4 @@ public class SoundManager extends ResourceManager {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
-	public void unloadResourceSet(String resourceSet) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void unloadAllResources() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

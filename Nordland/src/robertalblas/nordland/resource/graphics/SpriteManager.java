@@ -19,20 +19,6 @@ public class SpriteManager extends ResourceManager {
 		return false;
 	}
 
-	@Override
-	public void unloadResourceSet(String resourceSet) {
-		getResourceSets().get(resourceSet).unload();
-		getResourceSets().remove(resourceSet);
-	}
-
-	@Override
-	public void unloadAllResources() {
-		for (String rs : getResourceSets().keySet()) {
-			getResourceSets().get(rs).unload();
-		}
-		getResourceSets().clear();
-	}
-
 	public void update() {
 		animator.update();		
 	}
