@@ -18,6 +18,12 @@ public abstract class Sound extends Resource {
 			SoundFinishedPlayingListener soundFinishedPlayingListener) {
 		this.soundFinishedPlayingListeners.add(soundFinishedPlayingListener);
 	}
+	
+	public void notifyObservers(){
+		for(SoundFinishedPlayingListener s: soundFinishedPlayingListeners){
+			s.onSoundFinishedPlaying();
+		}
+	}
 
 	public abstract void play();
 
@@ -25,6 +31,6 @@ public abstract class Sound extends Resource {
 
 	public abstract void stop();
 
-	public abstract void getCurrentTime();
+	public abstract int getCurrentTime();
 
 }
