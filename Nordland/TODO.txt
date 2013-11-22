@@ -3,4 +3,6 @@ TODO
 Level Importer XML
 Sound Manager
 Lightening
+Timers
+load resources from XML configuration
 Weapons
