@@ -6,7 +6,6 @@ public class SoundSet extends ResourceSet {
 
 	public SoundSet(String file) {
 		super(file);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

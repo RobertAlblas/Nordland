@@ -11,7 +11,7 @@ import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.input.InputAction;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteManager;
-import robertalblas.nordland.resource.graphics.SpriteSheet;
+import robertalblas.nordland.resource.graphics.SpriteSet;
 import robertalblas.nordland.util.log.Logger;
 import robertalblas.nordland.util.log.LoggerManager;
 import robertalblas.nordland.window.Screen;
@@ -66,7 +66,7 @@ public class TestWorld implements World {
 
 	private void createPlayer() {
 		player = new Player(this,
-				(SpriteSheet) spriteManager.getResourceSet("player"), 40, 40);
+				(SpriteSet) spriteManager.getResourceSet("player"), 40, 40);
 		addEntity(player);
 	}
 

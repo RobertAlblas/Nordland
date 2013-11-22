@@ -13,12 +13,12 @@ import robertalblas.nordland.util.log.LoggerManager;
 import robertalblas.nordland.util.xml.XMLImporter;
 import robertalblas.nordland.util.xml.XMLNode;
 
-public class SpriteSheet extends ResourceSet {
+public class SpriteSet extends ResourceSet {
 
 	private int spriteSheetWidth;
 	private Animator animator;
 
-	public SpriteSheet(String file, Animator animator) {
+	public SpriteSet(String file, Animator animator) {
 		super(file);
 		this.animator = animator;
 	}
@@ -77,7 +77,7 @@ public class SpriteSheet extends ResourceSet {
 
 	private int[] getPixelsFromFile(String filename) {
 		try {
-			BufferedImage image = ImageIO.read(SpriteSheet.class
+			BufferedImage image = ImageIO.read(SpriteSet.class
 					.getResource(filename));
 			spriteSheetWidth = image.getWidth();
 			int spriteSheetHeight = image.getHeight();
@@ -96,11 +96,4 @@ public class SpriteSheet extends ResourceSet {
 			return null;
 		}
 	}
-
-	@Override
-	public void unload() {
-		getResources().clear();
-		setResources(null);
-	}
-
 }

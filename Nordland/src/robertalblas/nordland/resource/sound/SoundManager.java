@@ -5,8 +5,9 @@ import robertalblas.nordland.resource.ResourceManager;
 public class SoundManager extends ResourceManager {
 
 	@Override
-	public boolean loadResourceSet(String resourceSet) {
-		// TODO Auto-generated method stub
-		return false;
+	public void loadResourceSet(String resourceSet) {
+		SoundSet soundSet = new SoundSet(resourceSet);
+		soundSet.load();
+		this.getResourceSets().put(resourceSet, soundSet);
 	}
 }

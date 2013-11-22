@@ -5,7 +5,7 @@ import java.util.List;
 import robertalblas.nordland.collision.Collidable;
 import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.input.InputAction;
-import robertalblas.nordland.resource.graphics.SpriteSheet;
+import robertalblas.nordland.resource.graphics.SpriteSet;
 import robertalblas.nordland.world.World;
 
 public class Player extends GeneralEntity {
@@ -13,7 +13,7 @@ public class Player extends GeneralEntity {
 	private boolean isMoving;
 	private Direction direction;
 
-	public Player(World world, SpriteSheet spriteSheet, int x, int y) {
+	public Player(World world, SpriteSet spriteSheet, int x, int y) {
 		super(world,spriteSheet,x,y);
 		this.isMoving = false;
 		this.direction = Direction.NONE;

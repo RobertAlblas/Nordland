@@ -35,5 +35,5 @@ public abstract class ResourceManager {
 		this.resourceSets = resourceSets;
 	}
 	
-	public abstract boolean loadResourceSet(String resourceSet);
+	public abstract void loadResourceSet(String resourceSet);
 }

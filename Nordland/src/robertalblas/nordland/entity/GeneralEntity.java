@@ -9,7 +9,7 @@ import robertalblas.nordland.resource.Resource;
 import robertalblas.nordland.resource.graphics.Animation;
 import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.Sprite;
-import robertalblas.nordland.resource.graphics.SpriteSheet;
+import robertalblas.nordland.resource.graphics.SpriteSet;
 import robertalblas.nordland.util.log.Logger;
 import robertalblas.nordland.util.log.LoggerManager;
 import robertalblas.nordland.window.Screen;
@@ -19,11 +19,11 @@ public abstract class GeneralEntity implements Entity, Collidable{
 
 	private int x, y;
 	private int width, height;
-	private SpriteSheet spriteSheet;
+	private SpriteSet spriteSheet;
 	private World world;
 	private String currentSprite;
 	
-	public GeneralEntity(World world, SpriteSheet spriteSheet, int x, int y){
+	public GeneralEntity(World world, SpriteSet spriteSheet, int x, int y){
 		this.world = world;
 		this.x = x;
 		this.y = y;
