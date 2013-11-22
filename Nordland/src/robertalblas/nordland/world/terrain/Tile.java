@@ -20,12 +20,8 @@ public class Tile implements Collidable{
 	public static Tile createSolidTile(CollisionMap collisionMap, Sprite sprite, int x, int y){
 		Tile tile = new Tile(sprite, true, x, y);
 		
-		try {
-			collisionMap.renderCollidable(tile);
-		} catch (CollisionException e) {
-			//Doesn't really matter, tiles can be placed on top of each other.
-		}
-		
+		collisionMap.renderCollidable(tile);
+
 		return tile;
 	}
 	

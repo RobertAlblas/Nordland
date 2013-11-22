@@ -9,6 +9,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import robertalblas.nordland.exception.InvalidRenderingMaskException;
 import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
@@ -106,7 +107,7 @@ public class SwingScreen implements Screen {
 		// Center the drawable
 		xPosition = xPosition - drawable.getWidth() / 2;
 		yPosition = yPosition - drawable.getHeight() / 2;
-
+		
 		if (drawableIsOffScreen(xPosition, yPosition, drawable)) {
 			return;
 		}
@@ -165,13 +166,19 @@ public class SwingScreen implements Screen {
 	public void setDarkMask(int mask) {
 		if (mask >= 0x000000 && mask <= 0xffffff) {
 			this.darkMask = mask;
-		}		
+		}
+		else{
+			throw new InvalidRenderingMaskException("Mask must a valid value between 0x000000 and 0xffffff");
+		}
 	}
 
 	@Override
 	public void setLightMask(int mask) {
 		if (mask >= 0x000000 && mask <= 0xffffff) {
 			this.lightMask = mask;
-		}		
+		}
+		else{
+			throw new InvalidRenderingMaskException("Mask must a valid value between 0x000000 and 0xffffff");
+		}
 	}
 }
