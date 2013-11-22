@@ -7,7 +7,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import robertalblas.nordland.resource.ResourceSet;
-import robertalblas.nordland.resource.graphics.XMLImport.DrawableLoader;
+import robertalblas.nordland.resource.graphics.loader.DrawableLoader;
 import robertalblas.nordland.util.log.Logger;
 import robertalblas.nordland.util.log.LoggerManager;
 import robertalblas.nordland.util.xml.XMLImporter;

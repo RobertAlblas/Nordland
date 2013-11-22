@@ -1,4 +1,4 @@
-package robertalblas.nordland.resource.graphics.XMLImport;
+package robertalblas.nordland.resource.graphics.loader;
 
 import java.util.HashMap;
 import java.util.List;
