@@ -1,7 +1,6 @@
 package robertalblas.nordland.world.testworld;
 
 import robertalblas.nordland.exception.ResourceNotFoundException;
-import robertalblas.nordland.resource.graphics.Animator;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.world.World;
 import robertalblas.nordland.world.WorldFactory;

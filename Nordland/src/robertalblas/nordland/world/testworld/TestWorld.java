@@ -16,7 +16,7 @@ import robertalblas.nordland.util.log.Logger;
 import robertalblas.nordland.util.log.LoggerManager;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
-import robertalblas.nordland.world.tile.Tile;
+import robertalblas.nordland.world.terrain.Tile;
 
 public class TestWorld implements World {
 

@@ -1,4 +1,4 @@
-package robertalblas.nordland.world.tile;
+package robertalblas.nordland.world.terrain;
 
 import java.util.ArrayList;
 import java.util.List;
