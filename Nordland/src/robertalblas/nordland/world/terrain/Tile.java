@@ -5,7 +5,6 @@ import java.util.List;
 
 import robertalblas.nordland.collision.Collidable;
 import robertalblas.nordland.collision.CollisionMap;
-import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.window.Screen;

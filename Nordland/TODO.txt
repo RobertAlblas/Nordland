@@ -1,8 +1,10 @@
 TODO
 
-Level Importer XML
 Sound Manager
-Lightening
 Timers
-load resources from XML configuration
-Weapons
+Load resources from XML configuration
+Lightening
+Menu
+
+Level Importer XML
+Multiplayer

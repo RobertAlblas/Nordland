@@ -8,10 +8,10 @@ import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.util.xml.XMLNode;
 
-public class XMLToDrawableStrategyV2 implements XMLToDrawableStrategy{
+public class DrawableLoaderStrategyV2 implements DrawableLoaderStrategy{
 
 	@Override
-	public List<Drawable> convertXMLNodeToDrawable(XMLNode node) {
+	public List<Drawable> loadDrawable(XMLNode node) {
 		List<Drawable> drawables = new ArrayList<Drawable>();
 		for (XMLNode xmlNode : node.getChildNodes()) {
 			if (xmlNode.getElementName().equals("sprite")) {

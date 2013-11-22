@@ -7,7 +7,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import robertalblas.nordland.resource.ResourceSet;
-import robertalblas.nordland.resource.graphics.XMLImport.XMLToDrawableConverter;
+import robertalblas.nordland.resource.graphics.XMLImport.DrawableLoader;
 import robertalblas.nordland.util.log.Logger;
 import robertalblas.nordland.util.log.LoggerManager;
 import robertalblas.nordland.util.xml.XMLImporter;
@@ -70,8 +70,8 @@ public class SpriteSet extends ResourceSet {
 	private List<Drawable> processXMLNodes(XMLNode rootNode) {
 		String version = rootNode.getAttributeValue("version");
 
-		XMLToDrawableConverter xmlNaarSpriteConverter = new XMLToDrawableConverter();
-		return xmlNaarSpriteConverter.convertXMLNodeToDrawable(rootNode,
+		DrawableLoader xmlNaarSpriteConverter = new DrawableLoader();
+		return xmlNaarSpriteConverter.loadDrawable(rootNode,
 				version);
 	}
 
