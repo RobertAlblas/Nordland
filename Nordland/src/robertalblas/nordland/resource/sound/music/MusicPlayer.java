@@ -37,4 +37,6 @@ public interface MusicPlayer{
 	public Sound getCurrentSound();
 
 	public int getQueueSize();
+	
+	public void setQueueIndex(int index);
 }

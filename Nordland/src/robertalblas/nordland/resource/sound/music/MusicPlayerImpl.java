@@ -9,6 +9,8 @@ import robertalblas.nordland.resource.Resource;
 import robertalblas.nordland.resource.sound.Sound;
 import robertalblas.nordland.resource.sound.SoundFinishedPlayingListener;
 import robertalblas.nordland.resource.sound.SoundSet;
+import robertalblas.nordland.util.log.Logger;
+import robertalblas.nordland.util.log.LoggerManager;
 
 public class MusicPlayerImpl implements MusicPlayer,
 		SoundFinishedPlayingListener {
@@ -18,10 +20,13 @@ public class MusicPlayerImpl implements MusicPlayer,
 	private RepeatBehaviour repeatBehaviour;
 	private boolean playRandomly;
 
+	private boolean isPaused;
+
 	public MusicPlayerImpl() {
 		this.queue = new ArrayList<Sound>();
 		this.currentSound = 0;
 		this.repeatBehaviour = RepeatBehaviour.REPEAT_NONE;
+		this.isPaused = true;
 	}
 
 	@Override
@@ -91,40 +96,52 @@ public class MusicPlayerImpl implements MusicPlayer,
 	public void play() {
 		if (queue.get(currentSound) != null) {
 			this.queue.get(currentSound).play();
+			this.isPaused = false;
 		}
 	}
 
 	@Override
 	public void pause() {
+		this.isPaused = true;
 		this.queue.get(currentSound).pause();
 	}
 
 	@Override
 	public void next() {
-		this.queue.get(currentSound).stop();
-		if(playRandomly){
-			currentSound = (new Random()).nextInt(queue.size());
-		}
-		else{
-			if(currentSound == queue.size() -1 ){
-				currentSound = 0;
-				if(repeatBehaviour != RepeatBehaviour.REPEAT_ALL){
-					clearQueue();
+		try {
+			this.queue.get(currentSound).stop();
+			if (playRandomly) {
+				currentSound = (new Random()).nextInt(queue.size());
+			} else {
+				if (currentSound == queue.size() - 1) {
+					currentSound = 0;
+					if (repeatBehaviour != RepeatBehaviour.REPEAT_ALL) {
+						clearQueue();
+					}
+				} else {
+					currentSound++;
 				}
 			}
-			else{
-				currentSound++;
-			}
+
+			this.queue.get(currentSound).play();
+		} catch (IndexOutOfBoundsException e) {
+			LoggerManager.getInstance().getDefaultLogger()
+					.log("Invalid index", Logger.LOGTYPE_WARNING);
 		}
-		
-		this.queue.get(currentSound).play();
+
 	}
 
 	@Override
 	public void previous() {
-		this.queue.get(currentSound).stop();
-		this.currentSound--;
-		this.queue.get(currentSound).play();
+		try {
+			this.queue.get(currentSound).stop();
+			this.currentSound--;
+			this.queue.get(currentSound).play();
+		} catch (IndexOutOfBoundsException e) {
+			LoggerManager.getInstance().getDefaultLogger()
+					.log("Invalid index", Logger.LOGTYPE_WARNING);
+		}
+
 	}
 
 	@Override
@@ -149,10 +166,25 @@ public class MusicPlayerImpl implements MusicPlayer,
 
 	@Override
 	public void onSoundFinishedPlaying() {
-		if (repeatBehaviour == RepeatBehaviour.REPEAT_SINGLE) {
-			queue.get(currentSound).play();
-		} else {
-			next();
+		if (!isPaused) {
+			if (repeatBehaviour == RepeatBehaviour.REPEAT_SINGLE) {
+				queue.get(currentSound).play();
+			} else {
+				next();
+			}
+		}
+	}
+
+	@Override
+	public void setQueueIndex(int index) {
+		try {
+			int previousSound = currentSound;
+			this.currentSound = index;
+			this.queue.get(previousSound).stop();
+			this.queue.get(currentSound).play();
+		} catch (IndexOutOfBoundsException e) {
+			LoggerManager.getInstance().getDefaultLogger()
+					.log("Invalid index", Logger.LOGTYPE_WARNING);
 		}
 	}
 

@@ -65,15 +65,15 @@ public class Logger {
 			
 			if (logType == LOGTYPE_DEBUG && showDebug) {
 				System.out.println(time + " DEBUG: " + " " + e.getClassName() + "."
-						+ e.getMethodName() + ": \n" + message);
+						+ e.getMethodName() + "(): \n" + message);
 			}
 			if (logType == LOGTYPE_ERROR && showError) {
 				System.err.println(time + "ERROR: " + " " + e.getClassName() + "."
-						+ e.getMethodName() + ": \n" + message);
+						+ e.getMethodName() + "(): \n" + message);
 			}
 			if (logType == LOGTYPE_WARNING && showWarning) {
-				System.out.println(time + " WARNING: " + " " + e.getClassName() + "."
-						+ e.getMethodName() + ": \n" + message);
+				System.err.println(time + " WARNING: " + " " + e.getClassName() + "."
+						+ e.getMethodName() + "(): \n" + message);
 			}
 		}
 	}
