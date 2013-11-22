@@ -29,7 +29,7 @@ public class SpriteSet extends ResourceSet {
 
 		XMLImporter xmlImporter = new XMLImporter();
 		XMLNode rootNode = xmlImporter.importXMLFile("/texture/" + getFile()
-				+ ".xml", "spritesheet");
+				+ ".xml", "spriteset");
 
 		List<Drawable> resources = processXMLNodes(rootNode);
 

@@ -7,7 +7,7 @@ public class WavSoundLoaderStrategy implements SoundLoaderStrategy{
 
 	@Override
 	public Sound loadSound(String name, String filename) {
-		return new WavSound(filename, filename);
+		return new WavSound(name, filename);
 	}
 
 }

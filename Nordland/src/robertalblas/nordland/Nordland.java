@@ -6,6 +6,10 @@ import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.input.InputManager;
 import robertalblas.nordland.input.swing.SwingInputManager;
 import robertalblas.nordland.resource.graphics.SpriteManager;
+import robertalblas.nordland.resource.sound.SoundManager;
+import robertalblas.nordland.resource.sound.SoundSet;
+import robertalblas.nordland.resource.sound.music.MusicPlayer;
+import robertalblas.nordland.resource.sound.music.MusicPlayerImpl;
 import robertalblas.nordland.util.log.Logger;
 import robertalblas.nordland.util.log.LoggerManager;
 import robertalblas.nordland.window.Window;
@@ -31,6 +35,7 @@ public class Nordland implements Runnable, WindowListener {
 	private InputManager inputManager;
 	private WindowManager windowManager;
 	private SpriteManager spriteManager;
+	private SoundManager soundManager;
 	private WorldFactory worldFactory;
 
 	public Nordland() {
@@ -42,6 +47,14 @@ public class Nordland implements Runnable, WindowListener {
 		spriteManager = new SpriteManager(UPDATES_PER_SECOND);
 		spriteManager.loadResourceSet("player");
 		spriteManager.loadResourceSet("tileset");
+		
+		soundManager = new SoundManager();
+		soundManager.loadResourceSet("music");
+		
+		MusicPlayer musicPlayer = new MusicPlayerImpl();
+		musicPlayer.appendQueue((SoundSet)soundManager.getResourceSet("music"));
+		musicPlayer.play();
+		
 		worldFactory = new TestWorldFactory(spriteManager);
 
 		windowManager.addWindowListener(this);

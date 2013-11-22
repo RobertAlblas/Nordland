@@ -1,27 +1,28 @@
 package robertalblas.nordland.resource.sound;
 
-import java.io.File;
-
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 
+import robertalblas.nordland.resource.graphics.SpriteSet;
+
 public class WavSound extends Sound implements LineListener {
 
-	private File audioFile;
+	private String audioFile;
 	private Clip clip;
 
 	public WavSound(String name, String filename) {
 		super(name);
-		this.audioFile = new File(filename);
+		this.audioFile = filename;
 	}
 
 	@Override
 	public void play() {
 		try {
 			clip = AudioSystem.getClip();
-			clip.open(AudioSystem.getAudioInputStream(audioFile));
+			clip.open(AudioSystem.getAudioInputStream(SpriteSet.class
+					.getResource(audioFile)));
 			clip.start();
 			clip.addLineListener(this);
 		} catch (Exception exc) {

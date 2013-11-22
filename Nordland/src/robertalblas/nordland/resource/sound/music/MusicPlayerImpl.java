@@ -10,7 +10,7 @@ import robertalblas.nordland.resource.sound.Sound;
 import robertalblas.nordland.resource.sound.SoundFinishedPlayingListener;
 import robertalblas.nordland.resource.sound.SoundSet;
 
-public class WavMusicPlayer implements MusicPlayer,
+public class MusicPlayerImpl implements MusicPlayer,
 		SoundFinishedPlayingListener {
 
 	private List<Sound> queue;
@@ -18,7 +18,7 @@ public class WavMusicPlayer implements MusicPlayer,
 	private RepeatBehaviour repeatBehaviour;
 	private boolean playRandomly;
 
-	public WavMusicPlayer() {
+	public MusicPlayerImpl() {
 		this.queue = new ArrayList<Sound>();
 		this.currentSound = 0;
 		this.repeatBehaviour = RepeatBehaviour.REPEAT_NONE;
