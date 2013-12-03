@@ -1,10 +1,9 @@
 TODO
 
-Sound Manager
+Sound bug fix: sound control lost when it's played twice
 Timers
 Load resources from XML configuration
 Lightening
-Menu
 
 Level Importer XML
 Multiplayer
