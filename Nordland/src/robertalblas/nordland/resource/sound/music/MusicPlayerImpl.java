@@ -9,8 +9,8 @@ import robertalblas.nordland.resource.Resource;
 import robertalblas.nordland.resource.sound.Sound;
 import robertalblas.nordland.resource.sound.SoundFinishedPlayingListener;
 import robertalblas.nordland.resource.sound.SoundSet;
-import robertalblas.nordland.util.log.Logger;
-import robertalblas.nordland.util.log.LoggerManager;
+import robertalblas.nordland.system.log.Logger;
+import robertalblas.nordland.system.log.LoggerManager;
 
 public class MusicPlayerImpl implements MusicPlayer,
 		SoundFinishedPlayingListener {

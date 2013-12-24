@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import robertalblas.nordland.resource.graphics.Drawable;
-import robertalblas.nordland.util.xml.XMLNode;
+import robertalblas.nordland.system.xml.XMLNode;
 
 public class DrawableLoader {
 

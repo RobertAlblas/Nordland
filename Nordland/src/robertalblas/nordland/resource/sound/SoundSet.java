@@ -3,10 +3,10 @@ package robertalblas.nordland.resource.sound;
 import robertalblas.nordland.exception.FiletypeNotSupportedException;
 import robertalblas.nordland.resource.ResourceSet;
 import robertalblas.nordland.resource.sound.loader.SoundLoader;
-import robertalblas.nordland.util.log.Logger;
-import robertalblas.nordland.util.log.LoggerManager;
-import robertalblas.nordland.util.xml.XMLImporter;
-import robertalblas.nordland.util.xml.XMLNode;
+import robertalblas.nordland.system.log.Logger;
+import robertalblas.nordland.system.log.LoggerManager;
+import robertalblas.nordland.system.xml.XMLImporter;
+import robertalblas.nordland.system.xml.XMLNode;
 
 public class SoundSet extends ResourceSet {
 

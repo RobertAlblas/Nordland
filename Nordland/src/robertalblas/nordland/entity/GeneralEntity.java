@@ -10,8 +10,8 @@ import robertalblas.nordland.resource.graphics.Animation;
 import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSet;
-import robertalblas.nordland.util.log.Logger;
-import robertalblas.nordland.util.log.LoggerManager;
+import robertalblas.nordland.system.log.Logger;
+import robertalblas.nordland.system.log.LoggerManager;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 

@@ -8,10 +8,10 @@ import javax.imageio.ImageIO;
 
 import robertalblas.nordland.resource.ResourceSet;
 import robertalblas.nordland.resource.graphics.loader.DrawableLoader;
-import robertalblas.nordland.util.log.Logger;
-import robertalblas.nordland.util.log.LoggerManager;
-import robertalblas.nordland.util.xml.XMLImporter;
-import robertalblas.nordland.util.xml.XMLNode;
+import robertalblas.nordland.system.log.Logger;
+import robertalblas.nordland.system.log.LoggerManager;
+import robertalblas.nordland.system.xml.XMLImporter;
+import robertalblas.nordland.system.xml.XMLNode;
 
 public class SpriteSet extends ResourceSet {
 

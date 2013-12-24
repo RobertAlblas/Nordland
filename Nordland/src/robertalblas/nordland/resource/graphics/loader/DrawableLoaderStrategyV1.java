@@ -5,7 +5,7 @@ import java.util.List;
 
 import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.Sprite;
-import robertalblas.nordland.util.xml.XMLNode;
+import robertalblas.nordland.system.xml.XMLNode;
 
 public class DrawableLoaderStrategyV1 implements DrawableLoaderStrategy{
 
