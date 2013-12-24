@@ -12,6 +12,7 @@ import robertalblas.nordland.resource.sound.music.MusicPlayer;
 import robertalblas.nordland.resource.sound.music.MusicPlayerImpl;
 import robertalblas.nordland.system.log.Logger;
 import robertalblas.nordland.system.log.LoggerManager;
+import robertalblas.nordland.system.timer.TickTimerManager;
 import robertalblas.nordland.window.Window;
 import robertalblas.nordland.window.WindowListener;
 import robertalblas.nordland.window.WindowManager;
@@ -79,6 +80,7 @@ public class Nordland implements Runnable, WindowListener {
 	public void update() {
 		inputManager.update();
 		windowManager.update(inputManager.getInputActions());
+		TickTimerManager.tick();
 		world.update(inputManager.getInputActions());
 	}
 

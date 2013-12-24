@@ -14,6 +14,8 @@ import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.graphics.SpriteSet;
 import robertalblas.nordland.system.log.Logger;
 import robertalblas.nordland.system.log.LoggerManager;
+import robertalblas.nordland.system.timer.TickTimer;
+import robertalblas.nordland.system.timer.TickTimerManager;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 import robertalblas.nordland.world.terrain.Tile;
@@ -68,6 +70,7 @@ public class TestWorld implements World {
 		player = new Player(this,
 				(SpriteSet) spriteManager.getResourceSet("player"), 40, 40);
 		addEntity(player);
+		TickTimerManager.addTickTimer(new TickTimer(player));
 	}
 
 	@Override

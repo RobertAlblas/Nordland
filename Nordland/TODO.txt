@@ -1,9 +1,7 @@
 TODO
 
 Sound bug fix: sound control lost when it's played twice
-Timers
 Load resources from XML configuration
 Lightening
 
 Level Importer XML
-Multiplayer

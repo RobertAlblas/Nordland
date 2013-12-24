@@ -5,21 +5,17 @@ import java.util.List;
 
 public class TickTimerManager {
 	
-	private List<TickTimer> tickTimers;
+	private static List<TickTimer> tickTimers = new ArrayList<TickTimer>();;
 	
-	public TickTimerManager(){
-		this.tickTimers = new ArrayList<TickTimer>();
+	public static void addTickTimer(TickTimer tickTimer){
+		tickTimers.add(tickTimer);
 	}
 	
-	public void addTickTimer(TickTimer tickTimer){
-		this.tickTimers.add(tickTimer);
+	public static void removeTickTimer(TickTimer tickTimer){
+		tickTimers.remove(tickTimer);
 	}
 	
-	public void removeTickTimer(TickTimer tickTimer){
-		this.tickTimers.remove(tickTimer);
-	}
-	
-	public void tick(){
+	public static void tick(){
 		for(TickTimer tt : tickTimers){
 			tt.tick();
 		}
