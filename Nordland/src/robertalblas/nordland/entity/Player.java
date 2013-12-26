@@ -11,7 +11,7 @@ import robertalblas.nordland.system.log.LoggerManager;
 import robertalblas.nordland.system.timer.TickTimerRunnable;
 import robertalblas.nordland.world.World;
 
-public class Player extends GeneralEntity implements TickTimerRunnable{
+public class Player extends BaseEntity implements TickTimerRunnable{
 	
 	private boolean isMoving;
 	private Direction direction;

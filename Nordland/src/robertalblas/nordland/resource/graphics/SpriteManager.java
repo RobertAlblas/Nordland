@@ -1,24 +1,25 @@
 package robertalblas.nordland.resource.graphics;
 
 import robertalblas.nordland.resource.ResourceManager;
+import robertalblas.nordland.system.timer.TickTimerManager;
 
 public class SpriteManager extends ResourceManager {
 
-	private Animator animator;
+	private TickTimerManager tickTimerManager;
 	
-	public SpriteManager(int updatesPerSecond){
+	public SpriteManager(){
 		super();
-		this.animator = new Animator(updatesPerSecond);
 	}
 	
 	@Override
 	public void loadResourceSet(String resourceSet) {
-		SpriteSet spriteSheet = new SpriteSet(resourceSet, animator);
+		SpriteSet spriteSheet = new SpriteSet(resourceSet);
+		spriteSheet.setTickTimerManager(tickTimerManager);
 		spriteSheet.load();
 		this.getResourceSets().put(resourceSet, spriteSheet);
 	}
 
-	public void update() {
-		animator.update();		
+	public void setTickTimerManager(TickTimerManager tickTimerManager) {
+		this.tickTimerManager = tickTimerManager;
 	}
 }

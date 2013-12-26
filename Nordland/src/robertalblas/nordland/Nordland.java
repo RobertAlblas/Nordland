@@ -10,6 +10,7 @@ import robertalblas.nordland.resource.sound.SoundManager;
 import robertalblas.nordland.resource.sound.SoundSet;
 import robertalblas.nordland.resource.sound.music.MusicPlayer;
 import robertalblas.nordland.resource.sound.music.MusicPlayerImpl;
+import robertalblas.nordland.system.defaults.SystemDefaults;
 import robertalblas.nordland.system.log.Logger;
 import robertalblas.nordland.system.log.LoggerManager;
 import robertalblas.nordland.system.timer.TickTimerManager;
@@ -27,7 +28,6 @@ public class Nordland implements Runnable, WindowListener {
 	public static final int WIDTH = 400;
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
-	private static final int UPDATES_PER_SECOND = 60;
 
 	private Thread thread;
 	private World world;
@@ -38,14 +38,17 @@ public class Nordland implements Runnable, WindowListener {
 	private SpriteManager spriteManager;
 	private SoundManager soundManager;
 	private WorldFactory worldFactory;
+	private TickTimerManager tickTimerManager;
 
 	public Nordland() {
 		LoggerManager.getInstance().getDefaultLogger()
 				.log("Loading engine..", Logger.LOGTYPE_DEBUG);
 
+		tickTimerManager = new TickTimerManager();
 		inputManager = new SwingInputManager();
 		windowManager = new SwingWindowManager();
-		spriteManager = new SpriteManager(UPDATES_PER_SECOND);
+		spriteManager = new SpriteManager();
+		spriteManager.setTickTimerManager(tickTimerManager);
 		spriteManager.loadResourceSet("player");
 		spriteManager.loadResourceSet("tileset");
 		
@@ -56,7 +59,7 @@ public class Nordland implements Runnable, WindowListener {
 		musicPlayer.appendQueue((SoundSet)soundManager.getResourceSet("music"));
 		musicPlayer.play();
 		
-		worldFactory = new TestWorldFactory(spriteManager);
+		worldFactory = new TestWorldFactory(spriteManager, tickTimerManager);
 
 		windowManager.addWindowListener(this);
 		Window window = windowManager.createWindow("Nordland 0.2", WIDTH,
@@ -80,7 +83,7 @@ public class Nordland implements Runnable, WindowListener {
 	public void update() {
 		inputManager.update();
 		windowManager.update(inputManager.getInputActions());
-		TickTimerManager.tick();
+		tickTimerManager.tick();
 		world.update(inputManager.getInputActions());
 	}
 
@@ -111,7 +114,7 @@ public class Nordland implements Runnable, WindowListener {
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
 		final double ns = 1000000000.0 / 60.0;
-		final double requiredDelta = (int) (60.0 / UPDATES_PER_SECOND);
+		final double requiredDelta = (60.0 / SystemDefaults.TICKS_PER_SECOND_NORMAL);
 		double delta = 0;
 		int frames = 0;
 		int framerate = 0;
@@ -137,15 +140,6 @@ public class Nordland implements Runnable, WindowListener {
 				frames = 0;
 				updaterate = updates;
 				updates = 0;
-
-				if (updaterate < 55) {
-					LoggerManager
-							.getInstance()
-							.getDefaultLogger()
-							.log("Updaterate dropped below 55 UPS: "
-									+ updaterate + " UPS",
-									Logger.LOGTYPE_WARNING);
-				}
 			}
 		}
 	}

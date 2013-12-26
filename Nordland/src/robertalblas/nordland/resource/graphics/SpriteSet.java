@@ -10,17 +10,22 @@ import robertalblas.nordland.resource.ResourceSet;
 import robertalblas.nordland.resource.graphics.loader.DrawableLoader;
 import robertalblas.nordland.system.log.Logger;
 import robertalblas.nordland.system.log.LoggerManager;
+import robertalblas.nordland.system.timer.TickTimer;
+import robertalblas.nordland.system.timer.TickTimerManager;
 import robertalblas.nordland.system.xml.XMLImporter;
 import robertalblas.nordland.system.xml.XMLNode;
 
 public class SpriteSet extends ResourceSet {
 
 	private int spriteSheetWidth;
-	private Animator animator;
+	private TickTimerManager tickTimerManager;
 
-	public SpriteSet(String file, Animator animator) {
+	public SpriteSet(String file) {
 		super(file);
-		this.animator = animator;
+	}
+	
+	public void setTickTimerManager(TickTimerManager tickTimerManager){
+		this.tickTimerManager = tickTimerManager;
 	}
 
 	@Override
@@ -43,7 +48,7 @@ public class SpriteSet extends ResourceSet {
 			processSprite(pixels, (Sprite)d);
 		} else if (d instanceof Animation) {
 			processAnimation(pixels, (Animation)d);
-			animator.addAnimation((Animation)d);
+			tickTimerManager.addTickTimer(TickTimer.createTimer((Animation)d, 1000 / ((Animation)d).getAmountOfSpritesPerSecond()));
 		} else {
 			throw new UnsupportedOperationException();
 		}

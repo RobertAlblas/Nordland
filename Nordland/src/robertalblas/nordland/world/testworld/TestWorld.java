@@ -23,6 +23,7 @@ import robertalblas.nordland.world.terrain.Tile;
 public class TestWorld implements World {
 
 	private SpriteManager spriteManager;
+	private TickTimerManager tickTimerManager;
 	private CollisionMap collisionMap;
 	private int width, height;
 
@@ -30,7 +31,8 @@ public class TestWorld implements World {
 	private List<Entity> entities;
 	private Player player;
 
-	public TestWorld(SpriteManager spriteManager) {
+	public TestWorld(SpriteManager spriteManager, TickTimerManager tickTimerManager) {
+		this.tickTimerManager = tickTimerManager;
 		this.spriteManager = spriteManager;
 		this.width = 10 * ((Sprite) spriteManager.getResourceSet("tileset")
 				.getResource("grass")).getWidth();
@@ -70,7 +72,7 @@ public class TestWorld implements World {
 		player = new Player(this,
 				(SpriteSet) spriteManager.getResourceSet("player"), 40, 40);
 		addEntity(player);
-		TickTimerManager.addTickTimer(new TickTimer(player));
+		tickTimerManager.addTickTimer(TickTimer.createTimer(player, 500));
 	}
 
 	@Override
@@ -87,7 +89,6 @@ public class TestWorld implements World {
 				}
 			}
 		}
-		spriteManager.update();
 	}
 
 	@Override

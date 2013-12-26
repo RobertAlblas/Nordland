@@ -2,7 +2,9 @@ package robertalblas.nordland.resource.graphics;
 
 import java.util.List;
 
-public class Animation extends Drawable {
+import robertalblas.nordland.system.timer.TickTimerRunnable;
+
+public class Animation extends Drawable implements TickTimerRunnable{
 
 	private List<Sprite> sprites;
 	private int currentSprite;
@@ -45,5 +47,10 @@ public class Animation extends Drawable {
 
 	public void setAmountOfSpritesPerSecond(int amountOfSpritesPerSecond) {
 		this.amountOfSpritesPerSecond = amountOfSpritesPerSecond;
+	}
+
+	@Override
+	public void run() {
+		nextSprite();
 	}
 }
