@@ -1,7 +1,0 @@
-TODO
-
-Sound bug fix: sound control lost when it's played twice
-Load resources from XML configuration
-Lightening
-
-Level Importer XML
