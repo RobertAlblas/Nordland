@@ -6,6 +6,7 @@ public class TickTimer {
 
 	private int deltaTick;
 	private int currentTick;
+	private boolean enabled;
 	private TickTimerRunnable tickTimerRunnable;
 
 	public static TickTimer createTimer(TickTimerRunnable tickTimerRunnable, int timeoutMilliseconds) {
@@ -17,6 +18,7 @@ public class TickTimer {
 		this.deltaTick = deltaTick;
 		this.tickTimerRunnable = tickTimerRunnable;
 		this.currentTick = 0;
+		this.setEnabled(true);
 	}
 
 	public void setTimeout(int milliseconds) {
@@ -28,10 +30,20 @@ public class TickTimer {
 	}
 
 	public void tick() {
-		currentTick++;
-		if (currentTick == deltaTick) {
-			tickTimerRunnable.run();
-			currentTick = 0;
+		if(enabled){
+			currentTick++;
+			if (currentTick == deltaTick) {
+				tickTimerRunnable.run();
+				currentTick = 0;
+			}
 		}
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }
