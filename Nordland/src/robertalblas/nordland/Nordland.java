@@ -41,8 +41,7 @@ public class Nordland implements Runnable, WindowListener {
 	private TickTimerManager tickTimerManager;
 
 	public Nordland() {
-		LoggerManager.getInstance().getDefaultLogger()
-				.log("Loading engine..", Logger.LOGTYPE_DEBUG);
+		LoggerManager.getInstance().getDefaultLogger().log("Loading engine..", Logger.LOGTYPE_DEBUG);
 
 		tickTimerManager = new TickTimerManager();
 		inputManager = new SwingInputManager();
@@ -50,20 +49,20 @@ public class Nordland implements Runnable, WindowListener {
 		spriteManager = new SpriteManager();
 		spriteManager.setTickTimerManager(tickTimerManager);
 		spriteManager.loadResourceSet("player");
-		spriteManager.loadResourceSet("tileset");
-		
+		spriteManager.loadResourceSet("tilset");
+
 		soundManager = new SoundManager();
 		soundManager.loadResourceSet("music");
-		
+
 		MusicPlayer musicPlayer = new MusicPlayerImpl();
-		musicPlayer.appendQueue((SoundSet)soundManager.getResourceSet("music"));
+		musicPlayer.appendQueue((SoundSet) soundManager.getResourceSet("music"));
+		musicPlayer.repeatAll();
 		musicPlayer.play();
-		
+
 		worldFactory = new TestWorldFactory(spriteManager, tickTimerManager);
 
 		windowManager.addWindowListener(this);
-		Window window = windowManager.createWindow("Nordland 0.2", WIDTH,
-				HEIGHT, SCALE);
+		Window window = windowManager.createWindow("Nordland 0.2", WIDTH, HEIGHT, SCALE);
 
 		inputManager.connectScreen(window.getScreen());
 		Canvas canvas = ((SwingScreen) window.getScreen()).getCanvas();
@@ -76,8 +75,7 @@ public class Nordland implements Runnable, WindowListener {
 		}
 		window.getScreen().setWorld(world);
 		window.hideCursor();
-		LoggerManager.getInstance().getDefaultLogger()
-				.log("Done", Logger.LOGTYPE_DEBUG);
+		LoggerManager.getInstance().getDefaultLogger().log("Done", Logger.LOGTYPE_DEBUG);
 	}
 
 	public void update() {
@@ -90,16 +88,14 @@ public class Nordland implements Runnable, WindowListener {
 	public synchronized void start() {
 		running = true;
 		thread = new Thread(this, "Display");
-		LoggerManager.getInstance().getDefaultLogger()
-				.log("Starting", Logger.LOGTYPE_DEBUG);
+		LoggerManager.getInstance().getDefaultLogger().log("Starting", Logger.LOGTYPE_DEBUG);
 		thread.start();
 	}
 
 	public synchronized void stop() {
 		running = false;
 		try {
-			LoggerManager.getInstance().getDefaultLogger()
-					.log("Shutting down", Logger.LOGTYPE_DEBUG);
+			LoggerManager.getInstance().getDefaultLogger().log("Shutting down", Logger.LOGTYPE_DEBUG);
 			thread.join();
 			windowManager.unload();
 
@@ -147,6 +143,7 @@ public class Nordland implements Runnable, WindowListener {
 	public static void main(String[] args) {
 		Nordland nordland = new Nordland();
 		nordland.start();
+
 	}
 
 	@Override

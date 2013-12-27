@@ -12,7 +12,7 @@ public class LoggerManager {
 	}
 
 	public int createLogger(boolean writeToOutputStream) {
-		Logger logger = new Logger(writeToOutputStream);
+		Logger logger = new Logger(writeToOutputStream, "log.txt");
 		loggers.add(logger);
 		return loggers.size() - 1;
 	}
