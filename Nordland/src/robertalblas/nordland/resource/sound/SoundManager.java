@@ -9,6 +9,5 @@ public class SoundManager extends ResourceManager {
 		SoundSet soundSet = new SoundSet(resourceSet);
 		soundSet.load();
 		this.getResourceSets().put(resourceSet, soundSet);
-		System.out.println();
 	}
 }

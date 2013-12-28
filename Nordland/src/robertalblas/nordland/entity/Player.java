@@ -11,12 +11,9 @@ import robertalblas.nordland.resource.graphics.Animation;
 import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSet;
-import robertalblas.nordland.system.log.Logger;
-import robertalblas.nordland.system.log.LoggerManager;
-import robertalblas.nordland.system.timer.TickTimerRunnable;
 import robertalblas.nordland.world.World;
 
-public class Player extends BaseEntity implements TickTimerRunnable, Collidable{
+public class Player extends BaseEntity implements Collidable{
 	
 	private boolean isMoving;
 	private Direction direction;
@@ -104,11 +101,6 @@ public class Player extends BaseEntity implements TickTimerRunnable, Collidable{
 	@Override
 	public boolean isMovable(){
 		return true;
-	}
-
-	@Override
-	public void run() {
-		LoggerManager.getInstance().getDefaultLogger().log("Tick!", Logger.LOGTYPE_DEBUG);
 	}
 
 	@Override

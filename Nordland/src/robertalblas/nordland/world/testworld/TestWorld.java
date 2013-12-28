@@ -78,7 +78,7 @@ public class TestWorld implements World {
 				try {
 					collisionMap.renderCollidable((Collidable) entity);
 				} catch (CollisionException e) {
-					LoggerManager.getInstance().getDefaultLogger().log("Collision!", Logger.LOGTYPE_DEBUG);
+					LoggerManager.getInstance().getDefaultLogger().log("Collision: " + entity + " and " + e.getCollidable(), Logger.LOGTYPE_DEBUG);
 				}
 			}
 		}

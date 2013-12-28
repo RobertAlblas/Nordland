@@ -23,23 +23,24 @@ public class CollisionMap {
 		}
 	}
 
-	public void renderCollidable(Collidable collidable)
-			throws CollisionException {
+	public void renderCollidable(Collidable collidable) throws CollisionException {
 		Drawable drawable = collidable.getDrawable();
 		// Center drawable coordinates
 		int collidableXPosition = collidable.getX() - drawable.getWidth() / 2;
 		int collidableYPosition = collidable.getY() - drawable.getHeight() / 2;
-		
+
 		int pixels[] = drawable.getPixels();
 		for (int x = 0; x < drawable.getWidth(); x++) {
 			for (int y = 0; y < drawable.getHeight(); y++) {
 				if (pixels[x + y * drawable.getWidth()] != 0xffff00ff) {
-					int mapIndex = x + collidableXPosition
-							+ ((y + collidableYPosition) * this.width);
+					int mapIndex = x + collidableXPosition + ((y + collidableYPosition) * this.width);
 					try {
 						if (collidables[mapIndex] != null) {
-							throw new CollisionException(collidables[mapIndex],
-									"Collision detected");
+							if (!collidable.isMovable()) {
+								return;
+							} else {
+								throw new CollisionException(collidables[mapIndex], "Collision detected");
+							}
 						} else {
 							collidables[mapIndex] = collidable;
 						}
@@ -52,11 +53,9 @@ public class CollisionMap {
 		}
 	}
 
-	public Collidable checkCollisionAt(Collidable collidable,
-			int xPosition, int yPosition) throws CollisionException {
+	public Collidable checkCollisionAt(Collidable collidable, int xPosition, int yPosition) throws CollisionException {
 		for (Drawable d : collidable.getDrawables()) {
-			Collidable collision = checkCollisionForDrawableAt(d,
-					xPosition, yPosition);
+			Collidable collision = checkCollisionForDrawableAt(d, xPosition, yPosition);
 			if (collision != null) {
 				return collision;
 			}
@@ -64,8 +63,7 @@ public class CollisionMap {
 		return null;
 	}
 
-	private Collidable checkCollisionForDrawableAt(Drawable drawable,
-			int xPosition, int yPosition) throws CollisionException {
+	private Collidable checkCollisionForDrawableAt(Drawable drawable, int xPosition, int yPosition) throws CollisionException {
 
 		// Center drawable coordinates
 		int centeredXPosition = xPosition - drawable.getWidth() / 2;
@@ -76,8 +74,7 @@ public class CollisionMap {
 		for (int x = 0; x < drawable.getWidth(); x++) {
 			for (int y = 0; y < drawable.getHeight(); y++) {
 				if (pixels[x + y * drawable.getWidth()] != 0xffff00ff) {
-					int mapIndex = x + centeredXPosition
-							+ ((y + centeredYPosition) * this.width);
+					int mapIndex = x + centeredXPosition + ((y + centeredYPosition) * this.width);
 					try {
 						if (collidables[mapIndex] != null) {
 							return collidables[mapIndex];
