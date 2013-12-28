@@ -77,7 +77,7 @@ public class SwingWindowManager implements WindowManager{
 	}
 
 	@Override
-	public void update(List<InputAction> inputActions) {
+	public void tick(List<InputAction> inputActions) {
 		for(InputAction ia : inputActions){
 			if(ia.getActionType().equals("mouseX")){
 				mouseX = ia.getValue();

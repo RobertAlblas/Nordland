@@ -12,7 +12,7 @@ import robertalblas.nordland.system.timer.TickTimerManager;
 import robertalblas.nordland.window.Screen;
 
 public interface World {
-	public void update(List<InputAction> inputActions);
+	public void tick(List<InputAction> inputActions);
 
 	public void render(Screen screen);
 

@@ -28,7 +28,7 @@ public class ResourceWorld implements World {
 	private Player player;
 
 	@Override
-	public void update(List<InputAction> inputActions) {
+	public void tick(List<InputAction> inputActions) {
 		collisionMap.clear();
 		for (Entity entity : entities) {
 			entity.update(inputActions);

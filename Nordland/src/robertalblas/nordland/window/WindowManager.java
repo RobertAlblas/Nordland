@@ -12,5 +12,5 @@ public interface WindowManager {
 	public void renderAllWindows(int framerate, int updaterate);
 	public int getAmountOfWindows();
 	public void unload();
-	public void update(List<InputAction> inputActions);
+	public void tick(List<InputAction> inputActions);
 }

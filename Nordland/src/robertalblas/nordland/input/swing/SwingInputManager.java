@@ -35,7 +35,7 @@ public class SwingInputManager implements InputManager {
 	}
 
 	@Override
-	public void update() {		
+	public void tick() {		
 		mouse.update();
 		keyboard.update();
 	}

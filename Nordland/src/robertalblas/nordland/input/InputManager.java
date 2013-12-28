@@ -8,5 +8,5 @@ public interface InputManager {
 
 	public List<InputAction> getInputActions();
 	public void connectScreen(Screen screen);
-	public void update();
+	public void tick();
 }

@@ -96,11 +96,11 @@ public class Nordland implements Runnable, WindowListener {
 		LoggerManager.getInstance().getDefaultLogger().log("Done", Logger.LOGTYPE_DEBUG);
 	}
 
-	public void update() {
-		inputManager.update();
-		windowManager.update(inputManager.getInputActions());
+	public void tick() {
+		inputManager.tick();
+		windowManager.tick(inputManager.getInputActions());
 		tickTimerManager.tick();
-		world.update(inputManager.getInputActions());
+		world.tick(inputManager.getInputActions());
 	}
 
 	public synchronized void start() {
@@ -140,7 +140,7 @@ public class Nordland implements Runnable, WindowListener {
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			while (delta >= requiredDelta) {
-				update();
+				tick();
 				delta -= requiredDelta;
 				updates++;
 			}
