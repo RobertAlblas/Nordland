@@ -1,17 +1,22 @@
 package robertalblas.nordland.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import robertalblas.nordland.collision.Collidable;
 import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.input.InputAction;
+import robertalblas.nordland.resource.Resource;
+import robertalblas.nordland.resource.graphics.Animation;
+import robertalblas.nordland.resource.graphics.Drawable;
+import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSet;
 import robertalblas.nordland.system.log.Logger;
 import robertalblas.nordland.system.log.LoggerManager;
 import robertalblas.nordland.system.timer.TickTimerRunnable;
 import robertalblas.nordland.world.World;
 
-public class Player extends BaseEntity implements TickTimerRunnable{
+public class Player extends BaseEntity implements TickTimerRunnable, Collidable{
 	
 	private boolean isMoving;
 	private Direction direction;
@@ -104,5 +109,31 @@ public class Player extends BaseEntity implements TickTimerRunnable{
 	@Override
 	public void run() {
 		LoggerManager.getInstance().getDefaultLogger().log("Tick!", Logger.LOGTYPE_DEBUG);
+	}
+
+	@Override
+	public void onCollision() {
+		
+	}
+
+	@Override
+	public Drawable getDrawable() {
+		return (Drawable) getSpriteSheet().getResource(getCurrentSprite());
+	}
+
+	@Override
+	public List<Drawable> getDrawables() {
+		List<Drawable> drawables = new ArrayList<Drawable>();
+		for(Resource r :  getSpriteSheet().getResources()){
+			if(r instanceof Sprite){
+				drawables.add((Drawable)r);
+			}
+			else if(r instanceof Animation){
+				for(Sprite s: ((Animation)r).getSprites()){
+					drawables.add(s);
+				}
+			}
+		}
+		return drawables;
 	}
 }

@@ -6,6 +6,7 @@ import robertalblas.nordland.collision.CollisionMap;
 import robertalblas.nordland.entity.Entity;
 import robertalblas.nordland.entity.Player;
 import robertalblas.nordland.input.InputAction;
+import robertalblas.nordland.system.timer.TickTimerManager;
 import robertalblas.nordland.window.Screen;
 
 public interface World {
@@ -22,4 +23,6 @@ public interface World {
 	public int getHeight();
 	
 	public CollisionMap getCollisionMap();
+
+	public TickTimerManager getTickTimerManager();
 }

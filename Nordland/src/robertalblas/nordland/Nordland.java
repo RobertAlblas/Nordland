@@ -49,7 +49,7 @@ public class Nordland implements Runnable, WindowListener {
 		spriteManager = new SpriteManager();
 		spriteManager.setTickTimerManager(tickTimerManager);
 		spriteManager.loadResourceSet("player");
-		spriteManager.loadResourceSet("tilset");
+		spriteManager.loadResourceSet("tileset");
 
 		soundManager = new SoundManager();
 		soundManager.loadResourceSet("music");

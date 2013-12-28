@@ -1,21 +1,15 @@
 package robertalblas.nordland.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import robertalblas.nordland.collision.Collidable;
 import robertalblas.nordland.input.InputAction;
-import robertalblas.nordland.resource.Resource;
-import robertalblas.nordland.resource.graphics.Animation;
 import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSet;
-import robertalblas.nordland.system.log.Logger;
-import robertalblas.nordland.system.log.LoggerManager;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 
-public abstract class BaseEntity implements Entity, Collidable{
+public abstract class BaseEntity implements Entity{
 
 	private int x, y;
 	private int width, height;
@@ -63,6 +57,18 @@ public abstract class BaseEntity implements Entity, Collidable{
 		this.y = y;
 	}
 
+	public SpriteSet getSpriteSheet() {
+		return spriteSheet;
+	}
+
+	public void setSpriteSheet(SpriteSet spriteSheet) {
+		this.spriteSheet = spriteSheet;
+	}
+
+	public String getCurrentSprite() {
+		return currentSprite;
+	}
+
 	@Override
 	public int getWidth() {
 		return width;
@@ -71,37 +77,6 @@ public abstract class BaseEntity implements Entity, Collidable{
 	@Override
 	public int getHeight() {
 		return height;
-	}
-	
-	@Override
-	public void onCollision() {
-		LoggerManager.getInstance().getDefaultLogger().log("Collision", Logger.LOGTYPE_DEBUG);
-	}
-
-	@Override
-	public Drawable getDrawable() {
-		return (Drawable) spriteSheet.getResource(currentSprite);
-	}
-
-	@Override
-	public List<Drawable> getDrawables() {
-		List<Drawable> drawables = new ArrayList<Drawable>();
-		for(Resource r :  spriteSheet.getResources()){
-			if(r instanceof Sprite){
-				drawables.add((Drawable)r);
-			}
-			else if(r instanceof Animation){
-				for(Sprite s: ((Animation)r).getSprites()){
-					drawables.add(s);
-				}
-			}
-		}
-		return drawables;
-	}
-
-	@Override
-	public boolean isMovable() {
-		return false;
 	}
 
 	public World getWorld() {

@@ -7,6 +7,8 @@ import robertalblas.nordland.collision.Collidable;
 import robertalblas.nordland.collision.CollisionMap;
 import robertalblas.nordland.entity.Entity;
 import robertalblas.nordland.entity.Player;
+import robertalblas.nordland.entity.StaticEntity;
+import robertalblas.nordland.entity.TerrainEntity;
 import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.input.InputAction;
 import robertalblas.nordland.resource.graphics.Sprite;
@@ -14,11 +16,9 @@ import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.graphics.SpriteSet;
 import robertalblas.nordland.system.log.Logger;
 import robertalblas.nordland.system.log.LoggerManager;
-import robertalblas.nordland.system.timer.TickTimer;
 import robertalblas.nordland.system.timer.TickTimerManager;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
-import robertalblas.nordland.world.terrain.Tile;
 
 public class TestWorld implements World {
 
@@ -27,18 +27,14 @@ public class TestWorld implements World {
 	private CollisionMap collisionMap;
 	private int width, height;
 
-	private ArrayList<Tile> tiles;
 	private List<Entity> entities;
 	private Player player;
 
 	public TestWorld(SpriteManager spriteManager, TickTimerManager tickTimerManager) {
 		this.tickTimerManager = tickTimerManager;
 		this.spriteManager = spriteManager;
-		this.width = 10 * ((Sprite) spriteManager.getResourceSet("tileset")
-				.getResource("grass")).getWidth();
-		this.height = 10 * ((Sprite) spriteManager.getResourceSet("tileset")
-				.getResource("grass")).getHeight();
-		this.tiles = new ArrayList<Tile>();
+		this.width = 500;
+		this.height = 500;
 		this.entities = new ArrayList<Entity>();
 		this.collisionMap = new CollisionMap(width, height);
 
@@ -46,33 +42,31 @@ public class TestWorld implements World {
 	}
 
 	private void createLevel() {
-		createTiles();
+		createTerrain();
 		createPlayer();
 	}
 
-	private void createTiles() {
-		Sprite grassSprite = (Sprite) spriteManager.getResourceSet("tileset")
-				.getResource("grass");
+	private void createTerrain() {
+		Sprite grassSprite = (Sprite) spriteManager.getResourceSet("tileset").getResource("grass");
 
 		int tileHeight = grassSprite.getHeight();
 		int tileWidth = grassSprite.getWidth();
 
 		for (int x = 0; x < this.width; x += tileWidth) {
 			for (int y = 0; y < this.height; y += tileHeight) {
-				tiles.add(Tile.createTile(grassSprite, x + tileWidth / 2, y
-						+ tileHeight / 2));
+				TerrainEntity grass = new TerrainEntity(this, (SpriteSet) spriteManager.getResourceSet("tileset"), x + tileWidth / 2, y + tileHeight / 2);
+				grass.setCurrentSprite("grass");
+				entities.add(grass);
 			}
 		}
-		tiles.add(Tile.createSolidTile(collisionMap, (Sprite) spriteManager
-				.getResourceSet("tileset").getResource("rock"), width / 2,
-				height / 2));
+		StaticEntity rock = new StaticEntity(this, (SpriteSet) spriteManager.getResourceSet("tileset"), width / 2, height / 2);
+		rock.setCurrentSprite("rock");
+		addEntity(rock);
 	}
 
 	private void createPlayer() {
-		player = new Player(this,
-				(SpriteSet) spriteManager.getResourceSet("player"), 40, 40);
+		player = new Player(this, (SpriteSet) spriteManager.getResourceSet("player"), 40, 40);
 		addEntity(player);
-		tickTimerManager.addTickTimer(TickTimer.createTimer(player, 500));
 	}
 
 	@Override
@@ -84,8 +78,7 @@ public class TestWorld implements World {
 				try {
 					collisionMap.renderCollidable((Collidable) entity);
 				} catch (CollisionException e) {
-					LoggerManager.getInstance().getDefaultLogger()
-							.log("Collision!", Logger.LOGTYPE_DEBUG);
+					LoggerManager.getInstance().getDefaultLogger().log("Collision!", Logger.LOGTYPE_DEBUG);
 				}
 			}
 		}
@@ -94,9 +87,6 @@ public class TestWorld implements World {
 	@Override
 	public void render(Screen screen) {
 		screen.centerAt(player.getX(), player.getY());
-		for (Tile tile : tiles) {
-			tile.render(screen);
-		}
 		for (Entity entity : entities) {
 			entity.render(screen);
 		}
@@ -125,6 +115,11 @@ public class TestWorld implements World {
 	@Override
 	public CollisionMap getCollisionMap() {
 		return this.collisionMap;
+	}
+
+	@Override
+	public TickTimerManager getTickTimerManager() {
+		return tickTimerManager;
 	}
 
 }
