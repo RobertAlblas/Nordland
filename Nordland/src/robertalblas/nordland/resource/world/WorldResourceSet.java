@@ -46,6 +46,7 @@ public class WorldResourceSet extends ResourceSet {
 						throw new XMLParseException("Unknown node " + worldDataNode.getElementName());
 					}
 				}
+				getResources().add(worldResource);
 			} else {
 				throw new XMLParseException("Unknown node " + worldNode.getElementName());
 			}
@@ -70,6 +71,7 @@ public class WorldResourceSet extends ResourceSet {
 				throw new XMLParseException("Unknown node " + entityNode.getElementName());
 			}
 		}
+		worldResource.setWorldData(worldData);
 	}
 
 	private void loadEntityGroup(WorldData worldData, XMLNode entityNode) throws XMLParseException {
@@ -110,6 +112,7 @@ public class WorldResourceSet extends ResourceSet {
 			Player player = new Player(null, (SpriteSet) spriteManager.getResourceSet(entityNode.getAttributeValue("spriteSet")),
 					Integer.parseInt(entityNode.getAttributeValue("x")), Integer.parseInt(entityNode.getAttributeValue("y")));
 			worldData.getEntities().add(player);
+			worldData.setPlayer(player);
 		} else if (entityNode.getAttributeValue("type").equals("terrainEntity")) {
 			TerrainEntity terrainEntity = new TerrainEntity(null, (SpriteSet) spriteManager.getResourceSet(entityNode
 					.getAttributeValue("spriteSet")), Integer.parseInt(entityNode.getAttributeValue("x")),

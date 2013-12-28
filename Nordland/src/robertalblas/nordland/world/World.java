@@ -6,6 +6,8 @@ import robertalblas.nordland.collision.CollisionMap;
 import robertalblas.nordland.entity.Entity;
 import robertalblas.nordland.entity.Player;
 import robertalblas.nordland.input.InputAction;
+import robertalblas.nordland.resource.graphics.SpriteManager;
+import robertalblas.nordland.resource.sound.SoundManager;
 import robertalblas.nordland.system.timer.TickTimerManager;
 import robertalblas.nordland.window.Screen;
 
@@ -25,4 +27,8 @@ public interface World {
 	public CollisionMap getCollisionMap();
 
 	public TickTimerManager getTickTimerManager();
+	
+	public SpriteManager getSpriteManager();
+	
+	public SoundManager getSoundManager();
 }

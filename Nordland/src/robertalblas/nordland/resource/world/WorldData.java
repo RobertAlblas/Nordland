@@ -5,9 +5,11 @@ import java.util.List;
 
 import robertalblas.nordland.collision.CollisionMap;
 import robertalblas.nordland.entity.Entity;
+import robertalblas.nordland.entity.Player;
 
 public class WorldData {
 	private List<Entity> entities;
+	private Player player;
 	private int width, height;
 	private CollisionMap collisionMap;
 	
@@ -45,6 +47,14 @@ public class WorldData {
 
 	public void setCollisionMap(CollisionMap collisionMap) {
 		this.collisionMap = collisionMap;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
 	

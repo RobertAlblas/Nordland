@@ -83,6 +83,11 @@ public abstract class BaseEntity implements Entity{
 		return world;
 	}
 	
+	@Override
+	public void setWorld(World world){
+		this.world = world;
+	}
+	
 	public void setCurrentSprite(String sprite){
 		this.currentSprite = sprite;
 	}

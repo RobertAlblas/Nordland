@@ -11,6 +11,7 @@ import robertalblas.nordland.resource.sound.SoundManager;
 import robertalblas.nordland.resource.sound.SoundSet;
 import robertalblas.nordland.resource.sound.music.MusicPlayer;
 import robertalblas.nordland.resource.sound.music.MusicPlayerImpl;
+import robertalblas.nordland.resource.world.WorldResource;
 import robertalblas.nordland.resource.world.WorldResourceManager;
 import robertalblas.nordland.system.defaults.SystemDefaults;
 import robertalblas.nordland.system.log.Logger;
@@ -23,7 +24,7 @@ import robertalblas.nordland.window.swing.SwingScreen;
 import robertalblas.nordland.window.swing.SwingWindowManager;
 import robertalblas.nordland.world.World;
 import robertalblas.nordland.world.WorldFactory;
-import robertalblas.nordland.world.testworld.TestWorldFactory;
+import robertalblas.nordland.world.resourceworld.ResourceWorldFactory;
 
 public class Nordland implements Runnable, WindowListener {
 
@@ -69,7 +70,7 @@ public class Nordland implements Runnable, WindowListener {
 		musicPlayer.repeatAll();
 		musicPlayer.play();
 
-		worldFactory = new TestWorldFactory(spriteManager, tickTimerManager);
+		worldFactory = new ResourceWorldFactory((WorldResource)worldResourceManager.getResourceSet("testworld").getResource("testworld"));
 
 		windowManager.addWindowListener(this);
 		Window window = windowManager.createWindow("Nordland 0.2", WIDTH, HEIGHT, SCALE);
