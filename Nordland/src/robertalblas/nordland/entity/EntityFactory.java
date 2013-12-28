@@ -1,6 +1,9 @@
 package robertalblas.nordland.entity;
 
+import java.util.Random;
+
 import robertalblas.nordland.exception.UnknownEntityTypeException;
+import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSet;
 
 public class EntityFactory {
@@ -13,7 +16,9 @@ public class EntityFactory {
 		}
 		else if(type.equals("terrainEntity")){
 			entity = new TerrainEntity(null, spriteSet, x, y);
-			// pick random sprite
+			Random random = new Random();
+			Sprite sprite =  (Sprite) spriteSet.getResources().get(random.nextInt(spriteSet.getResources().size()));
+			entity.setCurrentSprite(sprite.getName());
 		}
 		else if(type.equals("player")){
 			entity = new Player(null, spriteSet, x, y);

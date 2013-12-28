@@ -65,6 +65,7 @@ public abstract class BaseEntity implements Entity{
 		this.spriteSheet = spriteSheet;
 	}
 
+	@Override
 	public String getCurrentSprite() {
 		return currentSprite;
 	}
@@ -88,6 +89,7 @@ public abstract class BaseEntity implements Entity{
 		this.world = world;
 	}
 	
+	@Override
 	public void setCurrentSprite(String sprite){
 		this.currentSprite = sprite;
 	}

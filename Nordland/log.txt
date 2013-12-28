@@ -8138,3 +8138,11 @@ Done
 Starting
 17:41:46:053 DEBUG:  robertalblas.nordland.Nordland.stop(): 
 Shutting down
+19:13:59:941 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+19:14:01:190 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done
+19:14:01:191 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+19:14:06:159 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down
