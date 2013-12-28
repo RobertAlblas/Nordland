@@ -2,6 +2,7 @@ package robertalblas.nordland.resource;
 
 import java.util.HashMap;
 
+import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.XMLParseException;
 
 public abstract class ResourceManager {
@@ -37,5 +38,5 @@ public abstract class ResourceManager {
 		this.resourceSets = resourceSets;
 	}
 	
-	public abstract void loadResourceSet(String resourceSet) throws XMLParseException;
+	public abstract void loadResourceSet(String resourceSet) throws XMLParseException, NumberFormatException, UnknownEntityTypeException;
 }

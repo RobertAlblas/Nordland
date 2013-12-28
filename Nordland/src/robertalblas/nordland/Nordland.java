@@ -3,6 +3,7 @@ package robertalblas.nordland;
 import java.awt.Canvas;
 
 import robertalblas.nordland.exception.ResourceNotFoundException;
+import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.XMLParseException;
 import robertalblas.nordland.input.InputManager;
 import robertalblas.nordland.input.swing.SwingInputManager;
@@ -53,7 +54,9 @@ public class Nordland implements Runnable, WindowListener {
 		spriteManager = new SpriteManager();
 		spriteManager.setTickTimerManager(tickTimerManager);
 		spriteManager.loadResourceSet("player");
-		spriteManager.loadResourceSet("tileset");
+		spriteManager.loadResourceSet("ice");
+		spriteManager.loadResourceSet("grass");
+		spriteManager.loadResourceSet("rock");
 
 		soundManager = new SoundManager();
 		soundManager.loadResourceSet("music");
@@ -63,6 +66,10 @@ public class Nordland implements Runnable, WindowListener {
 			worldResourceManager.loadResourceSet("testworld");
 		} catch (XMLParseException e1) {
 			e1.printStackTrace();
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (UnknownEntityTypeException e) {
+			e.printStackTrace();
 		}
 
 		MusicPlayer musicPlayer = new MusicPlayerImpl();

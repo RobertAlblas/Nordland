@@ -1,5 +1,6 @@
 package robertalblas.nordland.resource.world;
 
+import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.XMLParseException;
 import robertalblas.nordland.resource.ResourceManager;
 import robertalblas.nordland.resource.graphics.SpriteManager;
@@ -19,7 +20,7 @@ public class WorldResourceManager extends ResourceManager {
 	}
 
 	@Override
-	public void loadResourceSet(String resourceSet) throws XMLParseException {
+	public void loadResourceSet(String resourceSet) throws XMLParseException, NumberFormatException, UnknownEntityTypeException {
 		WorldResourceSet worldResourceSet = new WorldResourceSet(resourceSet, tickTimerManager, soundManager, spriteManager);
 		worldResourceSet.load();
 		this.getResourceSets().put(resourceSet, worldResourceSet);

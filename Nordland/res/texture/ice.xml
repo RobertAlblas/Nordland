@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <spriteset>
-	<sprite name="grass"
+	<sprite name="ice1"
 		x="0"
 		y="0"
 		width="16"
 		height="16"/>
-	<sprite name="ice"
+	<sprite name="ice2"
 		x="16"
 		y="0"
 		width="16"
 		height="16"/>
-	<sprite name="rock"
+	<sprite name="ice3"
 		x="32"
 		y="0"
 		width="16"

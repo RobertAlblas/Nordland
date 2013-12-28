@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<spriteset>
+	<sprite name="rock1"
+		x="0"
+		y="0"
+		width="16"
+		height="16"/>
+</spriteset>

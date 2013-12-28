@@ -1,9 +1,10 @@
 package robertalblas.nordland.resource.world;
 
 import robertalblas.nordland.collision.CollisionMap;
+import robertalblas.nordland.entity.Entity;
+import robertalblas.nordland.entity.EntityFactory;
 import robertalblas.nordland.entity.Player;
-import robertalblas.nordland.entity.StaticEntity;
-import robertalblas.nordland.entity.TerrainEntity;
+import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.XMLParseException;
 import robertalblas.nordland.resource.ResourceSet;
 import robertalblas.nordland.resource.graphics.Sprite;
@@ -28,7 +29,7 @@ public class WorldResourceSet extends ResourceSet {
 	}
 
 	@Override
-	public void load() throws XMLParseException {
+	public void load() throws XMLParseException, NumberFormatException, UnknownEntityTypeException {
 		XMLImporter xmlImporter = new XMLImporter();
 		XMLNode rootNode = xmlImporter.importXMLFile("/world/" + getFile() + ".xml", "worldresourceset");
 
@@ -53,7 +54,7 @@ public class WorldResourceSet extends ResourceSet {
 		}
 	}
 
-	private void loadWorldData(WorldResource worldResource, XMLNode worldDataNode) throws XMLParseException {
+	private void loadWorldData(WorldResource worldResource, XMLNode worldDataNode) throws XMLParseException, NumberFormatException, UnknownEntityTypeException {
 		WorldData worldData = new WorldData();
 		int width = Integer.parseInt(worldDataNode.getAttributeValue("width"));
 		int height = Integer.parseInt(worldDataNode.getAttributeValue("width"));
@@ -74,10 +75,7 @@ public class WorldResourceSet extends ResourceSet {
 		worldResource.setWorldData(worldData);
 	}
 
-	private void loadEntityGroup(WorldData worldData, XMLNode entityNode) throws XMLParseException {
-		// <entityGroup type="terrainEntity" spriteSet="tileset"
-		// spite="ice" beginX="8" beginY="8" endX="152" endY="152" />
-
+	private void loadEntityGroup(WorldData worldData, XMLNode entityNode) throws XMLParseException, NumberFormatException, UnknownEntityTypeException {
 		int beginX = Integer.parseInt(entityNode.getAttributeValue("beginX"));
 		int beginY = Integer.parseInt(entityNode.getAttributeValue("beginY"));
 		int endX = Integer.parseInt(entityNode.getAttributeValue("endX"));
@@ -92,35 +90,23 @@ public class WorldResourceSet extends ResourceSet {
 				XMLNode groupedEntityNode = new XMLNode("entity");
 				groupedEntityNode.addAttribute("type", entityNode.getAttributeValue("type"));
 				groupedEntityNode.addAttribute("spriteSet", entityNode.getAttributeValue("spriteSet"));
-				groupedEntityNode.addAttribute("sprite", entityNode.getAttributeValue("sprite"));
-				groupedEntityNode.addAttribute("x", ""+x);
-				groupedEntityNode.addAttribute("y", ""+y);
-				
+				groupedEntityNode.addAttribute("x", "" + x);
+				groupedEntityNode.addAttribute("y", "" + y);
+
 				loadEntity(worldData, groupedEntityNode);
 			}
 		}
 	}
 
-	private void loadEntity(WorldData worldData, XMLNode entityNode) throws XMLParseException {
-		if (entityNode.getAttributeValue("type").equals("staticEntity")) {
-			StaticEntity staticEntity = new StaticEntity(null, (SpriteSet) spriteManager.getResourceSet(entityNode
-					.getAttributeValue("spriteSet")), Integer.parseInt(entityNode.getAttributeValue("x")),
-					Integer.parseInt(entityNode.getAttributeValue("y")));
-			staticEntity.setCurrentSprite(entityNode.getAttributeValue("sprite"));
-			worldData.getEntities().add(staticEntity);
-		} else if (entityNode.getAttributeValue("type").equals("player")) {
-			Player player = new Player(null, (SpriteSet) spriteManager.getResourceSet(entityNode.getAttributeValue("spriteSet")),
-					Integer.parseInt(entityNode.getAttributeValue("x")), Integer.parseInt(entityNode.getAttributeValue("y")));
-			worldData.getEntities().add(player);
-			worldData.setPlayer(player);
-		} else if (entityNode.getAttributeValue("type").equals("terrainEntity")) {
-			TerrainEntity terrainEntity = new TerrainEntity(null, (SpriteSet) spriteManager.getResourceSet(entityNode
-					.getAttributeValue("spriteSet")), Integer.parseInt(entityNode.getAttributeValue("x")),
-					Integer.parseInt(entityNode.getAttributeValue("y")));
-			terrainEntity.setCurrentSprite(entityNode.getAttributeValue("sprite"));
-			worldData.getEntities().add(terrainEntity);
-		} else {
-			throw new XMLParseException("Unknown type " + entityNode.getAttributeValue("type"));
+	private void loadEntity(WorldData worldData, XMLNode entityNode) throws XMLParseException, NumberFormatException,
+			UnknownEntityTypeException {
+		Entity entity = EntityFactory.createEntity(entityNode.getAttributeValue("type"),
+				(SpriteSet) spriteManager.getResourceSet(entityNode.getAttributeValue("spriteSet")),
+				Integer.parseInt(entityNode.getAttributeValue("x")), Integer.parseInt(entityNode.getAttributeValue("y")));
+
+		worldData.getEntities().add(entity);
+		if (entity instanceof Player) {
+			worldData.setPlayer((Player) entity);
 		}
 	}
 }

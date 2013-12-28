@@ -2,10 +2,9 @@
 <worldresourceset>
 	<world name="testworld">
 		<worlddata width="160" height="160">
-			<entityGroup type="terrainEntity" spriteSet="tileset"
-				sprite="ice" beginX="8" beginY="8" endX="152" endY="152" />
-			<entity type="staticEntity" spriteSet="tileset" sprite="rock"
-				x="50" y="50" />
+			<entityGroup type="terrainEntity" spriteSet="ice" beginX="8"
+				beginY="8" endX="152" endY="152" />
+			<entity type="staticEntity" spriteSet="rock" x="50" y="50" />
 			<entity type="player" spriteSet="player" x="20" y="20" />
 		</worlddata>
 	</world>
