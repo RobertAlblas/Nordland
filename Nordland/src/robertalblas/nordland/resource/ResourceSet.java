@@ -3,6 +3,8 @@ package robertalblas.nordland.resource;
 import java.util.ArrayList;
 import java.util.List;
 
+import robertalblas.nordland.exception.XMLParseException;
+
 public abstract class ResourceSet {
 	private List<Resource> resources;
 	private final String file;
@@ -12,7 +14,7 @@ public abstract class ResourceSet {
 		this.setResources(new ArrayList<Resource>());
 	}
 
-	public abstract void load();
+	public abstract void load() throws XMLParseException;
 
 	public Resource getResource(String resourceName) {
 		for (Resource r : getResources()) {

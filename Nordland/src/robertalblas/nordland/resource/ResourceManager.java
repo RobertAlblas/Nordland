@@ -2,6 +2,8 @@ package robertalblas.nordland.resource;
 
 import java.util.HashMap;
 
+import robertalblas.nordland.exception.XMLParseException;
+
 public abstract class ResourceManager {
 
 	private HashMap<String, ResourceSet> resourceSets;
@@ -35,5 +37,5 @@ public abstract class ResourceManager {
 		this.resourceSets = resourceSets;
 	}
 	
-	public abstract void loadResourceSet(String resourceSet);
+	public abstract void loadResourceSet(String resourceSet) throws XMLParseException;
 }

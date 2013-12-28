@@ -3,6 +3,7 @@ package robertalblas.nordland;
 import java.awt.Canvas;
 
 import robertalblas.nordland.exception.ResourceNotFoundException;
+import robertalblas.nordland.exception.XMLParseException;
 import robertalblas.nordland.input.InputManager;
 import robertalblas.nordland.input.swing.SwingInputManager;
 import robertalblas.nordland.resource.graphics.SpriteManager;
@@ -10,6 +11,7 @@ import robertalblas.nordland.resource.sound.SoundManager;
 import robertalblas.nordland.resource.sound.SoundSet;
 import robertalblas.nordland.resource.sound.music.MusicPlayer;
 import robertalblas.nordland.resource.sound.music.MusicPlayerImpl;
+import robertalblas.nordland.resource.world.WorldResourceManager;
 import robertalblas.nordland.system.defaults.SystemDefaults;
 import robertalblas.nordland.system.log.Logger;
 import robertalblas.nordland.system.log.LoggerManager;
@@ -37,6 +39,7 @@ public class Nordland implements Runnable, WindowListener {
 	private WindowManager windowManager;
 	private SpriteManager spriteManager;
 	private SoundManager soundManager;
+	private WorldResourceManager worldResourceManager;
 	private WorldFactory worldFactory;
 	private TickTimerManager tickTimerManager;
 
@@ -53,6 +56,13 @@ public class Nordland implements Runnable, WindowListener {
 
 		soundManager = new SoundManager();
 		soundManager.loadResourceSet("music");
+		
+		worldResourceManager = new WorldResourceManager(tickTimerManager, soundManager, spriteManager);
+		try {
+			worldResourceManager.loadResourceSet("testworld");
+		} catch (XMLParseException e1) {
+			e1.printStackTrace();
+		}
 
 		MusicPlayer musicPlayer = new MusicPlayerImpl();
 		musicPlayer.appendQueue((SoundSet) soundManager.getResourceSet("music"));
