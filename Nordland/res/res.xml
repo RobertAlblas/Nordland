@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<spriteset name="grass"/>
+	<spriteset name="ice"/>
+	<spriteset name="player"/>
+	<spriteset name="rock"/>
+	<world name="testworld"/>
+	<soundset name="music" />
+</resources>

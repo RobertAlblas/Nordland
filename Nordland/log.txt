@@ -8162,3 +8162,21 @@ Done
 Starting
 19:35:41:322 DEBUG:  robertalblas.nordland.Nordland.stop(): 
 Shutting down
+20:08:45:569 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:09:02:510 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:09:27:667 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:41:49:629 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:41:49:673 ERROR:  robertalblas.nordland.system.xml.XMLImporter.importXMLFile(): 
+Error reading file: res.xml
+20:42:13:655 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:42:14:499 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done
+20:42:14:500 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:42:21:583 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down

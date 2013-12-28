@@ -7,6 +7,7 @@ import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.XMLParseException;
 import robertalblas.nordland.input.InputManager;
 import robertalblas.nordland.input.swing.SwingInputManager;
+import robertalblas.nordland.resource.ResourceLoader;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.sound.SoundManager;
 import robertalblas.nordland.resource.sound.SoundSet;
@@ -45,7 +46,7 @@ public class Nordland implements Runnable, WindowListener {
 	private WorldFactory worldFactory;
 	private TickTimerManager tickTimerManager;
 
-	public Nordland() {
+	public Nordland() throws NumberFormatException, XMLParseException, UnknownEntityTypeException, ResourceNotFoundException {
 		LoggerManager.getInstance().getDefaultLogger().log("Loading engine..", Logger.LOGTYPE_DEBUG);
 
 		tickTimerManager = new TickTimerManager();
@@ -53,24 +54,14 @@ public class Nordland implements Runnable, WindowListener {
 		windowManager = new SwingWindowManager();
 		spriteManager = new SpriteManager();
 		spriteManager.setTickTimerManager(tickTimerManager);
-		spriteManager.loadResourceSet("player");
-		spriteManager.loadResourceSet("ice");
-		spriteManager.loadResourceSet("grass");
-		spriteManager.loadResourceSet("rock");
-
 		soundManager = new SoundManager();
-		soundManager.loadResourceSet("music");
-		
 		worldResourceManager = new WorldResourceManager(tickTimerManager, soundManager, spriteManager);
-		try {
-			worldResourceManager.loadResourceSet("testworld");
-		} catch (XMLParseException e1) {
-			e1.printStackTrace();
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (UnknownEntityTypeException e) {
-			e.printStackTrace();
-		}
+		
+		ResourceLoader resourceLoader = new ResourceLoader();
+		resourceLoader.addResourceManager(spriteManager);
+		resourceLoader.addResourceManager(soundManager);
+		resourceLoader.addResourceManager(worldResourceManager);
+		resourceLoader.loadResources("res");
 
 		MusicPlayer musicPlayer = new MusicPlayerImpl();
 		musicPlayer.appendQueue((SoundSet) soundManager.getResourceSet("music"));
@@ -86,11 +77,7 @@ public class Nordland implements Runnable, WindowListener {
 		Canvas canvas = ((SwingScreen) window.getScreen()).getCanvas();
 
 		canvas.requestFocus();
-		try {
-			world = worldFactory.createWorld();
-		} catch (ResourceNotFoundException e) {
-			e.printStackTrace();
-		}
+		world = worldFactory.createWorld();
 		window.getScreen().setWorld(world);
 		window.hideCursor();
 		LoggerManager.getInstance().getDefaultLogger().log("Done", Logger.LOGTYPE_DEBUG);
@@ -159,9 +146,13 @@ public class Nordland implements Runnable, WindowListener {
 	}
 
 	public static void main(String[] args) {
-		Nordland nordland = new Nordland();
-		nordland.start();
-
+		Nordland nordland;
+		try {
+			nordland = new Nordland();
+			nordland.start();
+		} catch (NumberFormatException | XMLParseException | UnknownEntityTypeException | ResourceNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
