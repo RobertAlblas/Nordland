@@ -50,7 +50,9 @@ public class Nordland implements Runnable, WindowListener {
 
 	public synchronized void start() {
 		running = true;
-		world.getMusicPlayer().play();
+		if(world.getMusicPlayer() != null){
+			//world.getMusicPlayer().play();
+		}
 		thread = new Thread(this, "Display");
 		LoggerManager.getInstance().getDefaultLogger().log("Starting", Logger.LOGTYPE_DEBUG);
 		thread.start();

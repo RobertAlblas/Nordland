@@ -73,11 +73,12 @@ public class SwingMouse implements MouseListener, MouseMotionListener, InputDevi
 
 	@Override
 	public List<InputAction> getInputActions() {
-		return inputActions;		
+		return inputActions;
 	}
 
 	@Override
 	public void update() {
+		inputActions.clear();
 		inputActions.add(new InputAction(InputActionType.MOUSE_X,mouseX));
 		inputActions.add(new InputAction(InputActionType.MOUSE_Y,mouseY));
 		inputActions.add(new InputAction(InputActionType.MOUSE_BUTTON,mouseB));

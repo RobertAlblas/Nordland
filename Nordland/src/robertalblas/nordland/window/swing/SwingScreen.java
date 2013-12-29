@@ -92,4 +92,14 @@ public class SwingScreen implements Screen {
 		return canvas;
 	}
 
+	@Override
+	public Renderer getRenderer() {
+		return renderer;
+	}
+
+	@Override
+	public void setRenderer(Renderer renderer) {
+		this.renderer = renderer;
+	}
+
 }

@@ -103,7 +103,9 @@ public class MusicPlayerImpl implements MusicPlayer,
 	@Override
 	public void pause() {
 		this.isPaused = true;
-		this.queue.get(currentSound).pause();
+		if(currentSound < this.queue.size()){
+			this.queue.get(currentSound).pause();
+		}
 	}
 
 	@Override
