@@ -16,7 +16,7 @@ public class InitConfigurationDefault extends InitConfiguration {
 		this.width = 400;
 		this.height = width / 16 * 9;
 		this.scale = 3;
-		this.windowTitle = "Nordland 0.3";
+		this.windowTitle = "Nordland Alpha 0.3";
 		this.setResource("res");
 		this.setWorld("testworld");
 		this.setWorldSet("testworld");
