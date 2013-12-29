@@ -1,11 +1,36 @@
 <?xml version="1.0"?>
 <worldresourceset>
 	<world name="testworld">
-		<worlddata width="160" height="160">
-			<entityGroup type="terrainEntity" spriteSet="ice" beginX="8"
-				beginY="8" endX="152" endY="152" />
+		<worlddata width="320" height="320">
+			<entityGroup type="terrain" spriteSet="ice" beginX="0"
+				beginY="0" endX="320" endY="320" />
+			<entityGroup type="terrain" spriteSet="grass" beginX="200"
+				beginY="230" endX="320" endY="320" />
+			<entity type="terrain" spriteSet="grass" x="280" y="218" />
+			<entity type="terrain" spriteSet="grass" x="280" y="202" />
+			<entity type="terrain" spriteSet="grass" x="264" y="218" />
+
+			<!-- Water -->
+			<entityGroup type="animatedCollidableTerrain" spriteSet="water"
+				beginX="0" beginY="0" endX="320" endY="32" />
+			<entityGroup type="animatedCollidableTerrain" spriteSet="water"
+				beginX="0" beginY="32" endX="32" endY="320" />
+			<entityGroup type="animatedCollidableTerrain" spriteSet="water"
+				beginX="32" beginY="288" endX="320" endY="320" />
+			<entityGroup type="animatedCollidableTerrain" spriteSet="water"
+				beginX="288" beginY="32" endX="320" endY="288" />
+				
+			<!-- Rocks -->
 			<entity type="staticEntity" spriteSet="rock" x="50" y="50" />
-			<entity type="player" spriteSet="player" x="20" y="20" />
+			<entity type="staticEntity" spriteSet="rock" x="60" y="52" />
+			<entity type="staticEntity" spriteSet="rock" x="40" y="230" />
+			<entity type="staticEntity" spriteSet="rock" x="256" y="254" />
+			<entity type="staticEntity" spriteSet="rock" x="215" y="55" />
+			<entity type="staticEntity" spriteSet="rock" x="201" y="156" />
+			<entity type="staticEntity" spriteSet="rock" x="100" y="150" />
+			
+			
+			<entity type="player" spriteSet="player" x="100" y="100" />
 		</worlddata>
 	</world>
 </worldresourceset>

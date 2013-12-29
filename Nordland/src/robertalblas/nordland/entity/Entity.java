@@ -13,7 +13,7 @@ public interface Entity {
 	public int getWidth();
 	public int getHeight();
 	public void setWorld(World world);
-	public String getCurrentSprite();
-	public void setCurrentSprite(String sprite);
+	public String getCurrentDrawable();
+	public void setCurrentDrawable(String drawable);
 	public void render(Renderer renderer);
 }

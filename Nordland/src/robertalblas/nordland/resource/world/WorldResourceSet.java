@@ -8,7 +8,7 @@ import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.XMLParseException;
 import robertalblas.nordland.resource.ResourceSet;
-import robertalblas.nordland.resource.graphics.Sprite;
+import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.graphics.SpriteSet;
 import robertalblas.nordland.resource.sound.SoundManager;
@@ -83,8 +83,8 @@ public class WorldResourceSet extends ResourceSet {
 		int endY = Integer.parseInt(entityNode.getAttributeValue("endY"));
 
 		SpriteSet spriteSet = (SpriteSet) spriteManager.getResourceSet(entityNode.getAttributeValue("spriteSet"));
-		int height = ((Sprite) spriteSet.getResources().get(0)).getHeight();
-		int width = ((Sprite) spriteSet.getResources().get(0)).getWidth();
+		int height = ((Drawable) spriteSet.getResources().get(0)).getHeight();
+		int width = ((Drawable) spriteSet.getResources().get(0)).getWidth();
 
 		for (int x = beginX; x <= endX; x += width) {
 			for (int y = beginY; y <= endY; y += height) {

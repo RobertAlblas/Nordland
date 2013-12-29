@@ -79,16 +79,16 @@ public class Player extends BaseEntity implements Collidable{
 	private void updateSprite() {
 		switch (this.direction) {
 		case NORTH:
-			this.setCurrentSprite("back");
+			this.setCurrentDrawable("back");
 			break;
 		case SOUTH:
-			this.setCurrentSprite("front");
+			this.setCurrentDrawable("front");
 			break;
 		case EAST:
-			this.setCurrentSprite("left");
+			this.setCurrentDrawable("left");
 			break;
 		case WEST:
-			this.setCurrentSprite("right");
+			this.setCurrentDrawable("right");
 			break;
 		default:
 			break;
@@ -111,7 +111,7 @@ public class Player extends BaseEntity implements Collidable{
 
 	@Override
 	public Drawable getDrawable() {
-		return (Drawable) getSpriteSheet().getResource(getCurrentSprite());
+		return (Drawable) getSpriteSheet().getResource(getCurrentDrawable());
 	}
 
 	@Override

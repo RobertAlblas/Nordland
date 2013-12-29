@@ -5,7 +5,6 @@ import java.util.List;
 import robertalblas.nordland.input.InputAction;
 import robertalblas.nordland.renderer.Renderer;
 import robertalblas.nordland.resource.graphics.Drawable;
-import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSet;
 import robertalblas.nordland.world.World;
 
@@ -15,17 +14,17 @@ public abstract class BaseEntity implements Entity{
 	private int width, height;
 	private SpriteSet spriteSheet;
 	private World world;
-	private String currentSprite;
+	private String currentDrawable;
 	
 	public BaseEntity(World world, SpriteSet spriteSheet, int x, int y){
 		this.world = world;
 		this.x = x;
 		this.y = y;
 		this.spriteSheet = spriteSheet;
-		Sprite firstSprite = (Sprite) spriteSheet.getResources().get(0);
-		this.currentSprite = firstSprite.getName();
-		this.width = firstSprite.getWidth();
-		this.height = firstSprite.getHeight();
+		Drawable firstDrawable = (Drawable) spriteSheet.getResources().get(0);
+		this.currentDrawable = firstDrawable.getName();
+		this.width = firstDrawable.getWidth();
+		this.height = firstDrawable.getHeight();
 	}
 	
 	@Override
@@ -36,7 +35,7 @@ public abstract class BaseEntity implements Entity{
 	@Override
 	public void render(Renderer renderer) {
 		renderer.renderFixedDrawable(x, y,
-				(Drawable) spriteSheet.getResource(currentSprite));
+				(Drawable) spriteSheet.getResource(currentDrawable));
 	}
 
 	@Override
@@ -66,8 +65,8 @@ public abstract class BaseEntity implements Entity{
 	}
 
 	@Override
-	public String getCurrentSprite() {
-		return currentSprite;
+	public String getCurrentDrawable() {
+		return currentDrawable;
 	}
 
 	@Override
@@ -90,11 +89,11 @@ public abstract class BaseEntity implements Entity{
 	}
 	
 	@Override
-	public void setCurrentSprite(String sprite){
-		this.currentSprite = sprite;
+	public void setCurrentDrawable(String sprite){
+		this.currentDrawable = sprite;
 	}
 	
 	public void setCurrentSpriteMoving(){
-		this.currentSprite += "_moving";
+		this.currentDrawable += "_moving";
 	}
 }

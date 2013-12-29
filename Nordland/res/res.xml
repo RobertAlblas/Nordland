@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<spriteset name="grass"/>
+	<spriteset name="water"/>
 	<spriteset name="ice"/>
 	<spriteset name="player"/>
 	<spriteset name="rock"/>
