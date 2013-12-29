@@ -8,12 +8,13 @@ import robertalblas.nordland.entity.Entity;
 import robertalblas.nordland.entity.Player;
 import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.input.InputAction;
+import robertalblas.nordland.renderer.Renderer;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.sound.SoundManager;
+import robertalblas.nordland.resource.sound.music.MusicPlayer;
 import robertalblas.nordland.system.log.Logger;
 import robertalblas.nordland.system.log.LoggerManager;
 import robertalblas.nordland.system.timer.TickTimerManager;
-import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 
 public class ResourceWorld implements World {
@@ -25,8 +26,10 @@ public class ResourceWorld implements World {
 	private int width, height;
 	private CollisionMap collisionMap;
 	
+	private MusicPlayer musicPlayer;
+	
 	private Player player;
-
+	
 	@Override
 	public void tick(List<InputAction> inputActions) {
 		collisionMap.clear();
@@ -43,10 +46,10 @@ public class ResourceWorld implements World {
 	}
 
 	@Override
-	public void render(Screen screen) {
-		screen.centerAt(player.getX(), player.getY());
+	public void render(Renderer renderer) {
+		renderer.centerAt(player.getX(), player.getY());
 		for (Entity entity : entities) {
-			entity.render(screen);
+			entity.render(renderer);
 		}
 	}
 
@@ -90,36 +93,54 @@ public class ResourceWorld implements World {
 		return soundManager;
 	}
 
+	@Override
 	public void setSoundManager(SoundManager soundManager) {
 		this.soundManager = soundManager;
 	}
 
+	@Override
 	public void setSpriteManager(SpriteManager spriteManager) {
 		this.spriteManager = spriteManager;
 	}
 
+	@Override
 	public void setTickTimerManager(TickTimerManager tickTimerManager) {
 		this.tickTimerManager = tickTimerManager;
 	}
 
+	@Override
 	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
 	}
 
+	@Override
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
+	@Override
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
+	@Override
 	public void setCollisionMap(CollisionMap collisionMap) {
 		this.collisionMap = collisionMap;
 	}
 
+	@Override
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+
+	@Override
+	public MusicPlayer getMusicPlayer() {
+		return musicPlayer;
+	}
+
+	@Override
+	public void setMusicPlayer(MusicPlayer musicPlayer) {
+		this.musicPlayer = musicPlayer;
 	}
 
 }

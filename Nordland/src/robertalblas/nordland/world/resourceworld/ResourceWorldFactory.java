@@ -4,6 +4,9 @@ import robertalblas.nordland.entity.Entity;
 import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.sound.SoundManager;
+import robertalblas.nordland.resource.sound.SoundSet;
+import robertalblas.nordland.resource.sound.music.Music;
+import robertalblas.nordland.resource.sound.music.MusicPlayer;
 import robertalblas.nordland.resource.world.WorldData;
 import robertalblas.nordland.resource.world.WorldResource;
 import robertalblas.nordland.system.timer.TickTimerManager;
@@ -38,13 +41,18 @@ public class ResourceWorldFactory implements WorldFactory {
 		if (worldData == null) {
 			throw new ResourceNotFoundException("Missing worldData");
 		}
-		ResourceWorld resourceWorld = new ResourceWorld();
+		World resourceWorld = new ResourceWorld();
 		resourceWorld.setTickTimerManager(tickTimerManager);
 		resourceWorld.setSpriteManager(spriteManager);
 		resourceWorld.setSoundManager(soundManager);
 		resourceWorld.setCollisionMap(worldData.getCollisionMap());
 		resourceWorld.setWidth(worldData.getWidth());
 		resourceWorld.setHeight(worldData.getHeight());
+		
+		MusicPlayer musicPlayer = Music.getMusicPlayer();
+		musicPlayer.appendQueue((SoundSet)soundManager.getResourceSet("music"));
+		
+		resourceWorld.setMusicPlayer(musicPlayer);
 		
 		for(Entity e: worldData.getEntities()){
 			e.setWorld(resourceWorld);

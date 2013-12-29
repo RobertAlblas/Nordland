@@ -3,10 +3,10 @@ package robertalblas.nordland.entity;
 import java.util.List;
 
 import robertalblas.nordland.input.InputAction;
+import robertalblas.nordland.renderer.Renderer;
 import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.Sprite;
 import robertalblas.nordland.resource.graphics.SpriteSet;
-import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 
 public abstract class BaseEntity implements Entity{
@@ -34,8 +34,8 @@ public abstract class BaseEntity implements Entity{
 	}
 
 	@Override
-	public void render(Screen screen) {
-		screen.renderFixedDrawable(x, y,
+	public void render(Renderer renderer) {
+		renderer.renderFixedDrawable(x, y,
 				(Drawable) spriteSheet.getResource(currentSprite));
 	}
 

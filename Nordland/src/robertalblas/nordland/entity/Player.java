@@ -6,6 +6,7 @@ import java.util.List;
 import robertalblas.nordland.collision.Collidable;
 import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.input.InputAction;
+import robertalblas.nordland.input.InputActionType;
 import robertalblas.nordland.resource.Resource;
 import robertalblas.nordland.resource.graphics.Animation;
 import robertalblas.nordland.resource.graphics.Drawable;
@@ -38,22 +39,22 @@ public class Player extends BaseEntity implements Collidable{
 			int yDelta = 0;
 			
 			String action = inputAction.getActionType();
-			if (action.equals("up")) {
+			if (action.equals(InputActionType.UP)) {
 				yDelta--;
 				this.direction = Direction.NORTH;
 				this.isMoving = true;
 			}
-			if (action.equals("down")) {
+			if (action.equals(InputActionType.DOWN)) {
 				yDelta++;
 				this.direction = Direction.SOUTH;
 				this.isMoving = true;
 			}
-			if (action.equals("left")) {
+			if (action.equals(InputActionType.LEFT)) {
 				xDelta--;
 				this.direction = Direction.EAST;
 				this.isMoving = true;
 			}
-			if (action.equals("right")) {
+			if (action.equals(InputActionType.RIGHT)) {
 				xDelta++;
 				this.direction = Direction.WEST;
 				this.isMoving = true;

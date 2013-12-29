@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import robertalblas.nordland.input.InputAction;
+import robertalblas.nordland.input.InputActionType;
 import robertalblas.nordland.window.Window;
 import robertalblas.nordland.window.WindowListener;
 import robertalblas.nordland.window.WindowManager;
@@ -70,20 +71,28 @@ public class SwingWindowManager implements WindowManager{
 
 	@Override
 	public void unload() {
-		for(SwingWindow w: swingWindows){
+		for(int i = 0; i < swingWindows.size(); i++){
+			Window w = swingWindows.get(i);
 			w.dispose();
-			swingWindows.remove(w);
+			swingWindows.remove(i);
+			for(WindowListener wl : windowListeners){
+				wl.onWindowClosed(w);
+			}
+			i--;
 		}
 	}
 
 	@Override
 	public void tick(List<InputAction> inputActions) {
 		for(InputAction ia : inputActions){
-			if(ia.getActionType().equals("mouseX")){
+			if(ia.getActionType().equals(InputActionType.MOUSE_X)){
 				mouseX = ia.getValue();
 			}
-			else if(ia.getActionType().equals("mouseY")){
+			else if(ia.getActionType().equals(InputActionType.MOUSE_Y)){
 				mouseY = ia.getValue();
+			}
+			if(ia.getActionType().equals(InputActionType.QUIT)){
+				unload();
 			}
 		}
 	}

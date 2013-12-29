@@ -9,40 +9,27 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import robertalblas.nordland.exception.InvalidRenderingMaskException;
-import robertalblas.nordland.resource.graphics.Drawable;
+import robertalblas.nordland.renderer.Renderer;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.world.World;
 
 public class SwingScreen implements Screen {
-
-	private int screenWidth, screenHeight;
-	private int darkMask = 0xffffff;
-	private int lightMask = 0x000000;
-	private int[] pixels;
-	private int xOffset, yOffset;
+	
 	private World world;
 	private BufferedImage image;
 	private int[] rasterPixels;
 
 	private Canvas canvas;
+	private Renderer renderer;
 
 	public SwingScreen(int width, int height, int scale) {
-		this.screenWidth = width;
-		this.screenHeight = height;
+		this.renderer = new Renderer(width, height);
 		canvas = new Canvas();
-		pixels = new int[width * height];
 		setSize(width * scale, height * scale);
-		image = new BufferedImage(screenWidth, screenHeight,
+		image = new BufferedImage(width, height,
 				BufferedImage.TYPE_INT_RGB);
 		rasterPixels = ((DataBufferInt) image.getRaster().getDataBuffer())
 				.getData();
-	}
-
-	public void clear() {
-		for (int i = 0; i < pixels.length; ++i) {
-			pixels[i] = 0x000000;
-		}
 	}
 
 	public void setSize(int width, int height) {
@@ -59,9 +46,10 @@ public class SwingScreen implements Screen {
 			return;
 		}
 
-		clear();
-		world.render(this);
+		renderer.clear();
+		world.render(renderer);
 
+		int[] pixels = renderer.getPixels();
 		for (int i = 0; i < pixels.length; i++) {
 			rasterPixels[i] = pixels[i];
 		}
@@ -95,90 +83,10 @@ public class SwingScreen implements Screen {
 
 	public void setWorld(World world) {
 		this.world = world;
-	}
-
-	public void renderFixedDrawable(int xPosition, int yPosition, Drawable drawable) {
-		xPosition -= xOffset;
-		yPosition -= yOffset;
-		renderDrawable(xPosition, yPosition, drawable);
-	}
-
-	public void renderDrawable(int xPosition, int yPosition, Drawable drawable) {
-		// Center the drawable
-		xPosition = xPosition - drawable.getWidth() / 2;
-		yPosition = yPosition - drawable.getHeight() / 2;
-		
-		if (drawableIsOffScreen(xPosition, yPosition, drawable)) {
-			return;
-		}
-
-		for (int spriteY = 0; spriteY < drawable.getHeight(); ++spriteY) {
-			int screenY = spriteY + yPosition;
-			for (int spriteX = 0; spriteX < drawable.getWidth(); ++spriteX) {
-				int screenX = spriteX + xPosition;
-				if (screenX < -drawable.getWidth() || screenX >= screenWidth
-						|| screenY < 0 || screenY >= screenHeight)
-					break;
-				if (screenX < 0)
-					screenX = 0;
-				int color = drawable.getPixels()[spriteX + spriteY
-						* drawable.getWidth()];
-				if (color != 0xffff00ff)
-					pixels[screenX + screenY * (screenWidth)] = (int) ((drawable
-							.getPixels()[spriteX + spriteY * drawable.getWidth()]) & darkMask | lightMask);
-			}
-		}
-	}
-
-	private boolean drawableIsOffScreen(int xPosition, int yPosition,
-			Drawable drawable) {
-		return (xPosition > screenWidth || xPosition + drawable.getWidth() < 0
-				|| yPosition > screenHeight || yPosition + drawable.getHeight() < 0);
-	}
-
-	public void setOffset(int xOffset, int yOffset) {
-		this.xOffset = xOffset;
-		this.yOffset = yOffset;
-	}
-
-	public void centerAt(int x, int y) {
-		this.xOffset = x - screenWidth / 2;
-		this.yOffset = y - screenHeight / 2;
-	}
-
-	public int getMask() {
-		return darkMask;
-	}
-
-	public int getScreenWidth() {
-		return screenWidth;
-	}
-
-	public int getScreenHeight() {
-		return screenHeight;
-	}
+	}	
 
 	public Canvas getCanvas() {
 		return canvas;
 	}
 
-	@Override
-	public void setDarkMask(int mask) {
-		if (mask >= 0x000000 && mask <= 0xffffff) {
-			this.darkMask = mask;
-		}
-		else{
-			throw new InvalidRenderingMaskException("Mask must a valid value between 0x000000 and 0xffffff");
-		}
-	}
-
-	@Override
-	public void setLightMask(int mask) {
-		if (mask >= 0x000000 && mask <= 0xffffff) {
-			this.lightMask = mask;
-		}
-		else{
-			throw new InvalidRenderingMaskException("Mask must a valid value between 0x000000 and 0xffffff");
-		}
-	}
 }

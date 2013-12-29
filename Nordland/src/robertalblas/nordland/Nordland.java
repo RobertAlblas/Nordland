@@ -1,19 +1,13 @@
 package robertalblas.nordland;
 
-import java.awt.Canvas;
-
 import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.exception.UnknownEntityTypeException;
+import robertalblas.nordland.exception.UnknownInitConfigurationException;
 import robertalblas.nordland.exception.XMLParseException;
+import robertalblas.nordland.init.Initializer;
 import robertalblas.nordland.input.InputManager;
-import robertalblas.nordland.input.swing.SwingInputManager;
-import robertalblas.nordland.resource.ResourceLoader;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.sound.SoundManager;
-import robertalblas.nordland.resource.sound.SoundSet;
-import robertalblas.nordland.resource.sound.music.MusicPlayer;
-import robertalblas.nordland.resource.sound.music.MusicPlayerImpl;
-import robertalblas.nordland.resource.world.WorldResource;
 import robertalblas.nordland.resource.world.WorldResourceManager;
 import robertalblas.nordland.system.defaults.SystemDefaults;
 import robertalblas.nordland.system.log.Logger;
@@ -22,17 +16,9 @@ import robertalblas.nordland.system.timer.TickTimerManager;
 import robertalblas.nordland.window.Window;
 import robertalblas.nordland.window.WindowListener;
 import robertalblas.nordland.window.WindowManager;
-import robertalblas.nordland.window.swing.SwingScreen;
-import robertalblas.nordland.window.swing.SwingWindowManager;
 import robertalblas.nordland.world.World;
-import robertalblas.nordland.world.WorldFactory;
-import robertalblas.nordland.world.resourceworld.ResourceWorldFactory;
 
 public class Nordland implements Runnable, WindowListener {
-
-	public static final int WIDTH = 400;
-	public static final int HEIGHT = WIDTH / 16 * 9;
-	public static final int SCALE = 3;
 
 	private Thread thread;
 	private World world;
@@ -43,44 +29,16 @@ public class Nordland implements Runnable, WindowListener {
 	private SpriteManager spriteManager;
 	private SoundManager soundManager;
 	private WorldResourceManager worldResourceManager;
-	private WorldFactory worldFactory;
 	private TickTimerManager tickTimerManager;
 
-	public Nordland() throws NumberFormatException, XMLParseException, UnknownEntityTypeException, ResourceNotFoundException {
+	public Nordland() throws NumberFormatException, XMLParseException, UnknownEntityTypeException, ResourceNotFoundException, UnknownInitConfigurationException {
 		LoggerManager.getInstance().getDefaultLogger().log("Loading engine..", Logger.LOGTYPE_DEBUG);
+		long startTime = System.currentTimeMillis();
 
-		tickTimerManager = new TickTimerManager();
-		inputManager = new SwingInputManager();
-		windowManager = new SwingWindowManager();
-		spriteManager = new SpriteManager();
-		spriteManager.setTickTimerManager(tickTimerManager);
-		soundManager = new SoundManager();
-		worldResourceManager = new WorldResourceManager(tickTimerManager, soundManager, spriteManager);
+		Initializer.init(this);
 		
-		ResourceLoader resourceLoader = new ResourceLoader();
-		resourceLoader.addResourceManager(spriteManager);
-		resourceLoader.addResourceManager(soundManager);
-		resourceLoader.addResourceManager(worldResourceManager);
-		resourceLoader.loadResources("res");
-
-		MusicPlayer musicPlayer = new MusicPlayerImpl();
-		musicPlayer.appendQueue((SoundSet) soundManager.getResourceSet("music"));
-		musicPlayer.repeatAll();
-		musicPlayer.play();
-
-		worldFactory = new ResourceWorldFactory((WorldResource)worldResourceManager.getResourceSet("testworld").getResource("testworld"));
-
-		windowManager.addWindowListener(this);
-		Window window = windowManager.createWindow("Nordland 0.2", WIDTH, HEIGHT, SCALE);
-
-		inputManager.connectScreen(window.getScreen());
-		Canvas canvas = ((SwingScreen) window.getScreen()).getCanvas();
-
-		canvas.requestFocus();
-		world = worldFactory.createWorld();
-		window.getScreen().setWorld(world);
-		window.hideCursor();
-		LoggerManager.getInstance().getDefaultLogger().log("Done", Logger.LOGTYPE_DEBUG);
+		LoggerManager.getInstance().getDefaultLogger()
+				.log("Done loading in " + (System.currentTimeMillis() - startTime) + "ms", Logger.LOGTYPE_DEBUG);
 	}
 
 	public void tick() {
@@ -92,6 +50,7 @@ public class Nordland implements Runnable, WindowListener {
 
 	public synchronized void start() {
 		running = true;
+		world.getMusicPlayer().play();
 		thread = new Thread(this, "Display");
 		LoggerManager.getInstance().getDefaultLogger().log("Starting", Logger.LOGTYPE_DEBUG);
 		thread.start();
@@ -100,7 +59,8 @@ public class Nordland implements Runnable, WindowListener {
 	public synchronized void stop() {
 		running = false;
 		try {
-			LoggerManager.getInstance().getDefaultLogger().log("Shutting down", Logger.LOGTYPE_DEBUG);
+			LoggerManager.getInstance().getDefaultLogger().log("Shutting down!", Logger.LOGTYPE_DEBUG);
+			world.getMusicPlayer().pause();
 			thread.join();
 			windowManager.unload();
 
@@ -144,21 +104,78 @@ public class Nordland implements Runnable, WindowListener {
 			}
 		}
 	}
+	
+	@Override
+	public void onWindowClosed(Window window) {
+		if (windowManager.getAmountOfWindows() == 0) {
+			LoggerManager.getInstance().getDefaultLogger().log("Window closed", Logger.LOGTYPE_DEBUG);
+			stop();
+		}
+	}
+	
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
+	public InputManager getInputManager() {
+		return inputManager;
+	}
+
+	public void setInputManager(InputManager inputManager) {
+		this.inputManager = inputManager;
+	}
+
+	public WindowManager getWindowManager() {
+		return windowManager;
+	}
+
+	public void setWindowManager(WindowManager windowManager) {
+		this.windowManager = windowManager;
+	}
+
+	public SpriteManager getSpriteManager() {
+		return spriteManager;
+	}
+
+	public void setSpriteManager(SpriteManager spriteManager) {
+		this.spriteManager = spriteManager;
+	}
+
+	public SoundManager getSoundManager() {
+		return soundManager;
+	}
+
+	public void setSoundManager(SoundManager soundManager) {
+		this.soundManager = soundManager;
+	}
+
+	public WorldResourceManager getWorldResourceManager() {
+		return worldResourceManager;
+	}
+
+	public void setWorldResourceManager(WorldResourceManager worldResourceManager) {
+		this.worldResourceManager = worldResourceManager;
+	}
+
+	public TickTimerManager getTickTimerManager() {
+		return tickTimerManager;
+	}
+
+	public void setTickTimerManager(TickTimerManager tickTimerManager) {
+		this.tickTimerManager = tickTimerManager;
+	}
 
 	public static void main(String[] args) {
 		Nordland nordland;
 		try {
 			nordland = new Nordland();
 			nordland.start();
-		} catch (NumberFormatException | XMLParseException | UnknownEntityTypeException | ResourceNotFoundException e) {
+		} catch (NumberFormatException | XMLParseException | UnknownEntityTypeException | ResourceNotFoundException | UnknownInitConfigurationException e) {
 			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void onWindowClosed(Window window) {
-		if (windowManager.getAmountOfWindows() == 0) {
-			stop();
 		}
 	}
 }
