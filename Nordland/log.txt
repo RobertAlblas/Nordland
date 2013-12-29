@@ -13532,3 +13532,157 @@ Starting
 Window closed
 20:21:12:394 DEBUG:  robertalblas.nordland.Nordland.stop(): 
 Shutting down!
+20:23:43:339 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:23:44:030 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 686ms
+20:23:44:031 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:24:26:135 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:24:26:137 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:25:28:048 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:25:28:714 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 664ms
+20:25:28:715 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:25:35:712 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:25:35:713 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:25:37:417 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:25:38:114 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 695ms
+20:25:38:115 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:25:44:661 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:25:44:661 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:25:53:364 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:25:54:068 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 702ms
+20:25:54:069 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:25:57:164 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:25:57:165 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:25:58:783 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:25:59:460 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 675ms
+20:25:59:464 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:26:03:275 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:26:03:276 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:26:21:017 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:26:21:700 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 680ms
+20:26:21:701 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:26:23:997 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:26:23:998 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:26:25:420 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:26:26:018 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 595ms
+20:26:26:019 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:26:28:576 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:26:28:577 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:26:29:739 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:26:30:397 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 656ms
+20:26:30:398 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:26:32:157 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:26:32:158 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:26:34:400 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:26:35:092 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 689ms
+20:26:35:092 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:26:37:993 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:26:37:994 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:26:47:408 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:26:48:046 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 635ms
+20:26:48:047 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:26:50:656 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:26:50:657 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:26:52:881 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:26:53:575 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 690ms
+20:26:53:576 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:26:55:400 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:26:55:403 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:28:15:989 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:28:16:669 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 677ms
+20:28:16:669 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:28:19:457 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:28:19:458 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:28:45:823 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:28:46:485 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 659ms
+20:28:46:613 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:28:51:895 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:28:51:896 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:29:18:277 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:31:58:148 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:31:58:718 DEBUG:  robertalblas.nordland.world.resourceworld.ResourceWorldFactory.createWorld(): 
+No music found
+20:31:58:725 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 575ms
+20:31:58:725 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:32:02:158 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:32:02:161 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!
+20:33:02:804 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Loading engine..
+20:33:03:402 DEBUG:  robertalblas.nordland.Nordland.<init>(): 
+Done loading in 597ms
+20:33:03:520 DEBUG:  robertalblas.nordland.Nordland.start(): 
+Starting
+20:33:07:351 DEBUG:  robertalblas.nordland.Nordland.onWindowClosed(): 
+Window closed
+20:33:07:352 DEBUG:  robertalblas.nordland.Nordland.stop(): 
+Shutting down!

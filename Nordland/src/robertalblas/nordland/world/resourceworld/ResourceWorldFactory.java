@@ -9,6 +9,8 @@ import robertalblas.nordland.resource.sound.music.Music;
 import robertalblas.nordland.resource.sound.music.MusicPlayer;
 import robertalblas.nordland.resource.world.WorldData;
 import robertalblas.nordland.resource.world.WorldResource;
+import robertalblas.nordland.system.log.Logger;
+import robertalblas.nordland.system.log.LoggerManager;
 import robertalblas.nordland.system.timer.TickTimerManager;
 import robertalblas.nordland.world.World;
 import robertalblas.nordland.world.WorldFactory;
@@ -49,10 +51,14 @@ public class ResourceWorldFactory implements WorldFactory {
 		resourceWorld.setWidth(worldData.getWidth());
 		resourceWorld.setHeight(worldData.getHeight());
 		
-		MusicPlayer musicPlayer = Music.getMusicPlayer();
-		musicPlayer.appendQueue((SoundSet)soundManager.getResourceSet("music"));
-		
-		resourceWorld.setMusicPlayer(musicPlayer);
+		try{
+			MusicPlayer musicPlayer = Music.getMusicPlayer();
+			musicPlayer.appendQueue((SoundSet)soundManager.getResourceSet("music"));
+			resourceWorld.setMusicPlayer(musicPlayer);
+		}
+		catch(ResourceNotFoundException e){
+			LoggerManager.getInstance().getDefaultLogger().log("No music found", Logger.LOGTYPE_DEBUG);
+		}
 		
 		for(Entity e: worldData.getEntities()){
 			e.setWorld(resourceWorld);

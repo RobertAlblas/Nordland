@@ -33,45 +33,45 @@ public class Player extends BaseEntity implements Collidable{
 
 	private void processInputActions(List<InputAction> inputActions) {
 		isMoving = false;
+		
+		int xDelta = 0;
+		int yDelta = 0;
+		
 		for (InputAction inputAction : inputActions) {
-			
-			int xDelta = 0;
-			int yDelta = 0;
-			
 			String action = inputAction.getActionType();
 			if (action.equals(InputActionType.UP)) {
 				yDelta--;
 				this.direction = Direction.NORTH;
-				this.isMoving = true;
+				break;
 			}
 			if (action.equals(InputActionType.DOWN)) {
 				yDelta++;
 				this.direction = Direction.SOUTH;
-				this.isMoving = true;
+				break;
 			}
 			if (action.equals(InputActionType.LEFT)) {
 				xDelta--;
 				this.direction = Direction.EAST;
-				this.isMoving = true;
+				break;
 			}
 			if (action.equals(InputActionType.RIGHT)) {
 				xDelta++;
 				this.direction = Direction.WEST;
-				this.isMoving = true;
+				break;
 			}
-			
-			if(xDelta != 0 || yDelta != 0){
-				Collidable collidable;
-				try {
-					collidable = getWorld().getCollisionMap().checkCollisionAt(this, this.getX() + xDelta, this.getY() + yDelta);
-					if(collidable == null){
-						this.setX(this.getX() + xDelta);
-						this.setY(this.getY() + yDelta);
-					}
-				} catch (CollisionException e) {
-					// Don't move
+		}
+		
+		if (xDelta != 0 || yDelta != 0) {
+			Collidable collidable;
+			this.isMoving = true;
+			try {
+				collidable = getWorld().getCollisionMap().checkCollisionAt(this, this.getX() + xDelta, this.getY() + yDelta);
+				if (collidable == null) {
+					this.setX(this.getX() + xDelta);
+					this.setY(this.getY() + yDelta);
 				}
-				
+			} catch (CollisionException e) {
+				// Don't move
 			}
 		}
 	}

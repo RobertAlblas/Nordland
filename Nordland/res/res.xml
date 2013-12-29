@@ -6,5 +6,5 @@
 	<spriteset name="player"/>
 	<spriteset name="rock"/>
 	<world name="testworld"/>
-	<soundset name="music" />
+	<soundset name="music"/>
 </resources>

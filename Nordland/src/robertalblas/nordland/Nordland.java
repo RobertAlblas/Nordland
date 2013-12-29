@@ -51,7 +51,7 @@ public class Nordland implements Runnable, WindowListener {
 	public synchronized void start() {
 		running = true;
 		if(world.getMusicPlayer() != null){
-			//world.getMusicPlayer().play();
+			world.getMusicPlayer().play();
 		}
 		thread = new Thread(this, "Display");
 		LoggerManager.getInstance().getDefaultLogger().log("Starting", Logger.LOGTYPE_DEBUG);
@@ -62,7 +62,9 @@ public class Nordland implements Runnable, WindowListener {
 		running = false;
 		try {
 			LoggerManager.getInstance().getDefaultLogger().log("Shutting down!", Logger.LOGTYPE_DEBUG);
-			world.getMusicPlayer().pause();
+			if(world.getMusicPlayer() != null){
+				world.getMusicPlayer().pause();
+			}
 			thread.join();
 			windowManager.unload();
 
