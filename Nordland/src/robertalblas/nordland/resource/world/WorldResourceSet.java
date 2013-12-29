@@ -4,6 +4,7 @@ import robertalblas.nordland.collision.CollisionMap;
 import robertalblas.nordland.entity.Entity;
 import robertalblas.nordland.entity.EntityFactory;
 import robertalblas.nordland.entity.Player;
+import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.XMLParseException;
 import robertalblas.nordland.resource.ResourceSet;
@@ -29,7 +30,7 @@ public class WorldResourceSet extends ResourceSet {
 	}
 
 	@Override
-	public void load() throws XMLParseException, NumberFormatException, UnknownEntityTypeException {
+	public void load() throws XMLParseException, NumberFormatException, UnknownEntityTypeException, ResourceNotFoundException {
 		XMLImporter xmlImporter = new XMLImporter();
 		XMLNode rootNode = xmlImporter.importXMLFile("/world/" + getFile() + ".xml", "worldresourceset");
 
@@ -54,7 +55,7 @@ public class WorldResourceSet extends ResourceSet {
 		}
 	}
 
-	private void loadWorldData(WorldResource worldResource, XMLNode worldDataNode) throws XMLParseException, NumberFormatException, UnknownEntityTypeException {
+	private void loadWorldData(WorldResource worldResource, XMLNode worldDataNode) throws XMLParseException, NumberFormatException, UnknownEntityTypeException, ResourceNotFoundException {
 		WorldData worldData = new WorldData();
 		int width = Integer.parseInt(worldDataNode.getAttributeValue("width"));
 		int height = Integer.parseInt(worldDataNode.getAttributeValue("width"));
@@ -75,7 +76,7 @@ public class WorldResourceSet extends ResourceSet {
 		worldResource.setWorldData(worldData);
 	}
 
-	private void loadEntityGroup(WorldData worldData, XMLNode entityNode) throws XMLParseException, NumberFormatException, UnknownEntityTypeException {
+	private void loadEntityGroup(WorldData worldData, XMLNode entityNode) throws XMLParseException, NumberFormatException, UnknownEntityTypeException, ResourceNotFoundException {
 		int beginX = Integer.parseInt(entityNode.getAttributeValue("beginX"));
 		int beginY = Integer.parseInt(entityNode.getAttributeValue("beginY"));
 		int endX = Integer.parseInt(entityNode.getAttributeValue("endX"));
@@ -99,7 +100,7 @@ public class WorldResourceSet extends ResourceSet {
 	}
 
 	private void loadEntity(WorldData worldData, XMLNode entityNode) throws XMLParseException, NumberFormatException,
-			UnknownEntityTypeException {
+			UnknownEntityTypeException, ResourceNotFoundException {
 		Entity entity = EntityFactory.createEntity(entityNode.getAttributeValue("type"),
 				(SpriteSet) spriteManager.getResourceSet(entityNode.getAttributeValue("spriteSet")),
 				Integer.parseInt(entityNode.getAttributeValue("x")), Integer.parseInt(entityNode.getAttributeValue("y")));

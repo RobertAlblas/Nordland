@@ -178,6 +178,7 @@ public class Nordland implements Runnable, WindowListener {
 			nordland.start();
 		} catch (NumberFormatException | XMLParseException | UnknownEntityTypeException | ResourceNotFoundException | UnknownInitConfigurationException e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 }

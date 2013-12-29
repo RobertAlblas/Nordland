@@ -2,6 +2,7 @@ package robertalblas.nordland.resource;
 
 import java.util.HashMap;
 
+import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.XMLParseException;
 
@@ -13,9 +14,12 @@ public abstract class ResourceManager {
 		this.setResourceSets(new HashMap<String, ResourceSet>());
 	}
 
-	public ResourceSet getResourceSet(String resourceSet) {
-		return getResourceSets().get(resourceSet);
-
+	public ResourceSet getResourceSet(String name) throws ResourceNotFoundException {
+		ResourceSet resourceSet =  getResourceSets().get(name);
+		if(resourceSet == null){
+			throw new ResourceNotFoundException("Unable to load resource: " + resourceSet);
+		}
+		return resourceSet;
 	}
 
 	public void unloadResourceSet(String resourceSet) {
@@ -38,5 +42,5 @@ public abstract class ResourceManager {
 		this.resourceSets = resourceSets;
 	}
 	
-	public abstract void loadResourceSet(String resourceSet) throws XMLParseException, NumberFormatException, UnknownEntityTypeException;
+	public abstract void loadResourceSet(String resourceSet) throws XMLParseException, NumberFormatException, UnknownEntityTypeException, ResourceNotFoundException;
 }

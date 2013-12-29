@@ -3,6 +3,7 @@ package robertalblas.nordland.resource;
 import java.util.ArrayList;
 import java.util.List;
 
+import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.XMLParseException;
 
@@ -15,7 +16,7 @@ public abstract class ResourceSet {
 		this.setResources(new ArrayList<Resource>());
 	}
 
-	public abstract void load() throws XMLParseException, NumberFormatException, UnknownEntityTypeException;
+	public abstract void load() throws XMLParseException, NumberFormatException, UnknownEntityTypeException, ResourceNotFoundException;
 
 	public Resource getResource(String resourceName) {
 		for (Resource r : getResources()) {

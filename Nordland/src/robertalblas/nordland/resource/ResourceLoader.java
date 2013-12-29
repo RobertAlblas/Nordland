@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.XMLParseException;
 import robertalblas.nordland.resource.graphics.SpriteManager;
@@ -27,7 +28,7 @@ public class ResourceLoader {
 		resourceManagers.add(resourceManager);
 	}
 
-	public void loadResources(String file) throws NumberFormatException, XMLParseException, UnknownEntityTypeException {
+	public void loadResources(String file) throws NumberFormatException, XMLParseException, UnknownEntityTypeException, ResourceNotFoundException {
 		findResources(file);
 
 		for (Entry<ResourceManager, String> entry : resources.entrySet()) {
@@ -35,7 +36,7 @@ public class ResourceLoader {
 		}
 	}
 
-	private void findResources(String file) throws XMLParseException, NumberFormatException, UnknownEntityTypeException {
+	private void findResources(String file) throws XMLParseException, NumberFormatException, UnknownEntityTypeException, ResourceNotFoundException {
 		XMLImporter xmlImporter = new XMLImporter();
 		XMLNode rootNode = xmlImporter.importXMLFile("/" + file + ".xml", "resources");
 
@@ -44,7 +45,7 @@ public class ResourceLoader {
 		}
 	}
 
-	private void parseXMLResource(XMLNode resource) throws XMLParseException, NumberFormatException, UnknownEntityTypeException {
+	private void parseXMLResource(XMLNode resource) throws XMLParseException, NumberFormatException, UnknownEntityTypeException, ResourceNotFoundException {
 		if (resource.getElementName().equals("spriteset")) {
 			for(ResourceManager m : resourceManagers){
 				if(m instanceof SpriteManager){
