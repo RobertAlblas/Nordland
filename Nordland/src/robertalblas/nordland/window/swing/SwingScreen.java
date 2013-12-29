@@ -32,6 +32,7 @@ public class SwingScreen implements Screen {
 				.getData();
 	}
 
+	@Override
 	public void setSize(int width, int height) {
 		Dimension d = new Dimension(width, height);
 		canvas.setPreferredSize(d);
@@ -39,6 +40,7 @@ public class SwingScreen implements Screen {
 		canvas.setMaximumSize(d);
 	}
 
+	@Override
 	public void render(int mouseX, int mouseY, int framerate, int updaterate) {
 		BufferStrategy bs = canvas.getBufferStrategy();
 		if (bs == null) {
@@ -81,10 +83,11 @@ public class SwingScreen implements Screen {
 		g.drawLine(x - 10, y + 1, x + 10, y + 1);
 	}
 
+	@Override
 	public void setWorld(World world) {
 		this.world = world;
 	}	
-
+	
 	public Canvas getCanvas() {
 		return canvas;
 	}
