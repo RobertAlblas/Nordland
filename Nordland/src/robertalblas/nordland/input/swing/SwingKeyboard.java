@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import robertalblas.nordland.input.InputAction;
-import robertalblas.nordland.input.InputActionType;
 import robertalblas.nordland.input.InputDevice;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.window.swing.SwingScreen;
@@ -24,21 +23,11 @@ public class SwingKeyboard implements KeyListener, InputDevice {
 	@Override
 	public void update() {
 		inputActions = new HashSet<InputAction>();
-
-		if (keys[KeyEvent.VK_UP] || keys[KeyEvent.VK_W]) {
-			inputActions.add(new InputAction(InputActionType.UP, 1));
-		}
-		if (keys[KeyEvent.VK_DOWN] || keys[KeyEvent.VK_S]) {
-			inputActions.add(new InputAction(InputActionType.DOWN, 1));
-		}
-		if (keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_A]) {
-			inputActions.add(new InputAction(InputActionType.LEFT, 1));
-		}
-		if (keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D]) {
-			inputActions.add(new InputAction(InputActionType.RIGHT, 1));
-		}
-		if (keys[KeyEvent.VK_ESCAPE]) {
-			inputActions.add(new InputAction(InputActionType.QUIT, 1));
+		
+		for(int i = 0; i < keys.length; i++){
+			if(keys[i]){
+				inputActions.add(new InputAction(KeyEvent.getKeyText(i),1));
+			}
 		}
 	}
 

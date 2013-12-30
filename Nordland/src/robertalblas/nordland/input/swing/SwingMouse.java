@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import robertalblas.nordland.input.InputAction;
-import robertalblas.nordland.input.InputActionType;
+import robertalblas.nordland.input.MouseInputActionType;
 import robertalblas.nordland.input.InputDevice;
 import robertalblas.nordland.window.Screen;
 import robertalblas.nordland.window.swing.SwingScreen;
@@ -79,9 +79,9 @@ public class SwingMouse implements MouseListener, MouseMotionListener, InputDevi
 	@Override
 	public void update() {
 		inputActions.clear();
-		inputActions.add(new InputAction(InputActionType.MOUSE_X,mouseX));
-		inputActions.add(new InputAction(InputActionType.MOUSE_Y,mouseY));
-		inputActions.add(new InputAction(InputActionType.MOUSE_BUTTON,mouseB));
+		inputActions.add(new InputAction(MouseInputActionType.MOUSE_X,mouseX));
+		inputActions.add(new InputAction(MouseInputActionType.MOUSE_Y,mouseY));
+		inputActions.add(new InputAction(MouseInputActionType.MOUSE_BUTTON,mouseB));
 	}
 
 }

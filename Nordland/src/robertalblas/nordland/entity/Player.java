@@ -6,7 +6,6 @@ import java.util.List;
 import robertalblas.nordland.collision.Collidable;
 import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.input.InputAction;
-import robertalblas.nordland.input.InputActionType;
 import robertalblas.nordland.resource.Resource;
 import robertalblas.nordland.resource.graphics.Animation;
 import robertalblas.nordland.resource.graphics.Drawable;
@@ -39,23 +38,23 @@ public class Player extends BaseEntity implements Collidable{
 		
 		for (InputAction inputAction : inputActions) {
 			String action = inputAction.getActionType();
-			if (action.equals(InputActionType.UP)) {
+			if (action.equalsIgnoreCase("w")) {
 				yDelta--;
 				this.direction = Direction.NORTH;
 				break;
 			}
-			if (action.equals(InputActionType.DOWN)) {
+			if (action.equalsIgnoreCase("s")) {
 				yDelta++;
 				this.direction = Direction.SOUTH;
 				break;
 			}
-			if (action.equals(InputActionType.LEFT)) {
-				xDelta--;
+			if (action.equalsIgnoreCase("d")) {
+				xDelta++;
 				this.direction = Direction.EAST;
 				break;
 			}
-			if (action.equals(InputActionType.RIGHT)) {
-				xDelta++;
+			if (action.equalsIgnoreCase("a")) {
+				xDelta--;
 				this.direction = Direction.WEST;
 				break;
 			}
@@ -85,10 +84,10 @@ public class Player extends BaseEntity implements Collidable{
 			this.setCurrentDrawable("front");
 			break;
 		case EAST:
-			this.setCurrentDrawable("left");
+			this.setCurrentDrawable("right");
 			break;
 		case WEST:
-			this.setCurrentDrawable("right");
+			this.setCurrentDrawable("left");
 			break;
 		default:
 			break;
