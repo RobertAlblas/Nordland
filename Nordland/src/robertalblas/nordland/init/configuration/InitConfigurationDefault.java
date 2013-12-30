@@ -1,12 +1,7 @@
 package robertalblas.nordland.init.configuration;
 
-import robertalblas.nordland.entity.loader.AnimatedCollidableTerrainFactory;
-import robertalblas.nordland.entity.loader.EntityLoader;
-import robertalblas.nordland.entity.loader.PlayerFactory;
-import robertalblas.nordland.entity.loader.StaticEntityFactory;
-import robertalblas.nordland.entity.loader.TerrainFactory;
 
-public class InitConfigurationDefault extends InitConfiguration {
+public class InitConfigurationDefault implements InitConfiguration {
 	
 	private int width;
 	private int height;
@@ -17,7 +12,6 @@ public class InitConfigurationDefault extends InitConfiguration {
 	private String world;
 
 	public InitConfigurationDefault() {
-		super("default");
 		
 		this.width = 400;
 		this.height = width / 16 * 9;
@@ -26,13 +20,9 @@ public class InitConfigurationDefault extends InitConfiguration {
 		this.setResource("res");
 		this.setWorld("testworld");
 		this.setWorldSet("testworld");
-		
-		EntityLoader.addFactory("player", new PlayerFactory());
-		EntityLoader.addFactory("animatedCollidableTerrain", new AnimatedCollidableTerrainFactory());
-		EntityLoader.addFactory("terrain", new TerrainFactory());
-		EntityLoader.addFactory("staticEntity", new StaticEntityFactory());
 	}
 
+	@Override
 	public int getHeight() {
 		return height;
 	}
@@ -41,6 +31,7 @@ public class InitConfigurationDefault extends InitConfiguration {
 		this.height = height;
 	}
 
+	@Override
 	public int getScale() {
 		return scale;
 	}
@@ -49,6 +40,7 @@ public class InitConfigurationDefault extends InitConfiguration {
 		this.scale = scale;
 	}
 
+	@Override
 	public String getWindowTitle() {
 		return windowTitle;
 	}
@@ -57,6 +49,7 @@ public class InitConfigurationDefault extends InitConfiguration {
 		this.windowTitle = windowTitle;
 	}
 
+	@Override
 	public int getWidth() {
 		return width;
 	}
@@ -65,6 +58,7 @@ public class InitConfigurationDefault extends InitConfiguration {
 		this.width = width;
 	}
 
+	@Override
 	public String getResource() {
 		return resource;
 	}
@@ -73,6 +67,7 @@ public class InitConfigurationDefault extends InitConfiguration {
 		this.resource = resource;
 	}
 
+	@Override
 	public String getWorldSet() {
 		return worldSet;
 	}
@@ -81,6 +76,7 @@ public class InitConfigurationDefault extends InitConfiguration {
 		this.worldSet = worldSet;
 	}
 
+	@Override
 	public String getWorld() {
 		return world;
 	}

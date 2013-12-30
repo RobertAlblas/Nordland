@@ -1,19 +1,19 @@
 package robertalblas.nordland.init.configuration;
 
-public abstract class InitConfiguration {
-	private String configurationType;
+public interface InitConfiguration {
 
-	public InitConfiguration(String configurationType){
-		this.configurationType = configurationType;
-	}
-	
-	public String getConfigurationType() {
-		return configurationType;
-	}
+	public int getHeight();
 
-	public void setConfigurationType(String configurationType) {
-		this.configurationType = configurationType;
-	}
-	
-	
+	public int getScale();
+
+	public int getWidth();
+
+	public String getWindowTitle();
+
+	public String getResource();
+
+	public String getWorldSet();
+
+	public String getWorld();
+
 }

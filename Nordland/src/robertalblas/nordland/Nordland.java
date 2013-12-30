@@ -4,7 +4,8 @@ import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.UnknownInitConfigurationException;
 import robertalblas.nordland.exception.XMLParseException;
-import robertalblas.nordland.init.Initializer;
+import robertalblas.nordland.init.InitializerDefault;
+import robertalblas.nordland.init.InitializerTemplate;
 import robertalblas.nordland.init.configuration.InitConfiguration;
 import robertalblas.nordland.init.configuration.InitConfigurationDefault;
 import robertalblas.nordland.input.InputManager;
@@ -33,11 +34,11 @@ public class Nordland implements Runnable, WindowListener {
 	private WorldResourceManager worldResourceManager;
 	private TickTimerManager tickTimerManager;
 
-	public Nordland(InitConfiguration config) throws NumberFormatException, XMLParseException, UnknownEntityTypeException, ResourceNotFoundException, UnknownInitConfigurationException {
+	public Nordland(InitializerTemplate initializer, InitConfiguration config) throws NumberFormatException, XMLParseException, UnknownEntityTypeException, ResourceNotFoundException, UnknownInitConfigurationException {
 		LoggerManager.getInstance().getDefaultLogger().log("Loading engine..", Logger.LOGTYPE_DEBUG);
 		long startTime = System.currentTimeMillis();
 
-		Initializer.init(this, config);
+		initializer.init(this, config);
 		
 		LoggerManager.getInstance().getDefaultLogger()
 				.log("Done loading in " + (System.currentTimeMillis() - startTime) + "ms", Logger.LOGTYPE_DEBUG);
@@ -179,7 +180,8 @@ public class Nordland implements Runnable, WindowListener {
 		Nordland nordland = null;
 		try {
 			InitConfiguration config = new InitConfigurationDefault();
-			nordland = new Nordland(config);
+			InitializerTemplate initializer = new InitializerDefault();
+			nordland = new Nordland(initializer, config);
 			
 		} catch (NumberFormatException | XMLParseException | UnknownEntityTypeException | ResourceNotFoundException | UnknownInitConfigurationException e) {
 			e.printStackTrace();
