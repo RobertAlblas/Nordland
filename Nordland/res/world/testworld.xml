@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <worldresourceset>
 	<world name="testworld">
-		<worlddata width="320" height="320">
-			<entityGroup type="terrain" spriteSet="ice" beginX="0"
-				beginY="0" endX="320" endY="320" />
+		<worlddata width="312" height="312">
+			<entityGroup type="terrain" spriteSet="ice" beginX="8"
+				beginY="8" endX="312" endY="312" />
 			<entityGroup type="terrain" spriteSet="grass" beginX="200"
-				beginY="230" endX="320" endY="320" />
+				beginY="230" endX="312" endY="312" />
 			<entity type="terrain" spriteSet="grass" x="280" y="218" />
 			<entity type="terrain" spriteSet="grass" x="280" y="202" />
 			<entity type="terrain" spriteSet="grass" x="264" y="218" />
 
 			<!-- Water -->
 			<entityGroup type="animatedCollidableTerrain" spriteSet="water"
-				beginX="0" beginY="0" endX="320" endY="32" />
+				beginX="8" beginY="8" endX="312" endY="32" />
 			<entityGroup type="animatedCollidableTerrain" spriteSet="water"
-				beginX="0" beginY="32" endX="32" endY="320" />
+				beginX="8" beginY="32" endX="32" endY="312" />
 			<entityGroup type="animatedCollidableTerrain" spriteSet="water"
-				beginX="32" beginY="288" endX="320" endY="320" />
+				beginX="32" beginY="288" endX="312" endY="312" />
 			<entityGroup type="animatedCollidableTerrain" spriteSet="water"
-				beginX="288" beginY="32" endX="320" endY="288" />
+				beginX="288" beginY="32" endX="312" endY="288" />
 				
 			<!-- Rocks -->
 			<entity type="staticEntity" spriteSet="rock" x="50" y="50" />

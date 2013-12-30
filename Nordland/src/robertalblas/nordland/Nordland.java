@@ -4,10 +4,8 @@ import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.UnknownInitConfigurationException;
 import robertalblas.nordland.exception.XMLParseException;
-import robertalblas.nordland.init.InitializerDefault;
 import robertalblas.nordland.init.InitializerTemplate;
 import robertalblas.nordland.init.configuration.InitConfiguration;
-import robertalblas.nordland.init.configuration.InitConfigurationDefault;
 import robertalblas.nordland.input.InputManager;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.sound.SoundManager;
@@ -174,19 +172,5 @@ public class Nordland implements Runnable, WindowListener {
 
 	public void setTickTimerManager(TickTimerManager tickTimerManager) {
 		this.tickTimerManager = tickTimerManager;
-	}
-
-	public static void main(String[] args) {
-		Nordland nordland = null;
-		try {
-			InitConfiguration config = new InitConfigurationDefault();
-			InitializerTemplate initializer = new InitializerDefault();
-			nordland = new Nordland(initializer, config);
-			
-		} catch (NumberFormatException | XMLParseException | UnknownEntityTypeException | ResourceNotFoundException | UnknownInitConfigurationException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
-		nordland.start();
 	}
 }

@@ -11,7 +11,6 @@ import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.sound.SoundManager;
 import robertalblas.nordland.resource.sound.music.MusicPlayer;
 import robertalblas.nordland.system.timer.TickTimerManager;
-import robertalblas.nordland.window.Screen;
 
 public interface World {
 	public void tick(List<InputAction> inputActions);
