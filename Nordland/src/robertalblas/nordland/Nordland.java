@@ -5,6 +5,8 @@ import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.UnknownInitConfigurationException;
 import robertalblas.nordland.exception.XMLParseException;
 import robertalblas.nordland.init.Initializer;
+import robertalblas.nordland.init.configuration.InitConfiguration;
+import robertalblas.nordland.init.configuration.InitConfigurationDefault;
 import robertalblas.nordland.input.InputManager;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.sound.SoundManager;
@@ -31,11 +33,11 @@ public class Nordland implements Runnable, WindowListener {
 	private WorldResourceManager worldResourceManager;
 	private TickTimerManager tickTimerManager;
 
-	public Nordland() throws NumberFormatException, XMLParseException, UnknownEntityTypeException, ResourceNotFoundException, UnknownInitConfigurationException {
+	public Nordland(InitConfiguration config) throws NumberFormatException, XMLParseException, UnknownEntityTypeException, ResourceNotFoundException, UnknownInitConfigurationException {
 		LoggerManager.getInstance().getDefaultLogger().log("Loading engine..", Logger.LOGTYPE_DEBUG);
 		long startTime = System.currentTimeMillis();
 
-		Initializer.init(this);
+		Initializer.init(this, config);
 		
 		LoggerManager.getInstance().getDefaultLogger()
 				.log("Done loading in " + (System.currentTimeMillis() - startTime) + "ms", Logger.LOGTYPE_DEBUG);
@@ -174,13 +176,15 @@ public class Nordland implements Runnable, WindowListener {
 	}
 
 	public static void main(String[] args) {
-		Nordland nordland;
+		Nordland nordland = null;
 		try {
-			nordland = new Nordland();
-			nordland.start();
+			InitConfiguration config = new InitConfigurationDefault();
+			nordland = new Nordland(config);
+			
 		} catch (NumberFormatException | XMLParseException | UnknownEntityTypeException | ResourceNotFoundException | UnknownInitConfigurationException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		nordland.start();
 	}
 }

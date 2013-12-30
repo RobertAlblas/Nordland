@@ -54,6 +54,7 @@ public class ResourceWorldFactory implements WorldFactory {
 		try{
 			MusicPlayer musicPlayer = Music.getMusicPlayer();
 			musicPlayer.appendQueue((SoundSet)soundManager.getResourceSet("music"));
+			musicPlayer.repeatAll();
 			resourceWorld.setMusicPlayer(musicPlayer);
 		}
 		catch(ResourceNotFoundException e){

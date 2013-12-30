@@ -1,5 +1,11 @@
 package robertalblas.nordland.init.configuration;
 
+import robertalblas.nordland.entity.loader.AnimatedCollidableTerrainFactory;
+import robertalblas.nordland.entity.loader.EntityLoader;
+import robertalblas.nordland.entity.loader.PlayerFactory;
+import robertalblas.nordland.entity.loader.StaticEntityFactory;
+import robertalblas.nordland.entity.loader.TerrainFactory;
+
 public class InitConfigurationDefault extends InitConfiguration {
 	
 	private int width;
@@ -20,6 +26,11 @@ public class InitConfigurationDefault extends InitConfiguration {
 		this.setResource("res");
 		this.setWorld("testworld");
 		this.setWorldSet("testworld");
+		
+		EntityLoader.addFactory("player", new PlayerFactory());
+		EntityLoader.addFactory("animatedCollidableTerrain", new AnimatedCollidableTerrainFactory());
+		EntityLoader.addFactory("terrain", new TerrainFactory());
+		EntityLoader.addFactory("staticEntity", new StaticEntityFactory());
 	}
 
 	public int getHeight() {

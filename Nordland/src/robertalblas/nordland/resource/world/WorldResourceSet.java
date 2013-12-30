@@ -2,8 +2,8 @@ package robertalblas.nordland.resource.world;
 
 import robertalblas.nordland.collision.CollisionMap;
 import robertalblas.nordland.entity.Entity;
-import robertalblas.nordland.entity.EntityFactory;
 import robertalblas.nordland.entity.Player;
+import robertalblas.nordland.entity.loader.EntityLoader;
 import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.exception.UnknownEntityTypeException;
 import robertalblas.nordland.exception.XMLParseException;
@@ -101,7 +101,7 @@ public class WorldResourceSet extends ResourceSet {
 
 	private void loadEntity(WorldData worldData, XMLNode entityNode) throws XMLParseException, NumberFormatException,
 			UnknownEntityTypeException, ResourceNotFoundException {
-		Entity entity = EntityFactory.createEntity(entityNode.getAttributeValue("type"),
+		Entity entity = EntityLoader.createEntity(entityNode.getAttributeValue("type"),
 				(SpriteSet) spriteManager.getResourceSet(entityNode.getAttributeValue("spriteSet")),
 				Integer.parseInt(entityNode.getAttributeValue("x")), Integer.parseInt(entityNode.getAttributeValue("y")));
 
