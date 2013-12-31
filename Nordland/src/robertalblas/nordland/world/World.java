@@ -18,6 +18,8 @@ public interface World {
 	public void render(Renderer renderer);
 
 	public void addEntity(Entity e);
+	
+	public void removeEntity(Entity e);
 
 	public Player getPlayer();
 

@@ -12,36 +12,36 @@ import robertalblas.nordland.renderer.Renderer;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.sound.SoundManager;
 import robertalblas.nordland.resource.sound.music.MusicPlayer;
-import robertalblas.nordland.system.log.Logger;
-import robertalblas.nordland.system.log.LoggerManager;
 import robertalblas.nordland.system.timer.TickTimerManager;
 import robertalblas.nordland.world.World;
 
 public class ResourceWorld implements World {
-	
+
 	private SoundManager soundManager;
 	private SpriteManager spriteManager;
 	private TickTimerManager tickTimerManager;
 	private List<Entity> entities;
 	private int width, height;
 	private CollisionMap collisionMap;
-	
+
 	private MusicPlayer musicPlayer;
-	
+
 	private Player player;
-	
+
 	@Override
 	public void tick(List<InputAction> inputActions) {
 		collisionMap.clear();
 		for (Entity entity : entities) {
-			entity.update(inputActions);
 			if (entity instanceof Collidable) {
 				try {
 					collisionMap.renderCollidable((Collidable) entity);
 				} catch (CollisionException e) {
-					LoggerManager.getInstance().getDefaultLogger().log("Collision: " + entity + " and " + e.getCollidable(), Logger.LOGTYPE_DEBUG);
 				}
 			}
+			
+		}
+		for (Entity entity : entities) {
+			entity.update(inputActions);			
 		}
 	}
 
@@ -141,6 +141,11 @@ public class ResourceWorld implements World {
 	@Override
 	public void setMusicPlayer(MusicPlayer musicPlayer) {
 		this.musicPlayer = musicPlayer;
+	}
+
+	@Override
+	public void removeEntity(Entity e) {
+		entities.remove(e);
 	}
 
 }

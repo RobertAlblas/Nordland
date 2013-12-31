@@ -1,5 +1,8 @@
 package robertalblas.nordland.collision;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.resource.graphics.Drawable;
 
@@ -16,9 +19,7 @@ public class CollisionMap {
 	public void clear() {
 		for (int i = 0; i < collidables.length; i++) {
 			if (collidables[i] != null) {
-				if (collidables[i].isMovable()) {
-					collidables[i] = null;
-				}
+				collidables[i] = null;
 			}
 		}
 	}
@@ -29,6 +30,8 @@ public class CollisionMap {
 		int collidableXPosition = collidable.getX() - drawable.getWidth() / 2;
 		int collidableYPosition = collidable.getY() - drawable.getHeight() / 2;
 
+		List<Collidable> collisions = new ArrayList<Collidable>();
+
 		int pixels[] = drawable.getPixels();
 		for (int x = 0; x < drawable.getWidth(); x++) {
 			for (int y = 0; y < drawable.getHeight(); y++) {
@@ -36,11 +39,7 @@ public class CollisionMap {
 					int mapIndex = x + collidableXPosition + ((y + collidableYPosition) * this.width);
 					try {
 						if (collidables[mapIndex] != null) {
-							if (!collidable.isMovable()) {
-								return;
-							} else {
-								throw new CollisionException(collidables[mapIndex], "Collision detected");
-							}
+							collisions.add(collidables[mapIndex]);
 						} else {
 							collidables[mapIndex] = collidable;
 						}
@@ -51,11 +50,15 @@ public class CollisionMap {
 				}
 			}
 		}
+
+		if (collisions.size() > 0) {
+			throw new CollisionException(collisions, "Collision detected");
+		}
 	}
 
 	public Collidable checkCollisionAt(Collidable collidable, int xPosition, int yPosition) throws CollisionException {
 		for (Drawable d : collidable.getDrawables()) {
-			Collidable collision = checkCollisionForDrawableAt(d, xPosition, yPosition);
+			Collidable collision = checkCollisionForDrawableAt(collidable, d, xPosition, yPosition);
 			if (collision != null) {
 				return collision;
 			}
@@ -63,7 +66,7 @@ public class CollisionMap {
 		return null;
 	}
 
-	private Collidable checkCollisionForDrawableAt(Drawable drawable, int xPosition, int yPosition) throws CollisionException {
+	private Collidable checkCollisionForDrawableAt(Collidable collidable, Drawable drawable, int xPosition, int yPosition) throws CollisionException {
 
 		// Center drawable coordinates
 		int centeredXPosition = xPosition - drawable.getWidth() / 2;
@@ -76,7 +79,7 @@ public class CollisionMap {
 				if (pixels[x + y * drawable.getWidth()] != 0xffff00ff) {
 					int mapIndex = x + centeredXPosition + ((y + centeredYPosition) * this.width);
 					try {
-						if (collidables[mapIndex] != null) {
+						if (collidables[mapIndex] != null && collidables[mapIndex] != collidable) {
 							return collidables[mapIndex];
 						}
 					} catch (ArrayIndexOutOfBoundsException e) {
