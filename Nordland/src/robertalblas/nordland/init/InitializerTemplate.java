@@ -1,10 +1,8 @@
 package robertalblas.nordland.init;
 
 import robertalblas.nordland.Nordland;
-import robertalblas.nordland.entity.loader.AnimatedCollidableTerrainFactory;
 import robertalblas.nordland.entity.loader.EntityLoader;
 import robertalblas.nordland.entity.loader.PlayerFactory;
-import robertalblas.nordland.entity.loader.StaticEntityFactory;
 import robertalblas.nordland.entity.loader.TerrainFactory;
 import robertalblas.nordland.exception.ResourceNotFoundException;
 import robertalblas.nordland.exception.UnknownEntityTypeException;
@@ -59,9 +57,7 @@ public abstract class InitializerTemplate {
 
 	public void addEntityFactories(InitConfiguration configuration) {
 		EntityLoader.addFactory("player", new PlayerFactory());
-		EntityLoader.addFactory("animatedCollidableTerrain", new AnimatedCollidableTerrainFactory());
 		EntityLoader.addFactory("terrain", new TerrainFactory());
-		EntityLoader.addFactory("staticEntity", new StaticEntityFactory());
 	}
 
 	public WorldFactory loadResources(Nordland nordland, InitConfiguration configuration) throws NumberFormatException, XMLParseException,

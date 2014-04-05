@@ -21,7 +21,7 @@ public abstract class Sound extends Resource {
 	
 	public void notifyObservers(){
 		for(SoundFinishedPlayingListener s: soundFinishedPlayingListeners){
-			s.onSoundFinishedPlaying();
+			s.onSoundFinishedPlaying(this);
 		}
 	}
 

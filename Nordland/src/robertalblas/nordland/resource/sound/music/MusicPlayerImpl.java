@@ -167,7 +167,7 @@ public class MusicPlayerImpl implements MusicPlayer,
 	}
 
 	@Override
-	public void onSoundFinishedPlaying() {
+	public void onSoundFinishedPlaying(Sound sound) {
 		if (!isPaused) {
 			if (repeatBehaviour == RepeatBehaviour.REPEAT_SINGLE) {
 				queue.get(currentSound).play();

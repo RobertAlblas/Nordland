@@ -1,6 +1,10 @@
 package robertalblas.nordland.resource.sound;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import robertalblas.nordland.exception.FiletypeNotSupportedException;
+import robertalblas.nordland.resource.Resource;
 import robertalblas.nordland.resource.ResourceSet;
 import robertalblas.nordland.resource.sound.loader.SoundLoader;
 import robertalblas.nordland.system.log.Logger;
@@ -32,6 +36,17 @@ public class SoundSet extends ResourceSet {
 			}
 		}
 
+	}
+
+	@Override
+	public ResourceSet clone() {
+		ResourceSet clone = new SoundSet(getFile());
+		List<Resource> resources = new ArrayList<Resource>();
+		for(Resource r: this.getResources()){
+			resources.add(r.getClone());
+		}
+		clone.setResources(resources);
+		return clone;
 	}
 
 }

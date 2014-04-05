@@ -12,6 +12,7 @@ import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.SpriteManager;
 import robertalblas.nordland.resource.graphics.SpriteSet;
 import robertalblas.nordland.resource.sound.SoundManager;
+import robertalblas.nordland.resource.sound.SoundSet;
 import robertalblas.nordland.system.timer.TickTimerManager;
 import robertalblas.nordland.system.xml.XMLImporter;
 import robertalblas.nordland.system.xml.XMLNode;
@@ -55,7 +56,8 @@ public class WorldResourceSet extends ResourceSet {
 		}
 	}
 
-	private void loadWorldData(WorldResource worldResource, XMLNode worldDataNode) throws XMLParseException, NumberFormatException, UnknownEntityTypeException, ResourceNotFoundException {
+	private void loadWorldData(WorldResource worldResource, XMLNode worldDataNode) throws XMLParseException,
+			NumberFormatException, UnknownEntityTypeException, ResourceNotFoundException {
 		WorldData worldData = new WorldData();
 		int width = Integer.parseInt(worldDataNode.getAttributeValue("width"));
 		int height = Integer.parseInt(worldDataNode.getAttributeValue("width"));
@@ -76,7 +78,8 @@ public class WorldResourceSet extends ResourceSet {
 		worldResource.setWorldData(worldData);
 	}
 
-	private void loadEntityGroup(WorldData worldData, XMLNode entityNode) throws XMLParseException, NumberFormatException, UnknownEntityTypeException, ResourceNotFoundException {
+	private void loadEntityGroup(WorldData worldData, XMLNode entityNode) throws XMLParseException, NumberFormatException,
+			UnknownEntityTypeException, ResourceNotFoundException {
 		int beginX = Integer.parseInt(entityNode.getAttributeValue("beginX"));
 		int beginY = Integer.parseInt(entityNode.getAttributeValue("beginY"));
 		int endX = Integer.parseInt(entityNode.getAttributeValue("endX"));
@@ -101,13 +104,26 @@ public class WorldResourceSet extends ResourceSet {
 
 	private void loadEntity(WorldData worldData, XMLNode entityNode) throws XMLParseException, NumberFormatException,
 			UnknownEntityTypeException, ResourceNotFoundException {
+		SoundSet soundSet = null;
+		try {
+			soundSet = (SoundSet) soundManager.getResourceSet(entityNode.getAttributeValue("soundSet"));
+		} catch (ResourceNotFoundException e) {
+			// soundset can be null. We catch the exception to make sure it does
+			// not crash, but pass null
+		}
 		Entity entity = EntityLoader.createEntity(entityNode.getAttributeValue("type"),
-				(SpriteSet) spriteManager.getResourceSet(entityNode.getAttributeValue("spriteSet")),
+				(SpriteSet) spriteManager.getResourceSet(entityNode.getAttributeValue("spriteSet")), soundSet,
 				Integer.parseInt(entityNode.getAttributeValue("x")), Integer.parseInt(entityNode.getAttributeValue("y")));
 
 		worldData.getEntities().add(entity);
 		if (entity instanceof Player) {
 			worldData.setPlayer((Player) entity);
 		}
+	}
+
+	@Override
+	public ResourceSet clone() {
+		// We don't need this for world
+		return this;
 	}
 }

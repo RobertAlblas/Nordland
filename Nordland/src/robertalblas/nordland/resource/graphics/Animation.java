@@ -9,6 +9,7 @@ public class Animation extends Drawable implements TickTimerRunnable{
 	private List<Sprite> sprites;
 	private int currentSprite;
 	private int amountOfSpritesPerSecond;
+	private boolean isAnimatedIndependently;
 	
 	public Animation(String name, List<Sprite> sprites, int amountOfSpritesPerSecond){
 		super(name, sprites.get(0).getWidth(), sprites.get(0).getHeight());
@@ -52,5 +53,13 @@ public class Animation extends Drawable implements TickTimerRunnable{
 	@Override
 	public void run() {
 		nextSprite();
+	}
+
+	public boolean isAnimatedIndependently() {
+		return isAnimatedIndependently;
+	}
+
+	public void setAnimatedIndependently(boolean isAnimatedIndependently) {
+		this.isAnimatedIndependently = isAnimatedIndependently;
 	}
 }

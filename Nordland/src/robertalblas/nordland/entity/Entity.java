@@ -5,6 +5,7 @@ import java.util.List;
 import robertalblas.nordland.input.InputAction;
 import robertalblas.nordland.renderer.Renderer;
 import robertalblas.nordland.resource.graphics.Drawable;
+import robertalblas.nordland.resource.sound.SoundSet;
 import robertalblas.nordland.world.World;
 
 public interface Entity {
@@ -19,4 +20,6 @@ public interface Entity {
 	public void render(Renderer renderer);
 	public Drawable getDrawable();
 	public List<Drawable> getDrawables();
+	public SoundSet getSoundSet();
+	public void setSoundSet(SoundSet soundSet);
 }

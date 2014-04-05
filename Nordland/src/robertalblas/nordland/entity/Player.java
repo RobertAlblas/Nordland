@@ -3,18 +3,18 @@ package robertalblas.nordland.entity;
 import java.util.List;
 
 import robertalblas.nordland.collision.Collidable;
-import robertalblas.nordland.exception.CollisionException;
 import robertalblas.nordland.input.InputAction;
 import robertalblas.nordland.resource.graphics.SpriteSet;
+import robertalblas.nordland.resource.sound.SoundSet;
 import robertalblas.nordland.world.World;
 
-public class Player extends BaseEntity implements Collidable{
-	
+public class Player extends BaseEntity implements Collidable {
+
 	private boolean isMoving;
 	private Direction direction;
 
-	public Player(World world, SpriteSet spriteSheet, int x, int y) {
-		super(world,spriteSheet,x,y);
+	public Player(World world, SpriteSet spriteSheet, SoundSet soundSet, int x, int y) {
+		super(world, spriteSheet, soundSet, x, y);
 		this.isMoving = false;
 		this.direction = Direction.NONE;
 	}
@@ -28,46 +28,35 @@ public class Player extends BaseEntity implements Collidable{
 	private void processInputActions(List<InputAction> inputActions) {
 		isMoving = false;
 		
-		int xDelta = 0;
-		int yDelta = 0;
-		
 		for (InputAction inputAction : inputActions) {
 			String action = inputAction.getActionType();
 			if (action.equalsIgnoreCase("w")) {
-				yDelta--;
 				this.direction = Direction.NORTH;
+				isMoving = true;
 				break;
 			}
 			if (action.equalsIgnoreCase("s")) {
-				yDelta++;
 				this.direction = Direction.SOUTH;
+				isMoving = true;
 				break;
 			}
 			if (action.equalsIgnoreCase("d")) {
-				xDelta++;
 				this.direction = Direction.EAST;
+				isMoving = true;
 				break;
 			}
 			if (action.equalsIgnoreCase("a")) {
-				xDelta--;
 				this.direction = Direction.WEST;
+				isMoving = true;
 				break;
 			}
 		}
-		
-		if (xDelta != 0 || yDelta != 0) {
-			Collidable collidable;
-			this.isMoving = true;
-			try {
-				collidable = getWorld().getCollisionMap().checkCollisionAt(this, this.getX() + xDelta, this.getY() + yDelta);
-				if (collidable == null) {
-					this.setX(this.getX() + xDelta);
-					this.setY(this.getY() + yDelta);
-				}
-			} catch (CollisionException e) {
-				// Don't move
-			}
+
+		if(direction != Direction.NONE && isMoving){
+			super.move(direction);
+			isMoving = true;
 		}
+		
 	}
 
 	private void updateSprite() {
@@ -93,13 +82,12 @@ public class Player extends BaseEntity implements Collidable{
 		}
 	}
 	
-	@Override
-	public boolean isMovable(){
-		return true;
+	public Direction getDirection(){
+		return direction;
 	}
 
 	@Override
-	public void onCollision() {
-		
+	public void onCollision(Entity e) {
+
 	}
 }

@@ -6,7 +6,7 @@ import robertalblas.nordland.world.World;
 public class Terrain extends BaseEntity {
 
 	public Terrain(World world, SpriteSet spriteSheet, int x, int y) {
-		super(world, spriteSheet, x, y);
+		super(world, spriteSheet, null, x, y);
 	}	
 
 }

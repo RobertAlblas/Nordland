@@ -46,4 +46,8 @@ public class TickTimer {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
+	public TickTimerRunnable getRunnable() {
+		return this.tickTimerRunnable;
+	}
 }

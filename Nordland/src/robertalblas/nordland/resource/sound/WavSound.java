@@ -25,6 +25,7 @@ public class WavSound extends Sound implements LineListener {
 					.getResource(audioFile)));
 			clip.start();
 			clip.addLineListener(this);
+			
 		} catch (Exception exc) {
 			exc.printStackTrace(System.out);
 		}

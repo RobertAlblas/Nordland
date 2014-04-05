@@ -2,16 +2,20 @@ package robertalblas.nordland.resource.graphics;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import robertalblas.nordland.resource.Resource;
 import robertalblas.nordland.resource.ResourceSet;
 import robertalblas.nordland.resource.graphics.loader.DrawableLoader;
 import robertalblas.nordland.system.log.Logger;
 import robertalblas.nordland.system.log.LoggerManager;
 import robertalblas.nordland.system.timer.TickTimer;
 import robertalblas.nordland.system.timer.TickTimerManager;
+import robertalblas.nordland.system.timer.TickTimerRunnable;
 import robertalblas.nordland.system.xml.XMLImporter;
 import robertalblas.nordland.system.xml.XMLNode;
 
@@ -23,8 +27,8 @@ public class SpriteSet extends ResourceSet {
 	public SpriteSet(String file) {
 		super(file);
 	}
-	
-	public void setTickTimerManager(TickTimerManager tickTimerManager){
+
+	public void setTickTimerManager(TickTimerManager tickTimerManager) {
 		this.tickTimerManager = tickTimerManager;
 	}
 
@@ -33,8 +37,7 @@ public class SpriteSet extends ResourceSet {
 		int[] pixels = getPixelsFromFile("/texture/" + getFile() + ".png");
 
 		XMLImporter xmlImporter = new XMLImporter();
-		XMLNode rootNode = xmlImporter.importXMLFile("/texture/" + getFile()
-				+ ".xml", "spriteset");
+		XMLNode rootNode = xmlImporter.importXMLFile("/texture/" + getFile() + ".xml", "spriteset");
 
 		List<Drawable> resources = processXMLNodes(rootNode);
 
@@ -45,28 +48,28 @@ public class SpriteSet extends ResourceSet {
 
 	private void processDrawable(int[] pixels, Drawable d) {
 		if (d instanceof Sprite) {
-			processSprite(pixels, (Sprite)d);
+			processSprite(pixels, (Sprite) d);
 		} else if (d instanceof Animation) {
-			processAnimation(pixels, (Animation)d);
-			tickTimerManager.addTickTimer(TickTimer.createTimer((Animation)d, 1000 / ((Animation)d).getAmountOfSpritesPerSecond()));
+			processAnimation(pixels, (Animation) d);
+			tickTimerManager.addTickTimer(TickTimer.createTimer((Animation) d,
+					1000 / ((Animation) d).getAmountOfSpritesPerSecond()));
 		} else {
 			throw new UnsupportedOperationException();
 		}
 		this.getResources().add(d);
 	}
-	
+
 	private void processAnimation(int[] pixels, Animation a) {
 		for (Sprite s : a.getSprites()) {
 			processSprite(pixels, s);
-		}		
+		}
 	}
 
-	private void processSprite(int[] pixels, Sprite s){
+	private void processSprite(int[] pixels, Sprite s) {
 		int[] spritePixels = new int[s.getWidth() * s.getHeight()];
 		for (int y = 0; y < s.getHeight(); ++y) {
 			for (int x = 0; x < s.getWidth(); ++x) {
-				spritePixels[x + y * s.getWidth()] = pixels[x + s.getX()
-						+ (y + s.getY()) * spriteSheetWidth];
+				spritePixels[x + y * s.getWidth()] = pixels[x + s.getX() + (y + s.getY()) * spriteSheetWidth];
 			}
 		}
 		s.setPixels(spritePixels);
@@ -76,29 +79,53 @@ public class SpriteSet extends ResourceSet {
 		String version = rootNode.getAttributeValue("version");
 
 		DrawableLoader xmlNaarSpriteConverter = new DrawableLoader();
-		return xmlNaarSpriteConverter.loadDrawable(rootNode,
-				version);
+		return xmlNaarSpriteConverter.loadDrawable(rootNode, version);
 	}
 
 	private int[] getPixelsFromFile(String filename) {
 		try {
-			BufferedImage image = ImageIO.read(SpriteSet.class
-					.getResource(filename));
+			BufferedImage image = ImageIO.read(SpriteSet.class.getResource(filename));
 			spriteSheetWidth = image.getWidth();
 			int spriteSheetHeight = image.getHeight();
 			int pixels[] = new int[spriteSheetWidth * spriteSheetHeight];
-			image.getRGB(0, 0, spriteSheetWidth, spriteSheetHeight, pixels, 0,
-					spriteSheetWidth);
+			image.getRGB(0, 0, spriteSheetWidth, spriteSheetHeight, pixels, 0, spriteSheetWidth);
 			return pixels;
 
 		} catch (IOException e) {
-			LoggerManager
-					.getInstance()
-					.getDefaultLogger()
-					.log("Error reading file: " + filename,
-							Logger.LOGTYPE_ERROR);
+			LoggerManager.getInstance().getDefaultLogger().log("Error reading file: " + filename, Logger.LOGTYPE_ERROR);
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public ResourceSet clone() {
+		ResourceSet clone = new SpriteSet(getFile());
+		this.setTickTimerManager(tickTimerManager);
+		List<Resource> resources = new ArrayList<Resource>();
+		for (Resource r : this.getResources()) {
+			Resource c = r.getClone();
+			if (r instanceof TickTimerRunnable) {
+				TickTimerRunnable oldRunnable = (TickTimerRunnable) r;
+				TickTimerRunnable runnable = (TickTimerRunnable) c;
+				for (TickTimer tickTimer : tickTimerManager.findTickTimers(oldRunnable)) {
+					int timeout = tickTimer.getTimeout();
+					TickTimer newTickTimer = TickTimer.createTimer(runnable, timeout);
+					tickTimerManager.addTickTimer(newTickTimer);
+				}
+			}
+			if (r instanceof Animation) {
+				Animation a = (Animation) r;
+				if (a.isAnimatedIndependently()) {
+					int randomDelta = (new Random()).nextInt(a.getLength());
+					for (int i = 0; i < randomDelta; i++) {
+						a.run();
+					}
+				}
+			}
+			resources.add(c);
+		}
+		clone.setResources(resources);
+		return clone;
 	}
 }

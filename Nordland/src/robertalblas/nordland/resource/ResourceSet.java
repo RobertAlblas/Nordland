@@ -16,7 +16,10 @@ public abstract class ResourceSet {
 		this.setResources(new ArrayList<Resource>());
 	}
 
-	public abstract void load() throws XMLParseException, NumberFormatException, UnknownEntityTypeException, ResourceNotFoundException;
+	public abstract void load() throws XMLParseException, NumberFormatException, UnknownEntityTypeException,
+			ResourceNotFoundException;
+
+	public abstract ResourceSet clone();
 
 	public Resource getResource(String resourceName) {
 		for (Resource r : getResources()) {

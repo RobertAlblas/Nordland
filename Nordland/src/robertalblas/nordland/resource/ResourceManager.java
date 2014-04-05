@@ -19,7 +19,8 @@ public abstract class ResourceManager {
 		if(resourceSet == null){
 			throw new ResourceNotFoundException("Unable to load resource: " + resourceSet);
 		}
-		return resourceSet;
+		
+		return resourceSet.clone();
 	}
 
 	public void unloadResourceSet(String resourceSet) {

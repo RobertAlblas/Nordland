@@ -5,5 +5,22 @@ public enum Direction {
 	SOUTH,
 	EAST,
 	WEST,
-	NONE
+	NONE;
+	
+	public Direction getOppositeDirection(Direction d){
+		if(d == NORTH){
+			return SOUTH;
+		}
+		if(d == SOUTH){
+			return NORTH;
+		}
+		if(d == EAST){
+			return WEST;
+		}
+		if(d == WEST){
+			return EAST;
+		}
+		
+		return null;
+	}
 }

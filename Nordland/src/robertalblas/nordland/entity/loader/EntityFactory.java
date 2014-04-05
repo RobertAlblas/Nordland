@@ -5,10 +5,11 @@ import java.util.Random;
 import robertalblas.nordland.entity.Entity;
 import robertalblas.nordland.resource.graphics.Drawable;
 import robertalblas.nordland.resource.graphics.SpriteSet;
+import robertalblas.nordland.resource.sound.SoundSet;
 
 public abstract class EntityFactory {
 	
-	public abstract Entity createEntity(SpriteSet spriteSet, int x, int y);
+	public abstract Entity createEntity(SpriteSet spriteSet, SoundSet soundSet, int x, int y);
 	
 	protected static String getRandomDrawable(SpriteSet spriteSet){
 		Random random = new Random();
