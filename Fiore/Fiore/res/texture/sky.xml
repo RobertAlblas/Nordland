@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<spriteset version="2">
+	<animation name="sky" sprites_per_second="1" random="true">
+		<sprite x="0" y="0" width="16" height="16" />
+		<sprite x="16" y="0" width="16" height="16" />
+		<sprite x="32" y="0" width="16" height="16" />
+		<sprite x="48" y="0" width="16" height="16" />
+		<sprite x="64" y="0" width="16" height="16" />
+	</animation>
+</spriteset>

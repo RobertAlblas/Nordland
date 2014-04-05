@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<worldresourceset>
+	<world name="world">
+		<worlddata width="312" height="312">
+			<entityGroup type="terrain" spriteSet="sky" random="true" beginX="8"
+				beginY="8" endX="312" endY="312" />
+			
+			<entity type="player" spriteSet="player" x="100" y="100" />
+
+			
+		</worlddata>
+	</world>
+</worldresourceset>
